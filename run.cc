@@ -47,9 +47,8 @@ MyRunAction::MyRunAction()
     man->CreateNtupleDColumn("fZ_start");
     man->CreateNtupleDColumn("fMomX_start");
     man->CreateNtupleDColumn("fMomY_start");
-    man->FinishNtuple(3);
     man->CreateNtupleDColumn("fMomZ_start");
-
+    man->FinishNtuple(3);
 
 }
 

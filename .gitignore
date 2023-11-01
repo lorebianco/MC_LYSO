@@ -31,5 +31,6 @@
 *.out
 *.app
 
-# Build folder
+# Build folders
 build/
+build_mt/

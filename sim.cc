@@ -2,6 +2,7 @@
 #include <chrono>
 
 #include "G4RunManager.hh"
+#include "G4MTRunManager.hh"
 #include "G4VisManager.hh"
 #include "G4UImanager.hh"
 #include "G4VisExecutive.hh"
@@ -19,16 +20,21 @@ int main(int argc, char** argv)
     G4Random::setTheSeed(time(NULL));
     G4cout << "The seed of this MC is " << G4Random::getTheSeed() << G4endl;
 
-    G4RunManager *runManager = new G4RunManager();
-    runManager->SetUserInitialization(new MyDetectorConstruction());
+    #ifdef G4MULTITHREADED
+        G4MTRunManager *runManager = new G4MTRunManager();
+    #else
+        G4RunManager *runManager = new G4RunManager();
+    #endif
     
+    runManager->SetUserInitialization(new MyDetectorConstruction());
     //FTFP_BERT* physlist = new FTFP_BERT(1);
     //runManager->SetUserInitialization(physlist);
-    
     runManager->SetUserInitialization(new MyPhysicsList());
     runManager->SetUserInitialization(new MyActionInitialization());
-    runManager->Initialize();
- 
+    
+    #ifndef G4MULTITHREADED
+        runManager->Initialize();
+    #endif
 
     G4UIExecutive *ui = 0;
     if(argc == 1)

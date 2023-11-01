@@ -38,7 +38,7 @@ void MyEventAction::EndOfEventAction(const G4Event*)
     man->FillNtupleDColumn(2, 9, fMaxEdepPos.z());
     man->AddNtupleRow(2);
 
-    if(evt%10==0) G4cout << "Processed event number " << evt << G4endl;
+    if(evt%100==0) G4cout << "Processed event number " << evt << G4endl;
 }
 
 void MyEventAction::FindMaxEdepPos(G4double edep, G4ThreeVector maxedeppos)

@@ -10,7 +10,9 @@ MyDetectorConstruction::~MyDetectorConstruction()
 
 void MyDetectorConstruction::DefineMaterials()
 {
-    const int nEntries = 3;  //Entries for LYSO properties
+    //Entries for LYSO properties
+    const int nEntries = 3;
+
 
     G4NistManager *nist = G4NistManager::Instance();
 
@@ -97,13 +99,18 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     G4double yWorld = 0.5*m;
     G4double zWorld = 0.5*m;
 
+    G4double xScintillator = 0*cm;
+    G4double yScintillator = 0*cm;
+    G4double zScintillator = 20*cm;
+
+
     solidWorld = new G4Box("solidWorld", xWorld, yWorld, zWorld);
     logicWorld = new G4LogicalVolume(solidWorld, fAir, "logicWorld");
     physWorld = new G4PVPlacement(0, G4ThreeVector(0., 0., 0.), logicWorld, "physWorld", 0, false, 0, true);
 
     solidScintillator = new G4Tubs("solidScintillator", 0.*cm, 3.5*cm, 5.*cm, 0.*deg, 360.*deg);
     logicScintillator = new G4LogicalVolume(solidScintillator, fLYSO, "logicScintillator");
-    physScintillator = new G4PVPlacement(0, G4ThreeVector(0., 0., 20.*cm), logicScintillator, "physScintillator", logicWorld, false, 0, true);
+    physScintillator = new G4PVPlacement(0, G4ThreeVector(xScintillator, yScintillator, zScintillator), logicScintillator, "physScintillator", logicWorld, false, 0, true);
 
     fScoringVolume = logicScintillator;
 

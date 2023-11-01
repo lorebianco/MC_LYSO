@@ -1,3 +1,5 @@
+/run/numberOfThreads 12
+/run/initialize
 /my_gun/meanEnergy 55. MeV
 /my_gun/sigmaEnergy 0.5 MeV
-/run/beamOn 100
+/run/beamOn 1000

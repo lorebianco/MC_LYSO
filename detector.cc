@@ -45,7 +45,7 @@ G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
         man->FillNtupleDColumn(1, 2, posDetector[0]);
         man->FillNtupleDColumn(1, 3, posDetector[1]);
         man->FillNtupleDColumn(1, 4, posDetector[2]);
-        man->FillNtupleDColumn(1, 5, copyNo);
+        man->FillNtupleIColumn(1, 5, copyNo);
         man->AddNtupleRow(1);
     }
 

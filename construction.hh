@@ -42,7 +42,7 @@ private:
 
 
     //Materiali
-    G4Material *fLYSO, *worldMat, *coatingMat, *detectorMat;
+    G4Material *fLYSO, *fAir, *fVacuum, *fAluminium, *detectorMat;
 
     //Superfici
     G4OpticalSurface *tapeSurface;

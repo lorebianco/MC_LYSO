@@ -10,10 +10,11 @@ MyDetectorConstruction::~MyDetectorConstruction()
 
 void MyDetectorConstruction::DefineMaterials()
 {
-    const int nEntries = 3;
+    const int nEntries = 3;  //Entries for LYSO properties
 
     G4NistManager *nist = G4NistManager::Instance();
 
+    //******************       LYSO       ******************//
     fLYSO = new G4Material("LYSO", 7.25*g/cm3, 5, kStateSolid);
     fLYSO->AddElement(nist->FindOrBuildElement("Lu"), 73.8579*perCent);
     fLYSO->AddElement(nist->FindOrBuildElement("Y"), 1.9747*perCent);
@@ -38,18 +39,34 @@ void MyDetectorConstruction::DefineMaterials()
     mptLYSO->AddConstProperty("SCINTILLATIONYIELD1", 1.);  
     
     fLYSO->SetMaterialPropertiesTable(mptLYSO);
+    //******************************************************//
     
-
-    worldMat = nist->FindOrBuildMaterial("G4_AIR");
-
-    G4MaterialPropertiesTable *mptWorld = new G4MaterialPropertiesTable();
+    //******************       AIR       ******************//
+    fAir = nist->FindOrBuildMaterial("G4_AIR");
     
-    G4double WORLD_RINDEX[nEntries] = {1.000293, 1.000293, 1.000293};
-    mptWorld->AddProperty("RINDEX", Energies, WORLD_RINDEX, nEntries);
+    G4MaterialPropertiesTable *mptAir = new G4MaterialPropertiesTable();
+    
+    G4double AIR_RINDEX[nEntries] = {1.000293, 1.000293, 1.000293};
+    mptAir->AddProperty("RINDEX", Energies, AIR_RINDEX, nEntries);
 
-    worldMat->SetMaterialPropertiesTable(mptWorld);
+    fAir->SetMaterialPropertiesTable(mptAir);
+    //*****************************************************//
 
-    coatingMat = nist->FindOrBuildMaterial("G4_Al");
+    //******************       VACUUM       ******************//
+    fVacuum = nist->FindOrBuildMaterial("G4_Galactic");
+
+    G4MaterialPropertiesTable *mptVacuum = new G4MaterialPropertiesTable();
+    
+    G4double VACUUM_RINDEX[nEntries] = {1., 1., 1.};
+    mptVacuum->AddProperty("RINDEX", Energies, VACUUM_RINDEX, nEntries);
+
+    fVacuum->SetMaterialPropertiesTable(mptVacuum);
+    //********************************************************//
+
+    //******************       ALUMINIUM       ******************//
+    fAluminium = nist->FindOrBuildMaterial("G4_Al");
+    //***********************************************************//
+
 
     detectorMat = nist->FindOrBuildMaterial("G4_Si");
     G4MaterialPropertiesTable *mptDetector = new G4MaterialPropertiesTable();
@@ -81,7 +98,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     G4double zWorld = 0.5*m;
 
     solidWorld = new G4Box("solidWorld", xWorld, yWorld, zWorld);
-    logicWorld = new G4LogicalVolume(solidWorld, worldMat, "logicWorld");
+    logicWorld = new G4LogicalVolume(solidWorld, fAir, "logicWorld");
     physWorld = new G4PVPlacement(0, G4ThreeVector(0., 0., 0.), logicWorld, "physWorld", 0, false, 0, true);
 
     solidScintillator = new G4Tubs("solidScintillator", 0.*cm, 3.5*cm, 5.*cm, 0.*deg, 360.*deg);
@@ -91,7 +108,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     fScoringVolume = logicScintillator;
 
     solidCoating = new G4Tubs("solidCoating", (3.5+coating_space)*cm, (3.52+coating_space)*cm, 5.*cm, 0.*deg, 360.*deg);
-    logicCoating = new G4LogicalVolume(solidCoating, coatingMat, "logicCoating");
+    logicCoating = new G4LogicalVolume(solidCoating, fAluminium, "logicCoating");
     physCoating = new G4PVPlacement(0, G4ThreeVector(0., 0., 20.*cm), logicCoating, "physCoating", logicWorld, false, 0, true);
     
     skin = new G4LogicalSkinSurface("skin", logicCoating, tapeSurface);

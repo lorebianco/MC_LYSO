@@ -2,7 +2,7 @@
 
 MyPrimaryGenerator::MyPrimaryGenerator()
 {
-    //Definisco il mio UD-messenger
+    //Define my UD-messenger
     fMessenger = new G4GenericMessenger(this, "/my_gun/", "Cinematical settings for initial gamma");
     fMessenger->DeclareProperty("meanEnergy", meanEnergy, "Mean of the gaussian distribution of initial gamma energy");
     fMessenger->DeclareProperty("sigmaEnergy", sigmaEnergy, "Sigma of the gaussian distribution of initial gamma energy");

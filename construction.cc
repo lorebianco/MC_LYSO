@@ -2,6 +2,17 @@
 
 MyDetectorConstruction::MyDetectorConstruction()
 {
+    //Define my UD-messenger
+    fMessenger = new G4GenericMessenger(this, "/my_construction/", "Construction settings");
+    fMessenger->DeclareProperty("isPlexiglass", isPlexiglass, "Set if the two plexiglass layer are present");
+    fMessenger->DeclareProperty("isPCB", isPCB, "Set if the two PCBs are present");
+    fMessenger->DeclareProperty("isEndcap", isEndcap, "Set if the two endcaps are present");
+    //*********************************//
+    
+    isPlexiglass = false;
+    isPCB = true;
+    isEndcap = true;
+
     DefineMaterialsAndSurfaces();
 }
 
@@ -98,6 +109,18 @@ void MyDetectorConstruction::DefineMaterialsAndSurfaces()
     fCarbonFiber->AddElement(nist->FindOrBuildElement("C"), 1);
     //***********************************************************************//
 
+    //******************       PLEXIGLASS       ******************//
+    fPlexiglass = nist->FindOrBuildMaterial("G4_PLEXIGLASS");
+    
+    G4MaterialPropertiesTable *mptPlexiglass = new G4MaterialPropertiesTable();
+    
+    G4double PLEXIGLASS_RINDEX[nEntries] = {1.49, 1.49, 1.49};
+    mptPlexiglass->AddProperty("RINDEX", Energies, PLEXIGLASS_RINDEX, nEntries);
+    
+    fPlexiglass->SetMaterialPropertiesTable(mptPlexiglass);
+    
+    //************************************************************//
+
 
     
     //********************************************************************//
@@ -133,19 +156,38 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     const G4double zFrontFaceScintillator = zScintillator - halfheightScintillator;
     const G4double zBackFaceScintillator = zScintillator + halfheightScintillator;
 
+    //Plexiglass
+    G4double radiusPlexiglass = 3.5*cm;
+    G4double halfheightPlexiglass = 0.5*cm;
+    if(!isPlexiglass)
+    {
+        radiusPlexiglass = 0.;
+        halfheightPlexiglass = 0.;
+    }
+    
     //SiPM (andrà modificato sempre di più)
     G4double halfXsideDetector = 3*mm;
     G4double halfYsideDetector = 3*mm;
     G4double halfZsideDetector = 0.05*mm;
 
     //PCB
-    G4double radiusPCB = 4*cm;
+    G4double radiusPCB = 4.*cm;
     G4double halfheightPCB = 0.75*mm;
-    
+    if(!isPCB)
+    {
+        radiusPCB = 0.;
+        halfheightPCB = 0.;
+    }
+
     //Endcap
     G4double radiusEndcap = 5*cm;
     G4double halfheightEndcap = 0.25*mm;
-    
+    if(!isEndcap)
+    {
+        radiusEndcap = 0.;
+        halfheightEndcap = 0.;
+    }
+
     //Cilindrical Coating
     G4double coating_space = 0.12*mm; //se = 0 il coating assorbitore da 2 micron è a contatto con il cristallo, come un tape; se > 0 serve solo nella grafica per uccidere i fotoni ottici
     const G4double coating_thickness = 0.2*mm;
@@ -155,6 +197,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     const G4double halfYsideWorld = 0.5*m;
     const G4double halfZsideWorld = 0.5*m;
 
+    //************************************************************************//
 
 
     solidWorld = new G4Box("solidWorld", halfXsideWorld, halfYsideWorld, halfZsideWorld);
@@ -167,21 +210,35 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 
     fScoringVolume = logicScintillator;
 
-    solidCoating = new G4Tubs("solidCoating", (radiusScintillator + coating_space), (radiusScintillator + coating_space + coating_thickness), halfheightScintillator, 0.*deg, 360.*deg);
+    if(isPlexiglass)
+    {
+        solidPlexiglass = new G4Tubs("solidPlexiglass", 0, radiusPlexiglass, halfheightPlexiglass, 0.*deg, 360.*deg);
+        logicPlexiglass = new G4LogicalVolume(solidPlexiglass, fPlexiglass, "logicPlexiglass");
+        physFrontPlexiglass = new G4PVPlacement(0, G4ThreeVector(0., 0., zFrontFaceScintillator-halfheightPlexiglass), logicPlexiglass, "physFrontPlexiglass", logicWorld, false, 0, true);
+        physBackPlexiglass = new G4PVPlacement(0, G4ThreeVector(0., 0., zBackFaceScintillator+halfheightPlexiglass), logicPlexiglass, "physBackPlexiglass", logicWorld, false, 1, true);
+    }
+    
+    solidCoating = new G4Tubs("solidCoating", (radiusScintillator + coating_space), (radiusScintillator + coating_space + coating_thickness), halfheightScintillator+2*halfheightPlexiglass, 0.*deg, 360.*deg);
     logicCoating = new G4LogicalVolume(solidCoating, fAluminium, "logicCoating");
     physCoating = new G4PVPlacement(0, G4ThreeVector(xScintillator, yScintillator, zScintillator), logicCoating, "physCoating", logicWorld, false, 0, true);
     
     skin = new G4LogicalSkinSurface("skin", logicCoating, tapeSurface);
 
-    solidPCB = new G4Tubs("solidPCB", 0, radiusPCB, halfheightPCB, 0.*deg, 360.*deg);
-    logicPCB = new G4LogicalVolume(solidPCB, fFR4, "logicPCB");
-    physFrontPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, zFrontFaceScintillator-2*halfZsideDetector-halfheightPCB), logicPCB, "physFrontPCB", logicWorld, false, 0, true);
-    physBackPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, zBackFaceScintillator+2*halfZsideDetector+halfheightPCB), logicPCB, "physBackPCB", logicWorld, false, 1, true);
+    if(isPCB)
+    {
+        solidPCB = new G4Tubs("solidPCB", 0, radiusPCB, halfheightPCB, 0.*deg, 360.*deg);
+        logicPCB = new G4LogicalVolume(solidPCB, fFR4, "logicPCB");
+        physFrontPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, zFrontFaceScintillator-2*halfheightPlexiglass-2*halfZsideDetector-halfheightPCB), logicPCB, "physFrontPCB", logicWorld, false, 0, true);
+        physBackPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, zBackFaceScintillator+2*halfheightPlexiglass+2*halfZsideDetector+halfheightPCB), logicPCB, "physBackPCB", logicWorld, false, 1, true);
+    }
 
-    solidEndcap = new G4Tubs("solidEndcap", 0, radiusEndcap, halfheightEndcap, 0.*deg, 360.*deg);
-    logicEndcap = new G4LogicalVolume(solidEndcap, fCarbonFiber, "logicEndcap");
-    physFrontEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, zFrontFaceScintillator-2*halfZsideDetector-2*halfheightPCB-halfheightEndcap), logicEndcap, "physFrontEndcap", logicWorld, false, 0, true);
-    physBackEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, zBackFaceScintillator+2*halfZsideDetector+2*halfheightPCB+halfheightEndcap), logicEndcap, "physBackEndcap", logicWorld, false, 1, true);
+    if(isEndcap)
+    {
+        solidEndcap = new G4Tubs("solidEndcap", 0, radiusEndcap, halfheightEndcap, 0.*deg, 360.*deg);
+        logicEndcap = new G4LogicalVolume(solidEndcap, fCarbonFiber, "logicEndcap");
+        physFrontEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, zFrontFaceScintillator-2*halfheightPlexiglass-2*halfZsideDetector-2*halfheightPCB-halfheightEndcap), logicEndcap, "physFrontEndcap", logicWorld, false, 0, true);
+        physBackEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, zBackFaceScintillator+2*halfheightPlexiglass+2*halfZsideDetector+2*halfheightPCB+halfheightEndcap), logicEndcap, "physBackEndcap", logicWorld, false, 1, true);
+    }
 
     solidBackDetector = new G4Box("solidBackDetector", halfXsideDetector, halfYsideDetector, halfZsideDetector);
     logicBackDetector = new G4LogicalVolume(solidBackDetector, detectorMat, "logicBackDetector");
@@ -197,9 +254,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<3; j++)
             {
-                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-1), 2*halfYsideDetector*(6-i), zBackFaceScintillator+halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
+                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-1), 2*halfYsideDetector*(6-i), zBackFaceScintillator+2*halfheightPlexiglass+halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
                 
-                physFrontDetector = new G4PVPlacement(0,G4ThreeVector((6*(j-1))*mm, (6*(6-i))*mm, zFrontFaceScintillator-halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
+                physFrontDetector = new G4PVPlacement(0,G4ThreeVector((6*(j-1))*mm, (6*(6-i))*mm, zFrontFaceScintillator-2*halfheightPlexiglass-halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
                 
                 indexDetector++;
             }
@@ -208,9 +265,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<7; j++)
             {
-                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-3), 2*halfYsideDetector*(6-i), zBackFaceScintillator+halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
+                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-3), 2*halfYsideDetector*(6-i), zBackFaceScintillator+2*halfheightPlexiglass+halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
 
-                physFrontDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-3), 2*halfYsideDetector*(6-i), zFrontFaceScintillator-halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
+                physFrontDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-3), 2*halfYsideDetector*(6-i), zFrontFaceScintillator-2*halfheightPlexiglass-halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
                 
                 indexDetector++;
             }
@@ -219,9 +276,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<9; j++)
             {
-                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-4), 2*halfYsideDetector*(6-i), zBackFaceScintillator+halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
+                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-4), 2*halfYsideDetector*(6-i), zBackFaceScintillator+2*halfheightPlexiglass+halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
 
-                physFrontDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-4), 2*halfYsideDetector*(6-i), zFrontFaceScintillator-halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
+                physFrontDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-4), 2*halfYsideDetector*(6-i), zFrontFaceScintillator-2*halfheightPlexiglass-halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
 
                 indexDetector++;
             }
@@ -230,9 +287,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<11; j++)
             {
-                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-5), 2*halfYsideDetector*(6-i), zBackFaceScintillator+halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
+                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-5), 2*halfYsideDetector*(6-i), zBackFaceScintillator+2*halfheightPlexiglass+halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
 
-                physFrontDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-5), 2*halfYsideDetector*(6-i), zFrontFaceScintillator-halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
+                physFrontDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-5), 2*halfYsideDetector*(6-i), zFrontFaceScintillator-2*halfheightPlexiglass-halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
 
                 indexDetector++;
             }

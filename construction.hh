@@ -32,17 +32,17 @@ private:
 
     //Solidi
     G4Box *solidWorld, *solidBackDetector, *solidFrontDetector;
-    G4Tubs *solidScintillator, *solidCoating, *solidPCB, *solidEndcap;
+    G4Tubs *solidScintillator, *solidCoating, *solidPCB, *solidEndcap, *solidPlexiglass;
     //Volumi logici
-    G4LogicalVolume *logicWorld, *logicScintillator, *logicBackDetector, *logicFrontDetector, *logicCoating, *logicPCB, *logicEndcap;
+    G4LogicalVolume *logicWorld, *logicScintillator, *logicBackDetector, *logicFrontDetector, *logicCoating, *logicPCB, *logicEndcap, *logicPlexiglass;
     //Volumi fisici
-    G4VPhysicalVolume *physWorld, *physScintillator, *physBackDetector, *physFrontDetector, *physCoating, *physFrontPCB, *physBackPCB, *physFrontEndcap, *physBackEndcap;
+    G4VPhysicalVolume *physWorld, *physScintillator, *physBackDetector, *physFrontDetector, *physCoating, *physFrontPCB, *physBackPCB, *physFrontEndcap, *physBackEndcap, *physFrontPlexiglass, *physBackPlexiglass;
 
     //G4VisAttributes 
 
 
     //Materiali
-    G4Material *fLYSO, *fAir, *fVacuum, *fAluminium, *detectorMat, *fEpoxy, *fFR4, *fCarbonFiber;
+    G4Material *fLYSO, *fAir, *fVacuum, *fAluminium, *detectorMat, *fEpoxy, *fFR4, *fCarbonFiber, *fPlexiglass;
 
     //Superfici
     G4OpticalSurface *tapeSurface;
@@ -50,6 +50,10 @@ private:
 
     //Scoring volume
     G4LogicalVolume *fScoringVolume;
+
+
+    G4GenericMessenger *fMessenger;
+    G4bool isPlexiglass, isPCB, isEndcap;
 
 };
 

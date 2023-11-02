@@ -31,10 +31,12 @@ int main(int argc, char** argv)
     //runManager->SetUserInitialization(physlist);
     runManager->SetUserInitialization(new MyPhysicsList());
     runManager->SetUserInitialization(new MyActionInitialization());
+
     
     #ifndef G4MULTITHREADED
         runManager->Initialize();
     #endif
+
 
     G4UIExecutive *ui = 0;
     if(argc == 1)

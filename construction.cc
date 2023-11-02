@@ -2,20 +2,23 @@
 
 MyDetectorConstruction::MyDetectorConstruction()
 {
-    DefineMaterials();
+    DefineMaterialsAndSurfaces();
 }
 
 MyDetectorConstruction::~MyDetectorConstruction()
 {}
 
-void MyDetectorConstruction::DefineMaterials()
+void MyDetectorConstruction::DefineMaterialsAndSurfaces()
 {
     //Entries for LYSO properties
     const int nEntries = 3;
 
-
     G4NistManager *nist = G4NistManager::Instance();
 
+    //*******************************************************************//
+    //**********************       MATERIALS       **********************//
+    //*******************************************************************//
+    
     //******************       LYSO       ******************//
     fLYSO = new G4Material("LYSO", 7.25*g/cm3, 5, kStateSolid);
     fLYSO->AddElement(nist->FindOrBuildElement("Lu"), 73.8579*perCent);
@@ -69,15 +72,39 @@ void MyDetectorConstruction::DefineMaterials()
     fAluminium = nist->FindOrBuildMaterial("G4_Al");
     //***********************************************************//
 
-
+    //******************       MATERIAL FOR SiPM       ******************//
     detectorMat = nist->FindOrBuildMaterial("G4_Si");
     G4MaterialPropertiesTable *mptDetector = new G4MaterialPropertiesTable();
     G4double DETECTOR_RINDEX[nEntries] = {1.55, 1.55, 1.55};
     mptDetector->AddProperty("RINDEX", Energies, DETECTOR_RINDEX, nEntries);
 
     detectorMat->SetMaterialPropertiesTable(mptDetector);
+    //*******************************************************************//
+
+    //******************       EPOXY (for FR4)       ******************//
+    G4Material* fEpoxy = new G4Material("Epoxy", 1.2*g/cm3, 2);
+    fEpoxy->AddElement(nist->FindOrBuildElement("H"), 2);
+    fEpoxy->AddElement(nist->FindOrBuildElement("C"), 2);
+    //*****************************************************************//
+
+    //******************       FR4       ******************//
+    fFR4 = new G4Material("FR4", 1.85*g/cm3, 2);
+    fFR4->AddMaterial(nist->FindOrBuildMaterial("G4_SILICON_DIOXIDE"), 52.8*perCent);
+    fFR4->AddMaterial(fEpoxy, 47.2*perCent);
+    //*****************************************************//
+
+    //******************       CARBBON FIBER (d=???)       ******************//
+    fCarbonFiber = new G4Material("Carbon Fiber", 1.5*g/cm3, 1);
+    fCarbonFiber->AddElement(nist->FindOrBuildElement("C"), 1);
+    //***********************************************************************//
 
 
+    
+    //********************************************************************//
+    //***********************       SURFACES       ***********************//
+    //********************************************************************//
+
+    //******************       TAPE SURFACE       ******************//
     tapeSurface = new G4OpticalSurface("tapeSurface");
     tapeSurface->SetType(dielectric_metal);
     tapeSurface->SetFinish(polished);
@@ -89,6 +116,8 @@ void MyDetectorConstruction::DefineMaterials()
     mptTape->AddProperty("REFLECTIVITY", Energies, TAPE_REFLECTIVITY, nEntries);
     
     tapeSurface->SetMaterialPropertiesTable(mptTape);
+    //**************************************************************//
+
 }
 
 G4VPhysicalVolume *MyDetectorConstruction::Construct()
@@ -125,6 +154,16 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 
     solidFrontDetector = new G4Box("solidFrontDetector", 3.*mm, 3.*mm, 0.05*mm);
     logicFrontDetector = new G4LogicalVolume(solidFrontDetector, detectorMat, "logicFrontDetector");
+
+    solidPCB = new G4Tubs("solidPCB", 0, 4.*cm, 0.75*mm, 0.*deg, 360.*deg);
+    logicPCB = new G4LogicalVolume(solidPCB, fFR4, "logicPCB");
+    physFrontPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, 149.15*mm), logicPCB, "physFrontPCB", logicWorld, false, 0, true);
+    physBackPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, 250.85*mm), logicPCB, "physBackPCB", logicWorld, false, 1, true);
+
+    solidEndcap = new G4Tubs("solidEndcap", 0, 5.*cm, 0.25*mm, 0.*deg, 360.*deg);
+    logicEndcap = new G4LogicalVolume(solidEndcap, fCarbonFiber, "logicEndcap");
+    physFrontEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, 148.15*mm), logicEndcap, "physFrontEndcap", logicWorld, false, 0, true);
+    physBackEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, 251.85*mm), logicEndcap, "physBackEndcap", logicWorld, false, 1, true);
 
     //Definisco la disposizione dei SiPM, andrà corretto
     G4int indexDetector = 0;

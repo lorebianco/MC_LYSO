@@ -28,21 +28,21 @@ public:
 
 private:
     virtual void ConstructSDandField();
-    void DefineMaterials();
+    void DefineMaterialsAndSurfaces();
 
     //Solidi
     G4Box *solidWorld, *solidBackDetector, *solidFrontDetector;
-    G4Tubs *solidScintillator, *solidCoating;
+    G4Tubs *solidScintillator, *solidCoating, *solidPCB, *solidEndcap;
     //Volumi logici
-    G4LogicalVolume *logicWorld, *logicScintillator, *logicBackDetector, *logicFrontDetector, *logicCoating;
+    G4LogicalVolume *logicWorld, *logicScintillator, *logicBackDetector, *logicFrontDetector, *logicCoating, *logicPCB, *logicEndcap;
     //Volumi fisici
-    G4VPhysicalVolume *physWorld, *physScintillator, *physBackDetector, *physFrontDetector, *physCoating;
+    G4VPhysicalVolume *physWorld, *physScintillator, *physBackDetector, *physFrontDetector, *physCoating, *physFrontPCB, *physBackPCB, *physFrontEndcap, *physBackEndcap;
 
     //G4VisAttributes 
 
 
     //Materiali
-    G4Material *fLYSO, *fAir, *fVacuum, *fAluminium, *detectorMat;
+    G4Material *fLYSO, *fAir, *fVacuum, *fAluminium, *detectorMat, *fEpoxy, *fFR4, *fCarbonFiber;
 
     //Superfici
     G4OpticalSurface *tapeSurface;

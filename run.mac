@@ -1,6 +1,6 @@
-#/run/numberOfThreads 16
-#/run/initialize
+/run/numberOfThreads 16
+/run/initialize
 /control/execute construction.mac
-/my_gun/meanEnergy 1. MeV
-/my_gun/sigmaEnergy 0.01 MeV
-/run/beamOn 10
+/my_gun/meanEnergy 55. MeV
+/my_gun/sigmaEnergy 0.5 MeV
+/run/beamOn 1000

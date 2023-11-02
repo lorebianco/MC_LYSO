@@ -1,4 +1,4 @@
-/my_construction/isPlexiglass false
+/my_construction/isPlexiglass true
 /my_construction/isPCB true
 /my_construction/isEndcap true
 /run/reinitializeGeometry

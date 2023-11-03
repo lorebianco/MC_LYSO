@@ -10,7 +10,9 @@ G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
 {
     G4Track *track = aStep->GetTrack(); //Ora ho info sulla traccia che entra nel sensitive volume
 
-    if(track->GetTrackID()!=1) track->SetTrackStatus(fStopAndKill);
+    //Stop and kill only optical photons
+    if(track->GetParticleDefinition()->GetPDGEncoding()==-22)
+        track->SetTrackStatus(fStopAndKill);
 
     G4StepPoint *preStepPoint = aStep->GetPreStepPoint();
     G4StepPoint *postStepPoint = aStep->GetPostStepPoint();

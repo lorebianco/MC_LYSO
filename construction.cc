@@ -4,12 +4,16 @@ MyDetectorConstruction::MyDetectorConstruction()
 {
     //Define my UD-messenger
     fMessenger = new G4GenericMessenger(this, "/my_construction/", "Construction settings");
-    fMessenger->DeclareProperty("isPlexiglass", isPlexiglass, "Set if the two plexiglass layer are present");
+    fMessenger->DeclareProperty("isLightGuide", isLightGuide, "Set if the two light guides are present");
     fMessenger->DeclareProperty("isPCB", isPCB, "Set if the two PCBs are present");
     fMessenger->DeclareProperty("isEndcap", isEndcap, "Set if the two endcaps are present");
+
+    fMessenger->DeclareProperty("MaterialOfLightGuide", nLightGuideMat, "1 = Plexiglass, 2 = Sapphire");
     //*********************************//
     
-    isPlexiglass = false;
+    isLightGuide = false;
+    nLightGuideMat = 1;
+
     isPCB = true;
     isEndcap = true;
 
@@ -121,6 +125,22 @@ void MyDetectorConstruction::DefineMaterialsAndSurfaces()
     
     //************************************************************//
 
+    //******************       SAPPHIRE       ******************//
+    fSapphire = new G4Material("Sapphire", 3.98*g/cm3, 2, kStateSolid);
+    fSapphire->AddElement(nist->FindOrBuildElement("Al"), 2);
+    fSapphire->AddElement(nist->FindOrBuildElement("O"), 3);
+
+    G4MaterialPropertiesTable *mptSapphire = new G4MaterialPropertiesTable();
+
+    G4double SAPPHIRE_RINDEX[nEntries] = {1.77, 1.77, 1.77};
+    mptSapphire->AddProperty("RINDEX", Energies, SAPPHIRE_RINDEX, nEntries);
+
+    fSapphire->SetMaterialPropertiesTable(mptSapphire);
+
+    //**********************************************************//
+
+
+
 
     
     //********************************************************************//
@@ -156,13 +176,13 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     const G4double zFrontFaceScintillator = zScintillator - halfheightScintillator;
     const G4double zBackFaceScintillator = zScintillator + halfheightScintillator;
 
-    //Plexiglass
-    G4double radiusPlexiglass = 3.5*cm;
-    G4double halfheightPlexiglass = 0.5*cm;
-    if(!isPlexiglass)
+    //Light Guide
+    G4double radiusLightGuide = 3.5*cm;
+    G4double halfheightLightGuide = 0.5*cm;
+    if(!isLightGuide)
     {
-        radiusPlexiglass = 0.;
-        halfheightPlexiglass = 0.;
+        radiusLightGuide = 0.;
+        halfheightLightGuide = 0.;
     }
     
     //SiPM (andrà modificato sempre di più)
@@ -210,34 +230,41 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 
     fScoringVolume = logicScintillator;
 
-    if(isPlexiglass)
+    if(isLightGuide)
     {
-        solidPlexiglass = new G4Tubs("solidPlexiglass", 0, radiusPlexiglass, halfheightPlexiglass, 0.*deg, 360.*deg);
-        logicPlexiglass = new G4LogicalVolume(solidPlexiglass, fPlexiglass, "logicPlexiglass");
-        physFrontPlexiglass = new G4PVPlacement(0, G4ThreeVector(0., 0., zFrontFaceScintillator-halfheightPlexiglass), logicPlexiglass, "physFrontPlexiglass", logicWorld, false, 0, true);
-        physBackPlexiglass = new G4PVPlacement(0, G4ThreeVector(0., 0., zBackFaceScintillator+halfheightPlexiglass), logicPlexiglass, "physBackPlexiglass", logicWorld, false, 1, true);
+        solidLightGuide = new G4Tubs("solidLightGuide", 0, radiusLightGuide, halfheightLightGuide, 0.*deg, 360.*deg);
+        if(nLightGuideMat==1) //Plexiglass
+        {
+            logicLightGuide = new G4LogicalVolume(solidLightGuide, fPlexiglass, "logicLightGuide");
+        }
+        if(nLightGuideMat==2) //Sapphire
+        {
+            logicLightGuide = new G4LogicalVolume(solidLightGuide, fSapphire, "logicLightGuide");
+        }
+        physFrontLightGuide = new G4PVPlacement(0, G4ThreeVector(0., 0., zFrontFaceScintillator-halfheightLightGuide), logicLightGuide, "physFrontLightGuide", logicWorld, false, 0, true);
+        physBackLightGuide = new G4PVPlacement(0, G4ThreeVector(0., 0., zBackFaceScintillator+halfheightLightGuide), logicLightGuide, "physBackLightGuide", logicWorld, false, 1, true);
     }
     
-    solidCoating = new G4Tubs("solidCoating", (radiusScintillator + coating_space), (radiusScintillator + coating_space + coating_thickness), halfheightScintillator+2*halfheightPlexiglass, 0.*deg, 360.*deg);
+    solidCoating = new G4Tubs("solidCoating", (radiusScintillator + coating_space), (radiusScintillator + coating_space + coating_thickness), halfheightScintillator+2*halfheightLightGuide, 0.*deg, 360.*deg);
     logicCoating = new G4LogicalVolume(solidCoating, fAluminium, "logicCoating");
     physCoating = new G4PVPlacement(0, G4ThreeVector(xScintillator, yScintillator, zScintillator), logicCoating, "physCoating", logicWorld, false, 0, true);
     
-    skin = new G4LogicalSkinSurface("skin", logicCoating, tapeSurface);
+    tapeSkin = new G4LogicalSkinSurface("tapeSkin", logicCoating, tapeSurface);
 
     if(isPCB)
     {
         solidPCB = new G4Tubs("solidPCB", 0, radiusPCB, halfheightPCB, 0.*deg, 360.*deg);
         logicPCB = new G4LogicalVolume(solidPCB, fFR4, "logicPCB");
-        physFrontPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, zFrontFaceScintillator-2*halfheightPlexiglass-2*halfZsideDetector-halfheightPCB), logicPCB, "physFrontPCB", logicWorld, false, 0, true);
-        physBackPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, zBackFaceScintillator+2*halfheightPlexiglass+2*halfZsideDetector+halfheightPCB), logicPCB, "physBackPCB", logicWorld, false, 1, true);
+        physFrontPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, zFrontFaceScintillator-2*halfheightLightGuide-2*halfZsideDetector-halfheightPCB), logicPCB, "physFrontPCB", logicWorld, false, 0, true);
+        physBackPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, zBackFaceScintillator+2*halfheightLightGuide+2*halfZsideDetector+halfheightPCB), logicPCB, "physBackPCB", logicWorld, false, 1, true);
     }
 
     if(isEndcap)
     {
         solidEndcap = new G4Tubs("solidEndcap", 0, radiusEndcap, halfheightEndcap, 0.*deg, 360.*deg);
         logicEndcap = new G4LogicalVolume(solidEndcap, fCarbonFiber, "logicEndcap");
-        physFrontEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, zFrontFaceScintillator-2*halfheightPlexiglass-2*halfZsideDetector-2*halfheightPCB-halfheightEndcap), logicEndcap, "physFrontEndcap", logicWorld, false, 0, true);
-        physBackEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, zBackFaceScintillator+2*halfheightPlexiglass+2*halfZsideDetector+2*halfheightPCB+halfheightEndcap), logicEndcap, "physBackEndcap", logicWorld, false, 1, true);
+        physFrontEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, zFrontFaceScintillator-2*halfheightLightGuide-2*halfZsideDetector-2*halfheightPCB-halfheightEndcap), logicEndcap, "physFrontEndcap", logicWorld, false, 0, true);
+        physBackEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, zBackFaceScintillator+2*halfheightLightGuide+2*halfZsideDetector+2*halfheightPCB+halfheightEndcap), logicEndcap, "physBackEndcap", logicWorld, false, 1, true);
     }
 
     solidBackDetector = new G4Box("solidBackDetector", halfXsideDetector, halfYsideDetector, halfZsideDetector);
@@ -254,9 +281,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<3; j++)
             {
-                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-1), 2*halfYsideDetector*(6-i), zBackFaceScintillator+2*halfheightPlexiglass+halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
+                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-1), 2*halfYsideDetector*(6-i), zBackFaceScintillator+2*halfheightLightGuide+halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
                 
-                physFrontDetector = new G4PVPlacement(0,G4ThreeVector((6*(j-1))*mm, (6*(6-i))*mm, zFrontFaceScintillator-2*halfheightPlexiglass-halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
+                physFrontDetector = new G4PVPlacement(0,G4ThreeVector((6*(j-1))*mm, (6*(6-i))*mm, zFrontFaceScintillator-2*halfheightLightGuide-halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
                 
                 indexDetector++;
             }
@@ -265,9 +292,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<7; j++)
             {
-                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-3), 2*halfYsideDetector*(6-i), zBackFaceScintillator+2*halfheightPlexiglass+halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
+                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-3), 2*halfYsideDetector*(6-i), zBackFaceScintillator+2*halfheightLightGuide+halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
 
-                physFrontDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-3), 2*halfYsideDetector*(6-i), zFrontFaceScintillator-2*halfheightPlexiglass-halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
+                physFrontDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-3), 2*halfYsideDetector*(6-i), zFrontFaceScintillator-2*halfheightLightGuide-halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
                 
                 indexDetector++;
             }
@@ -276,9 +303,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<9; j++)
             {
-                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-4), 2*halfYsideDetector*(6-i), zBackFaceScintillator+2*halfheightPlexiglass+halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
+                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-4), 2*halfYsideDetector*(6-i), zBackFaceScintillator+2*halfheightLightGuide+halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
 
-                physFrontDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-4), 2*halfYsideDetector*(6-i), zFrontFaceScintillator-2*halfheightPlexiglass-halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
+                physFrontDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-4), 2*halfYsideDetector*(6-i), zFrontFaceScintillator-2*halfheightLightGuide-halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
 
                 indexDetector++;
             }
@@ -287,9 +314,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<11; j++)
             {
-                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-5), 2*halfYsideDetector*(6-i), zBackFaceScintillator+2*halfheightPlexiglass+halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
+                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-5), 2*halfYsideDetector*(6-i), zBackFaceScintillator+2*halfheightLightGuide+halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
 
-                physFrontDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-5), 2*halfYsideDetector*(6-i), zFrontFaceScintillator-2*halfheightPlexiglass-halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
+                physFrontDetector = new G4PVPlacement(0,G4ThreeVector(2*halfXsideDetector*(j-5), 2*halfYsideDetector*(6-i), zFrontFaceScintillator-2*halfheightLightGuide-halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
 
                 indexDetector++;
             }

@@ -32,28 +32,29 @@ private:
 
     //Solidi
     G4Box *solidWorld, *solidBackDetector, *solidFrontDetector;
-    G4Tubs *solidScintillator, *solidCoating, *solidPCB, *solidEndcap, *solidPlexiglass;
+    G4Tubs *solidScintillator, *solidCoating, *solidPCB, *solidEndcap, *solidLightGuide;
     //Volumi logici
-    G4LogicalVolume *logicWorld, *logicScintillator, *logicBackDetector, *logicFrontDetector, *logicCoating, *logicPCB, *logicEndcap, *logicPlexiglass;
+    G4LogicalVolume *logicWorld, *logicScintillator, *logicBackDetector, *logicFrontDetector, *logicCoating, *logicPCB, *logicEndcap, *logicLightGuide;
     //Volumi fisici
-    G4VPhysicalVolume *physWorld, *physScintillator, *physBackDetector, *physFrontDetector, *physCoating, *physFrontPCB, *physBackPCB, *physFrontEndcap, *physBackEndcap, *physFrontPlexiglass, *physBackPlexiglass;
+    G4VPhysicalVolume *physWorld, *physScintillator, *physBackDetector, *physFrontDetector, *physCoating, *physFrontPCB, *physBackPCB, *physFrontEndcap, *physBackEndcap, *physFrontLightGuide, *physBackLightGuide;
 
     //G4VisAttributes 
 
 
     //Materiali
-    G4Material *fLYSO, *fAir, *fVacuum, *fAluminium, *detectorMat, *fEpoxy, *fFR4, *fCarbonFiber, *fPlexiglass;
+    G4Material *fLYSO, *fAir, *fVacuum, *fAluminium, *detectorMat, *fEpoxy, *fFR4, *fCarbonFiber, *fPlexiglass, *fSapphire;
 
     //Superfici
     G4OpticalSurface *tapeSurface;
-    G4LogicalSkinSurface *skin;
+    G4LogicalSkinSurface *tapeSkin;
 
     //Scoring volume
     G4LogicalVolume *fScoringVolume;
 
 
     G4GenericMessenger *fMessenger;
-    G4bool isPlexiglass, isPCB, isEndcap;
+    G4bool isLightGuide, isPCB, isEndcap;
+    G4int nLightGuideMat;
 
 };
 

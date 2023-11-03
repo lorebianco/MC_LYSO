@@ -3,4 +3,4 @@
 /control/execute construction.mac
 /my_gun/meanEnergy 55. MeV
 /my_gun/sigmaEnergy 0.5 MeV
-/run/beamOn 1000
+/run/beamOn 100

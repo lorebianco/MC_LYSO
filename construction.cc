@@ -7,8 +7,7 @@ MyDetectorConstruction::MyDetectorConstruction()
     fMessenger->DeclareProperty("isLightGuide", isLightGuide, "Set if the two light guides are present");
     fMessenger->DeclareProperty("isPCB", isPCB, "Set if the two PCBs are present");
     fMessenger->DeclareProperty("isEndcap", isEndcap, "Set if the two endcaps are present");
-
-    fMessenger->DeclareProperty("MaterialOfLightGuide", nLightGuideMat, "1 = Plexiglass, 2 = Sapphire");
+    fMessenger->DeclareProperty("MaterialOfLightGuide", nLightGuideMat, "Set the material of light guide: 1 = Plexiglass, 2 = Sapphire");
     //*********************************//
     
     isLightGuide = false;
@@ -179,6 +178,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     //Light Guide
     G4double radiusLightGuide = 3.5*cm;
     G4double halfheightLightGuide = 0.5*cm;
+    G4double radiusHole = 0.4*mm;
+    G4double depthHole = 0.5*cm;
+
     if(!isLightGuide)
     {
         radiusLightGuide = 0.;
@@ -232,15 +234,52 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 
     if(isLightGuide)
     {
+        G4Material *fLightGuideMaterial = 0;
+
         solidLightGuide = new G4Tubs("solidLightGuide", 0, radiusLightGuide, halfheightLightGuide, 0.*deg, 360.*deg);
+
+        //Drill 4 holes in the light guide for LEDs 
+        solidHoleUP = new G4Tubs("solidHoleLightGuide", 0, radiusHole, depthHole, 0.*deg, 360*deg);
+        solidHoleDOWN = new G4Tubs("solidHoleLightGuide", 0, radiusHole, depthHole, 0.*deg, 360*deg);
+        solidHoleRIGHT = new G4Tubs("solidHoleLightGuide", 0, radiusHole, depthHole, 0.*deg, 360*deg);
+        solidHoleLEFT = new G4Tubs("solidHoleLightGuide", 0, radiusHole, depthHole, 0.*deg, 360*deg);
+
+        G4Rotate3D rotXholeUP(90*deg, G4ThreeVector(1, 0, 0));
+        G4Translate3D transYholeUP(G4ThreeVector(0, radiusLightGuide, 0));
+        G4Transform3D transformHoleUP = (transYholeUP)*(rotXholeUP);
+
+        G4Rotate3D rotXholeDOWN(90*deg, G4ThreeVector(1, 0, 0));
+        G4Translate3D transYholeDOWN(G4ThreeVector(0, -radiusLightGuide, 0));
+        G4Transform3D transformHoleDOWN = (transYholeDOWN)*(rotXholeDOWN);
+
+        G4Rotate3D rotYholeRIGHT(90*deg, G4ThreeVector(0, 1, 0));
+        G4Translate3D transYholeRIGHT(G4ThreeVector(radiusLightGuide, 0, 0));
+        G4Transform3D transformHoleRIGHT = (transYholeRIGHT)*(rotYholeRIGHT);
+
+        G4Rotate3D rotYholeLEFT(90*deg, G4ThreeVector(0, 1, 0));
+        G4Translate3D transYholeLEFT(G4ThreeVector(-radiusLightGuide, 0, 0));
+        G4Transform3D transformHoleLEFT = (transYholeLEFT)*(rotYholeLEFT);
+
+        solidHoles = new G4MultiUnion("solidHoles");
+        solidHoles->AddNode(*solidHoleUP, transformHoleUP);
+        solidHoles->AddNode(*solidHoleDOWN, transformHoleDOWN);
+        solidHoles->AddNode(*solidHoleRIGHT, transformHoleRIGHT);
+        solidHoles->AddNode(*solidHoleLEFT, transformHoleLEFT);
+        solidHoles->Voxelize();
+
+        realsolidLightGuide = new G4SubtractionSolid("LightGuide-Holes", solidLightGuide, solidHoles);
+        
+        //Options for material
         if(nLightGuideMat==1) //Plexiglass
         {
-            logicLightGuide = new G4LogicalVolume(solidLightGuide, fPlexiglass, "logicLightGuide");
+            fLightGuideMaterial = fPlexiglass;
         }
         if(nLightGuideMat==2) //Sapphire
         {
-            logicLightGuide = new G4LogicalVolume(solidLightGuide, fSapphire, "logicLightGuide");
+            fLightGuideMaterial = fSapphire;
         }
+
+        logicLightGuide = new G4LogicalVolume(realsolidLightGuide, fLightGuideMaterial, "logicLightGuide");
         physFrontLightGuide = new G4PVPlacement(0, G4ThreeVector(0., 0., zFrontFaceScintillator-halfheightLightGuide), logicLightGuide, "physFrontLightGuide", logicWorld, false, 0, true);
         physBackLightGuide = new G4PVPlacement(0, G4ThreeVector(0., 0., zBackFaceScintillator+halfheightLightGuide), logicLightGuide, "physBackLightGuide", logicWorld, false, 1, true);
     }
@@ -273,7 +312,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     solidFrontDetector = new G4Box("solidFrontDetector", halfXsideDetector, halfYsideDetector, halfZsideDetector);
     logicFrontDetector = new G4LogicalVolume(solidFrontDetector, detectorMat, "logicFrontDetector");
 
-    //Definisco la disposizione dei SiPM, andrà corretto
+    //Define the arrangement of SiPMs (will be modified!)
     G4int indexDetector = 0;
     for(G4int i = 0; i<13; i++)
     {
@@ -324,7 +363,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     }
 
 
-
+    DefineVisAttributes();
 
     return physWorld;
 }
@@ -338,4 +377,40 @@ void MyDetectorConstruction::ConstructSDandField()
 
     MySensitiveDetector *sensFrontDet = new MySensitiveDetector("SensitiveFrontDetector");
     logicFrontDetector->SetSensitiveDetector(sensFrontDet);
+}
+
+
+
+void MyDetectorConstruction::DefineVisAttributes()
+{
+    visEndcap = new G4VisAttributes();
+    visEndcap->SetColour(0.5, 0.5, 0.5, 0.5);
+    logicEndcap->SetVisAttributes(visEndcap);
+
+    visPCB = new G4VisAttributes();
+    visPCB->SetColour(0, 1, 0, 0.65);
+    logicPCB->SetVisAttributes(visPCB);
+
+    if(isLightGuide)
+    {
+        visLightGuide = new G4VisAttributes();
+        visLightGuide->SetColour(1, 1, 1, 0.5);
+        logicLightGuide->SetVisAttributes(visLightGuide);
+    }
+
+    visDetector = new G4VisAttributes();
+    visDetector->SetColour(0.45, 0.25, 0, 0.7);
+    //visDetector->SetColour(0.5, 0.5, 0, 0.7);
+    logicBackDetector->SetVisAttributes(visDetector);
+    logicFrontDetector->SetVisAttributes(visDetector);
+
+    visScintillator = new G4VisAttributes();
+    visScintillator->SetColour(0, 0, 1, 0.98);
+    //visScintillator->SetColour(1, 1, 0, 0.8);
+    logicScintillator->SetVisAttributes(visScintillator);
+
+    visCoating = new G4VisAttributes();
+    //visCoating->SetColour(0, 0, 0, 0);
+    visCoating->SetVisibility(false);
+    logicCoating->SetVisAttributes(visCoating);
 }

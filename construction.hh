@@ -4,8 +4,11 @@
 #include "G4VUserDetectorConstruction.hh"
 #include "G4VPhysicalVolume.hh"
 #include "G4LogicalVolume.hh"
+#include "G4VSolid.hh"
 #include "G4Tubs.hh"
 #include "G4Box.hh"
+#include "G4MultiUnion.hh"
+#include "G4SubtractionSolid.hh"
 #include "G4PVPlacement.hh"
 #include "G4NistManager.hh"
 #include "G4SystemOfUnits.hh"
@@ -29,17 +32,21 @@ public:
 private:
     virtual void ConstructSDandField();
     void DefineMaterialsAndSurfaces();
+    void DefineVisAttributes();
 
     //Solidi
     G4Box *solidWorld, *solidBackDetector, *solidFrontDetector;
-    G4Tubs *solidScintillator, *solidCoating, *solidPCB, *solidEndcap, *solidLightGuide;
+    G4Tubs *solidScintillator, *solidCoating, *solidPCB, *solidEndcap, *solidLightGuide, *solidHoleUP, *solidHoleDOWN, *solidHoleRIGHT, *solidHoleLEFT;
+    G4VSolid *realsolidLightGuide;
+
     //Volumi logici
     G4LogicalVolume *logicWorld, *logicScintillator, *logicBackDetector, *logicFrontDetector, *logicCoating, *logicPCB, *logicEndcap, *logicLightGuide;
+
     //Volumi fisici
     G4VPhysicalVolume *physWorld, *physScintillator, *physBackDetector, *physFrontDetector, *physCoating, *physFrontPCB, *physBackPCB, *physFrontEndcap, *physBackEndcap, *physFrontLightGuide, *physBackLightGuide;
 
     //G4VisAttributes 
-
+    G4VisAttributes  *visScintillator, *visLightGuide, *visCoating, *visDetector, *visPCB, *visEndcap;
 
     //Materiali
     G4Material *fLYSO, *fAir, *fVacuum, *fAluminium, *detectorMat, *fEpoxy, *fFR4, *fCarbonFiber, *fPlexiglass, *fSapphire;
@@ -50,6 +57,9 @@ private:
 
     //Scoring volume
     G4LogicalVolume *fScoringVolume;
+
+    //MultiUnion
+    G4MultiUnion *solidHoles;
 
 
     G4GenericMessenger *fMessenger;

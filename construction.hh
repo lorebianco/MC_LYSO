@@ -17,6 +17,7 @@
 #include "G4OpticalSurface.hh"
 #include "G4LogicalSkinSurface.hh"
 
+#include "globalsettings.hh"
 #include "detector.hh"
 
 class MyDetectorConstruction : public G4VUserDetectorConstruction
@@ -33,6 +34,7 @@ private:
     virtual void ConstructSDandField();
     void DefineMaterialsAndSurfaces();
     void DefineVisAttributes();
+    MyGlobalSettings GS;
 
     //Solidi
     G4Box *solidWorld, *solidBackDetector, *solidFrontDetector;

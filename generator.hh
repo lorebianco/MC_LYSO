@@ -10,8 +10,9 @@
 #include "Randomize.hh"
 #include "G4GenericMessenger.hh"
 #include "G4RunManager.hh"
-
 #include "G4AnalysisManager.hh"
+
+#include "globalsettings.hh"
 
 class MyPrimaryGenerator : public G4VUserPrimaryGeneratorAction
 {
@@ -23,11 +24,15 @@ public:
 
 private:
     G4ParticleGun *fParticleGun;
+    G4ParticleTable* fParticleTable;
+    MyGlobalSettings GS;
 
-    G4GenericMessenger *fMessenger;
+    G4GenericMessenger *fMessenger_Run, *fMessenger_Calib;
 
     //Definisco le variabili che voglio settare per la primary particle
     G4double meanEnergy, sigmaEnergy;
+    G4bool isCalibrationEnabled;
+    G4String chooseFrontorBack, switchOnLED;
 
 };
 #endif

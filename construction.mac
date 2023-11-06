@@ -1,5 +1,5 @@
-/my_construction/isLightGuide true
-/my_construction/MaterialOfLightGuide 2
+/my_construction/isLightGuide false
+/my_construction/MaterialOfLightGuide 1
 /my_construction/isPCB true
 /my_construction/isEndcap true
 /run/reinitializeGeometry

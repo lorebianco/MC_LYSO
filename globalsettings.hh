@@ -29,6 +29,11 @@ public:
     const G4double radiusHole = 0.4*mm;
     const G4double depthHole = 0.5*cm;
 
+    
+    //LED
+    const G4double depthLED = 2.5*mm; 
+    const G4double energyLED = 2.77*eV;
+
 
     //SiPM (andrà modificato sempre di più)
     const G4double halfXsideDetector = 3*mm;

@@ -13,12 +13,13 @@
 #include "construction.hh"
 #include "physics.hh"
 #include "action.hh"
+#include "summary.hh"
 
 
 int main(int argc, char** argv)
 {
     G4Random::setTheSeed(time(NULL));
-    G4cout << "The seed of this MC is " << G4Random::getTheSeed() << G4endl;
+    G4int seed = G4Random::getTheSeed();
 
     #ifdef G4MULTITHREADED
         G4MTRunManager *runManager = new G4MTRunManager();
@@ -27,8 +28,6 @@ int main(int argc, char** argv)
     #endif
     
     runManager->SetUserInitialization(new MyDetectorConstruction());
-    //FTFP_BERT* physlist = new FTFP_BERT(1);
-    //runManager->SetUserInitialization(physlist);
     runManager->SetUserInitialization(new MyPhysicsList());
     runManager->SetUserInitialization(new MyActionInitialization());
 
@@ -51,7 +50,7 @@ int main(int argc, char** argv)
 
     G4UImanager *UImanager = G4UImanager::GetUIpointer();
 
-    //Qui decido se aprire l'interfaccia grafica: se c'è una macro da eseguire non la apro
+    //If there is a macro do not open the visualization
     if(ui)
     {
         UImanager->ApplyCommand("/control/execute vis.mac");
@@ -62,6 +61,8 @@ int main(int argc, char** argv)
         G4String command = "/control/execute ";
         G4String fileName = argv[1];
         UImanager->ApplyCommand(command+fileName);
+
+        MC_summary(seed, "MC_summaries.txt");
     }
 
     delete runManager;

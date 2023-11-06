@@ -1,6 +1,8 @@
 /run/numberOfThreads 16
 /run/initialize
 /control/execute construction.mac
+/my_gun/spread/enable true
+/my_gun/spread/radiusSpread 2 cm
 /my_gun/meanEnergy 55. MeV
 /my_gun/sigmaEnergy 0.5 MeV
-/run/beamOn 100
+/run/beamOn 10

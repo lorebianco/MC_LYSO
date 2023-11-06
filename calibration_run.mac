@@ -1,0 +1,22 @@
+/run/numberOfThreads 16
+/run/initialize
+/control/execute construction.mac
+/my_gun/calibration/enable true
+/my_gun/calibration/FrontOrBack "F"
+/my_gun/calibration/switchOnLED "u"
+/run/beamOn 1000000
+/my_gun/calibration/switchOnLED "d"
+/run/beamOn 1000000
+/my_gun/calibration/switchOnLED "r"
+/run/beamOn 1000000
+/my_gun/calibration/switchOnLED "l"
+/run/beamOn 1000000
+/my_gun/calibration/FrontOrBack "B"
+/my_gun/calibration/switchOnLED "u"
+/run/beamOn 1000000
+/my_gun/calibration/switchOnLED "d"
+/run/beamOn 1000000
+/my_gun/calibration/switchOnLED "r"
+/run/beamOn 1000000
+/my_gun/calibration/switchOnLED "l"
+/run/beamOn 1000000

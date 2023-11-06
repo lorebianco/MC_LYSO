@@ -27,11 +27,11 @@ private:
     G4ParticleTable* fParticleTable;
     MyGlobalSettings GS;
 
-    G4GenericMessenger *fMessenger_Run, *fMessenger_Calib;
+    G4GenericMessenger *fMessenger_Run, *fMessenger_Spread, *fMessenger_Calib;
 
-    //Definisco le variabili che voglio settare per la primary particle
-    G4double meanEnergy, sigmaEnergy;
-    G4bool isCalibrationEnabled;
+    //Define variables that want to set as UI
+    G4double meanEnergy, sigmaEnergy, radiusSpread;
+    G4bool isSpreadEnabled, isCalibrationEnabled;
     G4String chooseFrontorBack, switchOnLED;
 
 };

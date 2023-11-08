@@ -18,8 +18,10 @@
 
 int main(int argc, char** argv)
 {
+    
+
     G4Random::setTheSeed(time(NULL));
-    G4int seed = G4Random::getTheSeed();
+    G4int fSeed = G4Random::getTheSeed();
 
     #ifdef G4MULTITHREADED
         G4MTRunManager *runManager = new G4MTRunManager();
@@ -58,13 +60,22 @@ int main(int argc, char** argv)
     }
     else
     {
+        auto start = std::chrono::high_resolution_clock::now();
+
         G4String command = "/control/execute ";
         G4String fileName = argv[1];
         UImanager->ApplyCommand(command+fileName);
 
-        MC_summary(seed, "MC_summaries.txt");
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duration = end - start;
+        
+        MC_summary(fileName, fSeed, duration.count(), "MC_summaries.txt");
+        G4cout << G4endl;
+        G4cout << "If you have any custom settings to annotate in the summary, please edit the MC_Summaries file at the corresponding MC-SerialNumber" << G4endl;
+        G4cout << "Now you should name the hadded-rootfile with MCID = " << fSeed << G4endl;
     }
 
     delete runManager;
+    
     return 0;
 }

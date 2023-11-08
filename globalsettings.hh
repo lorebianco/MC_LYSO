@@ -3,12 +3,12 @@
 
 #include "G4SystemOfUnits.hh"
 
+
 class MyGlobalSettings
 {
 public:
     //*****     Run settings     *****//
-    
-    
+
 
     //*****     Construction settings     *****//
     //Scintillator
@@ -25,7 +25,7 @@ public:
 
     //Light Guide
     const G4double radiusLightGuide = 3.5*cm;
-    const G4double halfheightLightGuide = 0.5*cm;
+    const G4double halfheightLightGuide = 1*mm;
     const G4double radiusHole = 0.4*mm;
     const G4double depthHole = 0.5*cm;
 
@@ -35,24 +35,45 @@ public:
     const G4double energyLED = 2.77*eV;
 
 
-    //SiPM (andrà modificato sempre di più)
+    //SiPM (will be improved more and more)
+        //Package in FR4: it's the window's mother volume
+    const G4double halfXsidePackageSiPM = 3.675*mm;
+    const G4double halfYsidePackageSiPM = 3.425*mm;
+    const G4double halfZsidePackageSiPM = 0.725*mm;
+        //Window in epoxy resin only: it's the detector's mother volume
+    const G4double halfXsideWindowSiPM = halfXsidePackageSiPM;
+    const G4double halfYsideWindowSiPM = halfYsidePackageSiPM;
+    const G4double halfZsideWindowSiPM = 0.15*mm;
+
+    const G4double xWindowSiPM = 0*mm;
+    const G4double yWindowSiPM = 0*mm;
+    const G4double zFrontWindowSiPM = halfZsidePackageSiPM-halfZsideWindowSiPM;
+    const G4double zBackWindowSiPM = -halfZsidePackageSiPM+halfZsideWindowSiPM;
+        //detector in Si: note that now it is inside the window
     const G4double halfXsideDetector = 3*mm;
     const G4double halfYsideDetector = 3*mm;
-    const G4double halfZsideDetector = 0.05*mm;
+    const G4double halfZsideDetector = 25*um;
+  
+    const G4double xDetector = halfXsideWindowSiPM-0.925*mm-halfXsideDetector;
+    const G4double yDetector = 0*mm;
+    const G4double zFrontDetector = halfZsideDetector-halfZsideWindowSiPM;
+    const G4double zBackDetector = -halfZsideDetector+halfZsideWindowSiPM;
+
+    const G4double PDE_SiPM = 24*perCent; //PDE at 420 nm, more specific spectrum in PDE.txt
 
 
     //PCB
-    const G4double radiusPCB = 4.*cm;
+    const G4double radiusPCB = 5.*cm;
     const G4double halfheightPCB = 0.75*mm;
 
 
     //Endcap
-    const G4double radiusEndcap = 5*cm;
+    const G4double radiusEndcap = 5.5*cm;
     const G4double halfheightEndcap = 0.25*mm;
 
 
     //Cilindrical Coating
-    const G4double coating_space = 0.12*mm; //se = 0 il coating assorbitore da 2 micron è a contatto con il cristallo, come un tape; se > 0 serve solo nella grafica per uccidere i fotoni ottici
+    const G4double coating_space = 0.12*mm; //if = 0 the absorber coating of 2 micron touches the crystal, like a tape; if > 0 it is only used as optical photons killer in the visualization
     const G4double coating_thickness = 0.2*mm;
 
 
@@ -60,6 +81,7 @@ public:
     const G4double halfXsideWorld = 0.5*m;
     const G4double halfYsideWorld = 0.5*m;
     const G4double halfZsideWorld = 0.5*m;
+
 };
 
 

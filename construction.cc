@@ -10,7 +10,7 @@ MyDetectorConstruction::MyDetectorConstruction()
     fMessenger->DeclareProperty("MaterialOfLightGuide", nLightGuideMat, "Set the material of light guide: 1 = Plexiglass, 2 = Sapphire");
     //*********************************//
     
-    isLightGuide = true;
+    isLightGuide = false;
     nLightGuideMat = 1;
 
     isPCB = true;
@@ -86,19 +86,24 @@ void MyDetectorConstruction::DefineMaterialsAndSurfaces()
     fAluminium = nist->FindOrBuildMaterial("G4_Al");
     //***********************************************************//
 
-    //******************       MATERIAL FOR SiPM       ******************//
-    detectorMat = nist->FindOrBuildMaterial("G4_Si");
+    //******************       SILICON       ******************//
+    fSilicon = nist->FindOrBuildMaterial("G4_Si");
     G4MaterialPropertiesTable *mptDetector = new G4MaterialPropertiesTable();
-    G4double DETECTOR_RINDEX[nEntries] = {1.55, 1.55, 1.55};
+    G4double DETECTOR_RINDEX[nEntries] = {1.55, 1.55, 1.55}; //need to change? should be 3.88, but I THINK it is included in the PDE, so let's fix it at the same value of window (Total transmission)
     mptDetector->AddProperty("RINDEX", Energies, DETECTOR_RINDEX, nEntries);
 
-    detectorMat->SetMaterialPropertiesTable(mptDetector);
+    fSilicon->SetMaterialPropertiesTable(mptDetector);
     //*******************************************************************//
 
-    //******************       EPOXY (for FR4)       ******************//
-    G4Material* fEpoxy = new G4Material("Epoxy", 1.2*g/cm3, 2);
+    //***********************       EPOXY       ***********************//
+    fEpoxy = new G4Material("Epoxy", 1.2*g/cm3, 2);
     fEpoxy->AddElement(nist->FindOrBuildElement("H"), 2);
     fEpoxy->AddElement(nist->FindOrBuildElement("C"), 2);
+    G4MaterialPropertiesTable *mptEpoxy = new G4MaterialPropertiesTable();
+    G4double EPOXY_RINDEX[nEntries] = {1.55, 1.55, 1.55};
+    mptEpoxy->AddProperty("RINDEX", Energies, EPOXY_RINDEX, nEntries);
+
+    fEpoxy->SetMaterialPropertiesTable(mptEpoxy);
     //*****************************************************************//
 
     //******************       FR4       ******************//
@@ -266,25 +271,47 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     {
         solidPCB = new G4Tubs("solidPCB", 0, this_radiusPCB, this_halfheightPCB, 0.*deg, 360.*deg);
         logicPCB = new G4LogicalVolume(solidPCB, fFR4, "logicPCB");
-        physFrontPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, GS.zFrontFaceScintillator-2*this_halfheightLightGuide-2*GS.halfZsideDetector-this_halfheightPCB), logicPCB, "physFrontPCB", logicWorld, false, 0, true);
-        physBackPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, GS.zBackFaceScintillator+2*this_halfheightLightGuide+2*GS.halfZsideDetector+this_halfheightPCB), logicPCB, "physBackPCB", logicWorld, false, 1, true);
+        physFrontPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, GS.zFrontFaceScintillator-2*this_halfheightLightGuide-2*GS.halfZsidePackageSiPM-this_halfheightPCB), logicPCB, "physFrontPCB", logicWorld, false, 0, true);
+        physBackPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, GS.zBackFaceScintillator+2*this_halfheightLightGuide+2*GS.halfZsidePackageSiPM+this_halfheightPCB), logicPCB, "physBackPCB", logicWorld, false, 1, true);
     }
 
     if(isEndcap)
     {
         solidEndcap = new G4Tubs("solidEndcap", 0, this_radiusEndcap, this_halfheightEndcap, 0.*deg, 360.*deg);
         logicEndcap = new G4LogicalVolume(solidEndcap, fCarbonFiber, "logicEndcap");
-        physFrontEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, GS.zFrontFaceScintillator-2*this_halfheightLightGuide-2*GS.halfZsideDetector-2*this_halfheightPCB-this_halfheightEndcap), logicEndcap, "physFrontEndcap", logicWorld, false, 0, true);
-        physBackEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, GS.zBackFaceScintillator+2*this_halfheightLightGuide+2*GS.halfZsideDetector+2*this_halfheightPCB+this_halfheightEndcap), logicEndcap, "physBackEndcap", logicWorld, false, 1, true);
+        physFrontEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, GS.zFrontFaceScintillator-2*this_halfheightLightGuide-2*GS.halfZsidePackageSiPM-2*this_halfheightPCB-this_halfheightEndcap), logicEndcap, "physFrontEndcap", logicWorld, false, 0, true);
+        physBackEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, GS.zBackFaceScintillator+2*this_halfheightLightGuide+2*GS.halfZsidePackageSiPM+2*this_halfheightPCB+this_halfheightEndcap), logicEndcap, "physBackEndcap", logicWorld, false, 1, true);
     }
 
-    solidBackDetector = new G4Box("solidBackDetector", GS.halfXsideDetector, GS.halfYsideDetector, GS.halfZsideDetector);
-    logicBackDetector = new G4LogicalVolume(solidBackDetector, detectorMat, "logicBackDetector");
+
+    solidFrontPackageSiPM = new G4Box("solidFrontPackageSiPM", GS.halfXsidePackageSiPM, GS.halfYsidePackageSiPM, GS.halfZsidePackageSiPM);
+    solidBackPackageSiPM = new G4Box("solidBackPackageSiPM", GS.halfXsidePackageSiPM, GS.halfYsidePackageSiPM, GS.halfZsidePackageSiPM);
+    
+    logicFrontPackageSiPM = new G4LogicalVolume(solidFrontPackageSiPM, fFR4, "logicPackageSiPM");
+    logicBackPackageSiPM = new G4LogicalVolume(solidBackPackageSiPM, fFR4, "logicPackageSiPM");
+
+
+    solidFrontWindowSiPM = new G4Box("solidFrontWindowSiPM", GS.halfXsideWindowSiPM, GS.halfYsideWindowSiPM, GS.halfZsideWindowSiPM);
+    solidBackWindowSiPM = new G4Box("solidBackWindowSiPM", GS.halfXsideWindowSiPM, GS.halfYsideWindowSiPM, GS.halfZsideWindowSiPM);
+
+    logicFrontWindowSiPM = new G4LogicalVolume(solidFrontWindowSiPM, fEpoxy, "logicFrontWindowSiPM");
+    logicBackWindowSiPM = new G4LogicalVolume(solidBackWindowSiPM, fEpoxy, "logicBackWindowSiPM");
+
+    physFrontWindowsSiPM = new G4PVPlacement(0, G4ThreeVector(GS.xWindowSiPM, GS.yWindowSiPM, GS.zFrontWindowSiPM), logicFrontWindowSiPM, "physFrontWindowsSiPM", logicFrontPackageSiPM, false, 0, true);
+    physBackWindowsSiPM = new G4PVPlacement(0, G4ThreeVector(GS.xWindowSiPM, GS.yWindowSiPM, GS.zBackWindowSiPM), logicBackWindowSiPM, "physBackWindowsSiPM", logicBackPackageSiPM, false, 0, true);
+
 
     solidFrontDetector = new G4Box("solidFrontDetector", GS.halfXsideDetector, GS.halfYsideDetector, GS.halfZsideDetector);
-    logicFrontDetector = new G4LogicalVolume(solidFrontDetector, detectorMat, "logicFrontDetector");
+    solidBackDetector = new G4Box("solidBackDetector", GS.halfXsideDetector, GS.halfYsideDetector, GS.halfZsideDetector);
+    
+    logicFrontDetector = new G4LogicalVolume(solidFrontDetector, fSilicon, "logicFrontDetector");
+    logicBackDetector = new G4LogicalVolume(solidBackDetector, fSilicon, "logicBackDetector");
 
-    //Define the arrangement of SiPMs (will be modified!)
+    physFrontDetector = new G4PVPlacement(0, G4ThreeVector(GS.xDetector, GS.yDetector, GS.zFrontDetector), logicFrontDetector, "physFrontDetector", logicFrontWindowSiPM, false, 0, true);
+    physBackDetector = new G4PVPlacement(0, G4ThreeVector(GS.xDetector, GS.yDetector, GS.zBackDetector), logicBackDetector, "physBackDetector", logicBackWindowSiPM, false, 0, true);
+
+
+    //Define the arrangement of SiPMs
     G4int indexDetector = 0;
     for(G4int i = 0; i<13; i++)
     {
@@ -292,9 +319,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<3; j++)
             {
-                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsideDetector*(j-1), 2*GS.halfYsideDetector*(6-i), GS.zBackFaceScintillator+2*this_halfheightLightGuide+GS.halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
+                physBackPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-1), 2*GS.halfYsidePackageSiPM*(6-i), GS.zBackFaceScintillator+2*this_halfheightLightGuide+GS.halfZsidePackageSiPM), logicBackPackageSiPM, "physBackPackageSiPM", logicWorld, false, indexDetector, true);
                 
-                physFrontDetector = new G4PVPlacement(0,G4ThreeVector((6*(j-1))*mm, (6*(6-i))*mm, GS.zFrontFaceScintillator-2*this_halfheightLightGuide-GS.halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
+                physFrontPackageSiPM = new G4PVPlacement(0,G4ThreeVector((2*GS.halfXsidePackageSiPM*(j-1))*mm, (2*GS.halfYsidePackageSiPM*(6-i))*mm, GS.zFrontFaceScintillator-2*this_halfheightLightGuide-GS.halfZsidePackageSiPM), logicFrontPackageSiPM, "physFrontPackageSiPM", logicWorld, false, indexDetector, true);
                 
                 indexDetector++;
             }
@@ -303,9 +330,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<7; j++)
             {
-                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsideDetector*(j-3), 2*GS.halfYsideDetector*(6-i), GS.zBackFaceScintillator+2*this_halfheightLightGuide+GS.halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
+                physBackPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-3), 2*GS.halfYsidePackageSiPM*(6-i), GS.zBackFaceScintillator+2*this_halfheightLightGuide+GS.halfZsidePackageSiPM), logicBackPackageSiPM, "physBackPackageSiPM", logicWorld, false, indexDetector, true);
 
-                physFrontDetector = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsideDetector*(j-3), 2*GS.halfYsideDetector*(6-i), GS.zFrontFaceScintillator-2*this_halfheightLightGuide-GS.halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
+                physFrontPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-3), 2*GS.halfYsidePackageSiPM*(6-i), GS.zFrontFaceScintillator-2*this_halfheightLightGuide-GS.halfZsidePackageSiPM), logicFrontPackageSiPM, "physFrontPackageSiPM", logicWorld, false, indexDetector, true);
                 
                 indexDetector++;
             }
@@ -314,9 +341,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<9; j++)
             {
-                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsideDetector*(j-4), 2*GS.halfYsideDetector*(6-i), GS.zBackFaceScintillator+2*this_halfheightLightGuide+GS.halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
+                physBackPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-4), 2*GS.halfYsidePackageSiPM*(6-i), GS.zBackFaceScintillator+2*this_halfheightLightGuide+GS.halfZsidePackageSiPM), logicBackPackageSiPM, "physBackPackageSiPM", logicWorld, false, indexDetector, true);
 
-                physFrontDetector = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsideDetector*(j-4), 2*GS.halfYsideDetector*(6-i), GS.zFrontFaceScintillator-2*this_halfheightLightGuide-GS.halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
+                physFrontPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-4), 2*GS.halfYsidePackageSiPM*(6-i), GS.zFrontFaceScintillator-2*this_halfheightLightGuide-GS.halfZsidePackageSiPM), logicFrontPackageSiPM, "physFrontPackageSiPM", logicWorld, false, indexDetector, true);
 
                 indexDetector++;
             }
@@ -325,9 +352,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<11; j++)
             {
-                physBackDetector = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsideDetector*(j-5), 2*GS.halfYsideDetector*(6-i), GS.zBackFaceScintillator+2*this_halfheightLightGuide+GS.halfZsideDetector), logicBackDetector, "physBackDetector", logicWorld, false, indexDetector, true);
+                physBackPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-5), 2*GS.halfYsidePackageSiPM*(6-i), GS.zBackFaceScintillator+2*this_halfheightLightGuide+GS.halfZsidePackageSiPM), logicBackPackageSiPM, "physBackPackageSiPM", logicWorld, false, indexDetector, true);
 
-                physFrontDetector = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsideDetector*(j-5), 2*GS.halfYsideDetector*(6-i), GS.zFrontFaceScintillator-2*this_halfheightLightGuide-GS.halfZsideDetector), logicFrontDetector, "physFrontDetector", logicWorld, false, indexDetector, true);
+                physFrontPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-5), 2*GS.halfYsidePackageSiPM*(6-i), GS.zFrontFaceScintillator-2*this_halfheightLightGuide-GS.halfZsidePackageSiPM), logicFrontPackageSiPM, "physFrontPackageSiPM", logicWorld, false, indexDetector, true);
 
                 indexDetector++;
             }
@@ -344,11 +371,11 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 
 void MyDetectorConstruction::ConstructSDandField()
 {
-    MySensitiveDetector *sensBackDet = new MySensitiveDetector("SensitiveBackDetector");
-    logicBackDetector->SetSensitiveDetector(sensBackDet);
-
     MySensitiveDetector *sensFrontDet = new MySensitiveDetector("SensitiveFrontDetector");
     logicFrontDetector->SetSensitiveDetector(sensFrontDet);
+
+    MySensitiveDetector *sensBackDet = new MySensitiveDetector("SensitiveBackDetector");
+    logicBackDetector->SetSensitiveDetector(sensBackDet);
 }
 
 
@@ -375,6 +402,16 @@ void MyDetectorConstruction::DefineVisAttributes()
         visLightGuide->SetColour(1, 1, 1, 0.5);
         logicLightGuide->SetVisAttributes(visLightGuide);
     }
+
+    visPackage = new G4VisAttributes();
+    visPackage->SetColour(1, 1, 0, 0.7);
+    logicFrontPackageSiPM->SetVisAttributes(visPackage);
+    logicBackPackageSiPM->SetVisAttributes(visPackage);
+
+    visWindow = new G4VisAttributes();
+    visWindow->SetColour(1, 1, 1, 0.7);
+    logicFrontWindowSiPM->SetVisAttributes(visWindow);
+    logicBackWindowSiPM->SetVisAttributes(visWindow);
 
     visDetector = new G4VisAttributes();
     visDetector->SetColour(0.45, 0.25, 0, 0.7);

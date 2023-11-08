@@ -15,9 +15,13 @@ public:
     MySensitiveDetector(G4String);
     ~MySensitiveDetector();
     MyGlobalSettings GS;
+    
+    virtual void EndOfEvent(G4HCofThisEvent*);
 
 private:
     virtual G4bool ProcessHits(G4Step *, G4TouchableHistory *);
+    
+    G4int fF, fB, fwGhosts_F, fwGhosts_B;
 };
 
 #endif

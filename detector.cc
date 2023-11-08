@@ -33,19 +33,11 @@ G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
     G4int evt = G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID();
 
     G4AnalysisManager *man = G4AnalysisManager::Instance();
-    if(G4UniformRand()<=GS.PDE_SiPM)
+    
+    if(posDetector[2]<200)
     {
-        if(posDetector[2]<200)
-        {
-            man->FillNtupleIColumn(0, 0, evt);
-            man->FillNtupleDColumn(0, 1, timePhoton);
-            man->FillNtupleDColumn(0, 2, posDetector[0]);
-            man->FillNtupleDColumn(0, 3, posDetector[1]);
-            man->FillNtupleDColumn(0, 4, posDetector[2]);
-            man->FillNtupleIColumn(0, 5, copyNo);
-            man->AddNtupleRow(0);
-        }
-        if( posDetector[2]>200)
+        fwGhosts_F++;
+        if(G4UniformRand()<=GS.PDE_SiPM)
         {
             man->FillNtupleIColumn(1, 0, evt);
             man->FillNtupleDColumn(1, 1, timePhoton);
@@ -54,8 +46,42 @@ G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
             man->FillNtupleDColumn(1, 4, posDetector[2]);
             man->FillNtupleIColumn(1, 5, copyNo);
             man->AddNtupleRow(1);
+            fF++;
+        }
+    }
+
+    if(posDetector[2]>200)
+    {
+        fwGhosts_B++;
+        if(G4UniformRand()<=GS.PDE_SiPM)
+        {
+            man->FillNtupleIColumn(2, 0, evt);
+            man->FillNtupleDColumn(2, 1, timePhoton);
+            man->FillNtupleDColumn(2, 2, posDetector[0]);
+            man->FillNtupleDColumn(2, 3, posDetector[1]);
+            man->FillNtupleDColumn(2, 4, posDetector[2]);
+            man->FillNtupleIColumn(2, 5, copyNo);
+            man->AddNtupleRow(2);
+            fB++;
         }
     }
 
     return true;
+}
+
+void MySensitiveDetector::EndOfEvent(G4HCofThisEvent *HCE)
+{
+    G4cout << "CIAOOO" << G4endl;
+
+    G4int evt = G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID();
+
+    G4AnalysisManager *man = G4AnalysisManager::Instance();
+    man->FillNtupleIColumn(0, 0, evt);
+    man->FillNtupleIColumn(0, 1, fF);
+    man->FillNtupleIColumn(0, 2, fB);
+    man->FillNtupleIColumn(0, 3, fF+fB);
+    man->FillNtupleIColumn(0, 4, fwGhosts_F);
+    man->FillNtupleIColumn(0, 5, fwGhosts_B);
+    man->FillNtupleIColumn(0, 6, fwGhosts_F+fwGhosts_B);
+    man->AddNtupleRow(0);
 }

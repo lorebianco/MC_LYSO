@@ -3,8 +3,18 @@
 
 MyRunAction::MyRunAction()
 {
-
     G4AnalysisManager *man = G4AnalysisManager::Instance();
+
+    //Some Total Data from both detectors
+    man->CreateNtuple("Tot", "boTh Detectors");
+    man->CreateNtupleIColumn("fEvent");
+    man->CreateNtupleIColumn("fF");
+    man->CreateNtupleIColumn("fB");
+    man->CreateNtupleIColumn("fTot");
+    man->CreateNtupleIColumn("fwGhosts_F");
+    man->CreateNtupleIColumn("fwGhosts_B");
+    man->CreateNtupleIColumn("fwGhosts_T");
+    man->FinishNtuple(0);
 
     //Data front detector
     man->CreateNtuple("F", "Front Detector");
@@ -14,7 +24,7 @@ MyRunAction::MyRunAction()
     man->CreateNtupleDColumn("fY");
     man->CreateNtupleDColumn("fZ");
     man->CreateNtupleIColumn("fChannel");
-    man->FinishNtuple(0);
+    man->FinishNtuple(1);
 
     //Data back detector
     man->CreateNtuple("B", "Back Detector");
@@ -24,7 +34,7 @@ MyRunAction::MyRunAction()
     man->CreateNtupleDColumn("fY");
     man->CreateNtupleDColumn("fZ");
     man->CreateNtupleIColumn("fChannel");
-    man->FinishNtuple(1);
+    man->FinishNtuple(2);
 
     //Data physics inside crystal
     man->CreateNtuple("Cry", "Physics inside Crystal");
@@ -38,7 +48,7 @@ MyRunAction::MyRunAction()
     man->CreateNtupleDColumn("fMaxEdepPosX");
     man->CreateNtupleDColumn("fMaxEdepPosY");
     man->CreateNtupleDColumn("fMaxEdepPosZ");
-    man->FinishNtuple(2);
+    man->FinishNtuple(3);
 
     //Data primary gamma
     man->CreateNtuple("Gamma", "Primary Gamma");
@@ -50,7 +60,7 @@ MyRunAction::MyRunAction()
     man->CreateNtupleDColumn("fMomX_start");
     man->CreateNtupleDColumn("fMomY_start");
     man->CreateNtupleDColumn("fMomZ_start");
-    man->FinishNtuple(3);
+    man->FinishNtuple(4);
 
 
 }

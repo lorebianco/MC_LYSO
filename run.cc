@@ -13,7 +13,7 @@ MyRunAction::MyRunAction()
     man->CreateNtupleIColumn("fTot");
     man->CreateNtupleIColumn("fwGhosts_F");
     man->CreateNtupleIColumn("fwGhosts_B");
-    man->CreateNtupleIColumn("fwGhosts_T");
+    man->CreateNtupleIColumn("fwGhosts_Tot");
     man->FinishNtuple(0);
 
     //Data front detector

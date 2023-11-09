@@ -37,15 +37,15 @@ private:
     MyGlobalSettings GS;
 
     //Solidi
-    G4Box *solidWorld, *solidFrontPackageSiPM, *solidBackPackageSiPM, *solidFrontWindowSiPM, *solidBackWindowSiPM, *solidBackDetector, *solidFrontDetector;
+    G4Box *solidWorld, *solidPackageSiPM, *solidWindowSiPM, *solidDetector;
     G4Tubs *solidScintillator, *solidCoating, *solidPCB, *solidEndcap, *solidLightGuide, *solidHoleUP, *solidHoleDOWN, *solidHoleRIGHT, *solidHoleLEFT;
     G4VSolid *realsolidLightGuide;
 
     //Volumi logici
-    G4LogicalVolume *logicWorld, *logicFrontPackageSiPM, *logicBackPackageSiPM, *logicFrontWindowSiPM, *logicBackWindowSiPM, *logicScintillator, *logicBackDetector, *logicFrontDetector, *logicCoating, *logicPCB, *logicEndcap, *logicLightGuide;
+    G4LogicalVolume *logicWorld, *logicPackageSiPM, *logicWindowSiPM, *logicDetector, *logicScintillator, *logicCoating, *logicPCB, *logicEndcap, *logicLightGuide;
 
     //Volumi fisici
-    G4VPhysicalVolume *physWorld, *physScintillator, *physFrontPackageSiPM, *physBackPackageSiPM, *physFrontWindowsSiPM, *physBackWindowsSiPM, *physBackDetector, *physFrontDetector, *physCoating, *physFrontPCB, *physBackPCB, *physFrontEndcap, *physBackEndcap, *physFrontLightGuide, *physBackLightGuide;
+    G4VPhysicalVolume *physWorld, *physScintillator, *physFrontPackageSiPM, *physBackPackageSiPM, *physWindowSiPM, *physDetector, *physCoating, *physFrontPCB, *physBackPCB, *physFrontEndcap, *physBackEndcap, *physFrontLightGuide, *physBackLightGuide;
 
     //G4VisAttributes 
     G4VisAttributes  *visScintillator, *visLightGuide, *visCoating, *visPackage, *visWindow, *visDetector, *visPCB, *visEndcap;

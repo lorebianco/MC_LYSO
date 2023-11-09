@@ -47,8 +47,7 @@ public:
 
     const G4double xWindowSiPM = 0*mm;
     const G4double yWindowSiPM = 0*mm;
-    const G4double zFrontWindowSiPM = halfZsidePackageSiPM-halfZsideWindowSiPM;
-    const G4double zBackWindowSiPM = -halfZsidePackageSiPM+halfZsideWindowSiPM;
+    const G4double zWindowSiPM = halfZsidePackageSiPM-halfZsideWindowSiPM;
         //detector in Si: note that now it is inside the window
     const G4double halfXsideDetector = 3*mm;
     const G4double halfYsideDetector = 3*mm;
@@ -56,8 +55,7 @@ public:
   
     const G4double xDetector = halfXsideWindowSiPM-0.925*mm-halfXsideDetector;
     const G4double yDetector = 0*mm;
-    const G4double zFrontDetector = halfZsideDetector-halfZsideWindowSiPM;
-    const G4double zBackDetector = -halfZsideDetector+halfZsideWindowSiPM;
+    const G4double zDetector = halfZsideDetector-halfZsideWindowSiPM;
 
     const G4double PDE_SiPM = 24*perCent; //PDE at 420 nm, more specific spectrum in PDE.txt
 

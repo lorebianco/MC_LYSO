@@ -284,45 +284,33 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     }
 
 
-    solidFrontPackageSiPM = new G4Box("solidFrontPackageSiPM", GS.halfXsidePackageSiPM, GS.halfYsidePackageSiPM, GS.halfZsidePackageSiPM);
-    solidBackPackageSiPM = new G4Box("solidBackPackageSiPM", GS.halfXsidePackageSiPM, GS.halfYsidePackageSiPM, GS.halfZsidePackageSiPM);
-    
-    logicFrontPackageSiPM = new G4LogicalVolume(solidFrontPackageSiPM, fFR4, "logicPackageSiPM");
-    logicBackPackageSiPM = new G4LogicalVolume(solidBackPackageSiPM, fFR4, "logicPackageSiPM");
+    solidPackageSiPM = new G4Box("solidPackageSiPM", GS.halfXsidePackageSiPM, GS.halfYsidePackageSiPM, GS.halfZsidePackageSiPM);
+    logicPackageSiPM = new G4LogicalVolume(solidPackageSiPM, fFR4, "logicPackageSiPM");
 
+    solidWindowSiPM = new G4Box("solidWindowSiPM", GS.halfXsideWindowSiPM, GS.halfYsideWindowSiPM, GS.halfZsideWindowSiPM);
+    logicWindowSiPM = new G4LogicalVolume(solidWindowSiPM, fEpoxy, "logicWindowSiPM");
+    physWindowSiPM = new G4PVPlacement(0, G4ThreeVector(GS.xWindowSiPM, GS.yWindowSiPM, GS.zWindowSiPM), logicWindowSiPM, "physWindowSiPM", logicPackageSiPM, false, 0, true);
 
-    solidFrontWindowSiPM = new G4Box("solidFrontWindowSiPM", GS.halfXsideWindowSiPM, GS.halfYsideWindowSiPM, GS.halfZsideWindowSiPM);
-    solidBackWindowSiPM = new G4Box("solidBackWindowSiPM", GS.halfXsideWindowSiPM, GS.halfYsideWindowSiPM, GS.halfZsideWindowSiPM);
-
-    logicFrontWindowSiPM = new G4LogicalVolume(solidFrontWindowSiPM, fEpoxy, "logicFrontWindowSiPM");
-    logicBackWindowSiPM = new G4LogicalVolume(solidBackWindowSiPM, fEpoxy, "logicBackWindowSiPM");
-
-    physFrontWindowsSiPM = new G4PVPlacement(0, G4ThreeVector(GS.xWindowSiPM, GS.yWindowSiPM, GS.zFrontWindowSiPM), logicFrontWindowSiPM, "physFrontWindowsSiPM", logicFrontPackageSiPM, false, 0, true);
-    physBackWindowsSiPM = new G4PVPlacement(0, G4ThreeVector(GS.xWindowSiPM, GS.yWindowSiPM, GS.zBackWindowSiPM), logicBackWindowSiPM, "physBackWindowsSiPM", logicBackPackageSiPM, false, 0, true);
-
-
-    solidFrontDetector = new G4Box("solidFrontDetector", GS.halfXsideDetector, GS.halfYsideDetector, GS.halfZsideDetector);
-    solidBackDetector = new G4Box("solidBackDetector", GS.halfXsideDetector, GS.halfYsideDetector, GS.halfZsideDetector);
-    
-    logicFrontDetector = new G4LogicalVolume(solidFrontDetector, fSilicon, "logicFrontDetector");
-    logicBackDetector = new G4LogicalVolume(solidBackDetector, fSilicon, "logicBackDetector");
-
-    physFrontDetector = new G4PVPlacement(0, G4ThreeVector(GS.xDetector, GS.yDetector, GS.zFrontDetector), logicFrontDetector, "physFrontDetector", logicFrontWindowSiPM, false, 0, true);
-    physBackDetector = new G4PVPlacement(0, G4ThreeVector(GS.xDetector, GS.yDetector, GS.zBackDetector), logicBackDetector, "physBackDetector", logicBackWindowSiPM, false, 0, true);
-
+    solidDetector = new G4Box("solidDetector", GS.halfXsideDetector, GS.halfYsideDetector, GS.halfZsideDetector);
+    logicDetector = new G4LogicalVolume(solidDetector, fSilicon, "logicDetector");
+    physDetector = new G4PVPlacement(0, G4ThreeVector(GS.xDetector, GS.yDetector, GS.zDetector), logicDetector, "physDetector", logicWindowSiPM, false, 0, true);
 
     //Define the arrangement of SiPMs
     G4int indexDetector = 0;
+    G4Rotate3D rotXBackDet(180*deg, G4ThreeVector(1, 0, 0));
     for(G4int i = 0; i<13; i++)
     {
         if(i==0 || i==12)
         {
             for(G4int j = 0; j<3; j++)
             {
-                physBackPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-1), 2*GS.halfYsidePackageSiPM*(6-i), GS.zBackFaceScintillator+2*this_halfheightLightGuide+GS.halfZsidePackageSiPM), logicBackPackageSiPM, "physBackPackageSiPM", logicWorld, false, indexDetector, true);
+                physFrontPackageSiPM = new G4PVPlacement(0,G4ThreeVector((2*GS.halfXsidePackageSiPM*(j-1))*mm, (2*GS.halfYsidePackageSiPM*(6-i))*mm, GS.zFrontFaceScintillator-2*this_halfheightLightGuide-GS.halfZsidePackageSiPM), logicPackageSiPM, "physFrontPackageSiPM", logicWorld, false, indexDetector, true);
                 
-                physFrontPackageSiPM = new G4PVPlacement(0,G4ThreeVector((2*GS.halfXsidePackageSiPM*(j-1))*mm, (2*GS.halfYsidePackageSiPM*(6-i))*mm, GS.zFrontFaceScintillator-2*this_halfheightLightGuide-GS.halfZsidePackageSiPM), logicFrontPackageSiPM, "physFrontPackageSiPM", logicWorld, false, indexDetector, true);
+                G4Translate3D transBackDet(G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-1), 2*GS.halfYsidePackageSiPM*(6-i), GS.zBackFaceScintillator+2*this_halfheightLightGuide+GS.halfZsidePackageSiPM));
+                G4Transform3D transformBackDet = (transBackDet)*(rotXBackDet);
                 
+                physBackPackageSiPM = new G4PVPlacement(transformBackDet, logicPackageSiPM, "physBackPackageSiPM", logicWorld, false, indexDetector, true);
+
                 indexDetector++;
             }
         }
@@ -330,9 +318,12 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<7; j++)
             {
-                physBackPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-3), 2*GS.halfYsidePackageSiPM*(6-i), GS.zBackFaceScintillator+2*this_halfheightLightGuide+GS.halfZsidePackageSiPM), logicBackPackageSiPM, "physBackPackageSiPM", logicWorld, false, indexDetector, true);
+                physFrontPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-3), 2*GS.halfYsidePackageSiPM*(6-i), GS.zFrontFaceScintillator-2*this_halfheightLightGuide-GS.halfZsidePackageSiPM), logicPackageSiPM, "physFrontPackageSiPM", logicWorld, false, indexDetector, true);
+                
+                G4Translate3D transBackDet(G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-3), 2*GS.halfYsidePackageSiPM*(6-i), GS.zBackFaceScintillator+2*this_halfheightLightGuide+GS.halfZsidePackageSiPM));
+                G4Transform3D transformBackDet = (transBackDet)*(rotXBackDet);
 
-                physFrontPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-3), 2*GS.halfYsidePackageSiPM*(6-i), GS.zFrontFaceScintillator-2*this_halfheightLightGuide-GS.halfZsidePackageSiPM), logicFrontPackageSiPM, "physFrontPackageSiPM", logicWorld, false, indexDetector, true);
+                physBackPackageSiPM = new G4PVPlacement(transformBackDet, logicPackageSiPM, "physBackPackageSiPM", logicWorld, false, indexDetector, true);
                 
                 indexDetector++;
             }
@@ -341,10 +332,13 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<9; j++)
             {
-                physBackPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-4), 2*GS.halfYsidePackageSiPM*(6-i), GS.zBackFaceScintillator+2*this_halfheightLightGuide+GS.halfZsidePackageSiPM), logicBackPackageSiPM, "physBackPackageSiPM", logicWorld, false, indexDetector, true);
+                physFrontPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-4), 2*GS.halfYsidePackageSiPM*(6-i), GS.zFrontFaceScintillator-2*this_halfheightLightGuide-GS.halfZsidePackageSiPM), logicPackageSiPM, "physFrontPackageSiPM", logicWorld, false, indexDetector, true);
+                
+                G4Translate3D transBackDet(G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-4), 2*GS.halfYsidePackageSiPM*(6-i), GS.zBackFaceScintillator+2*this_halfheightLightGuide+GS.halfZsidePackageSiPM));
+                G4Transform3D transformBackDet = (transBackDet)*(rotXBackDet);
 
-                physFrontPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-4), 2*GS.halfYsidePackageSiPM*(6-i), GS.zFrontFaceScintillator-2*this_halfheightLightGuide-GS.halfZsidePackageSiPM), logicFrontPackageSiPM, "physFrontPackageSiPM", logicWorld, false, indexDetector, true);
-
+                physBackPackageSiPM = new G4PVPlacement(transformBackDet, logicPackageSiPM, "physBackPackageSiPM", logicWorld, false, indexDetector, true);
+             
                 indexDetector++;
             }
         }
@@ -352,9 +346,12 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<11; j++)
             {
-                physBackPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-5), 2*GS.halfYsidePackageSiPM*(6-i), GS.zBackFaceScintillator+2*this_halfheightLightGuide+GS.halfZsidePackageSiPM), logicBackPackageSiPM, "physBackPackageSiPM", logicWorld, false, indexDetector, true);
+                physFrontPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-5), 2*GS.halfYsidePackageSiPM*(6-i), GS.zFrontFaceScintillator-2*this_halfheightLightGuide-GS.halfZsidePackageSiPM), logicPackageSiPM, "physFrontPackageSiPM", logicWorld, false, indexDetector, true);
+                
+                G4Translate3D transBackDet(G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-5), 2*GS.halfYsidePackageSiPM*(6-i), GS.zBackFaceScintillator+2*this_halfheightLightGuide+GS.halfZsidePackageSiPM));
+                G4Transform3D transformBackDet = (transBackDet)*(rotXBackDet);
 
-                physFrontPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS.halfXsidePackageSiPM*(j-5), 2*GS.halfYsidePackageSiPM*(6-i), GS.zFrontFaceScintillator-2*this_halfheightLightGuide-GS.halfZsidePackageSiPM), logicFrontPackageSiPM, "physFrontPackageSiPM", logicWorld, false, indexDetector, true);
+                physBackPackageSiPM = new G4PVPlacement(transformBackDet, logicPackageSiPM, "physBackPackageSiPM", logicWorld, false, indexDetector, true);
 
                 indexDetector++;
             }
@@ -371,11 +368,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 
 void MyDetectorConstruction::ConstructSDandField()
 {
-    MySensitiveDetector *sensFrontDet = new MySensitiveDetector("SensitiveFrontDetector");
-    logicFrontDetector->SetSensitiveDetector(sensFrontDet);
-
-    MySensitiveDetector *sensBackDet = new MySensitiveDetector("SensitiveBackDetector");
-    logicBackDetector->SetSensitiveDetector(sensBackDet);
+    MySensitiveDetector *sensDet = new MySensitiveDetector("SensitiveDetector", "HitsCollection");
+    G4SDManager::GetSDMpointer()->AddNewDetector(sensDet);
+    SetSensitiveDetector(logicDetector, sensDet);
 }
 
 
@@ -405,19 +400,16 @@ void MyDetectorConstruction::DefineVisAttributes()
 
     visPackage = new G4VisAttributes();
     visPackage->SetColour(1, 1, 0, 0.7);
-    logicFrontPackageSiPM->SetVisAttributes(visPackage);
-    logicBackPackageSiPM->SetVisAttributes(visPackage);
+    logicPackageSiPM->SetVisAttributes(visPackage);
 
     visWindow = new G4VisAttributes();
     visWindow->SetColour(1, 1, 1, 0.7);
-    logicFrontWindowSiPM->SetVisAttributes(visWindow);
-    logicBackWindowSiPM->SetVisAttributes(visWindow);
+    logicWindowSiPM->SetVisAttributes(visWindow);
 
     visDetector = new G4VisAttributes();
     visDetector->SetColour(0.45, 0.25, 0, 0.7);
     //visDetector->SetColour(0.5, 0.5, 0, 0.7);
-    logicBackDetector->SetVisAttributes(visDetector);
-    logicFrontDetector->SetVisAttributes(visDetector);
+    logicDetector->SetVisAttributes(visDetector);
 
     visScintillator = new G4VisAttributes();
     visScintillator->SetColour(0, 0, 1, 0.98);

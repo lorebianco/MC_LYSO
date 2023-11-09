@@ -18,8 +18,6 @@
 
 int main(int argc, char** argv)
 {
-    
-
     G4Random::setTheSeed(time(NULL));
     G4int fSeed = G4Random::getTheSeed();
 

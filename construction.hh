@@ -63,6 +63,8 @@ private:
     //MultiUnion
     G4MultiUnion *solidHoles;
 
+    //Sensitive detectors
+    MySensitiveDetector *sensDet;
 
     G4GenericMessenger *fMessenger;
     G4bool isLightGuide, isPCB, isEndcap;

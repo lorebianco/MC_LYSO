@@ -10,21 +10,15 @@ MySensitiveDetector::~MySensitiveDetector()
 
 void MySensitiveDetector::Initialize(G4HCofThisEvent *hce)
 {
-    fHitsCollectionFront = new MyHitsCollection(SensitiveDetectorName, collectionName[0]);
-    fHitsCollectionBack = new MyHitsCollection(SensitiveDetectorName, collectionName[0]);
-    fHitsCollectionwGhostsFront = new MyHitsCollection(SensitiveDetectorName, collectionName[0]);
-    fHitsCollectionwGhostsBack = new MyHitsCollection(SensitiveDetectorName, collectionName[0]);
-
+    fHitsCollection = new MyHitsCollection(SensitiveDetectorName, collectionName[0]);
     G4int hcID = G4SDManager::GetSDMpointer()->GetCollectionID(collectionName[0]);
-    hce->AddHitsCollection(hcID, fHitsCollectionFront);
-    hce->AddHitsCollection(hcID, fHitsCollectionBack);
-    hce->AddHitsCollection(hcID, fHitsCollectionwGhostsFront); 
-    hce->AddHitsCollection(hcID, fHitsCollectionwGhostsBack);
+
+    hce->AddHitsCollection(hcID, fHitsCollection);
 }
 
 G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
 {
-    MyHit *newHit = new MyHit();
+    newHit = new MyHit();
     G4Track *track = aStep->GetTrack();
     G4StepPoint *preStepPoint = aStep->GetPreStepPoint();
     const G4VTouchable *touchable = preStepPoint->GetTouchable();
@@ -51,75 +45,85 @@ G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
     G4int copyNo = touchable->GetCopyNumber(2); 
         //G4cout << copyNo << G4endl;
 
-    
     newHit->SetTrackID(track->GetTrackID());
-    newHit->SetOpticalPhotonTime(timePhoton);
-    newHit->SetOpticalPhotonPos(posPhoton);
+    newHit->SetOpticalPhotonTime(preStepPoint->GetGlobalTime());
+    newHit->SetOpticalPhotonPos(preStepPoint->GetPosition());
     newHit->SetDetectorPos(posDetector);
-    newHit->SetDetectorChannel(copyNo);
+    newHit->SetDetectorChannel(touchable->GetCopyNumber(2));
+
+    if(G4UniformRand()<=GS.PDE_SiPM) newHit->SetDetection(true);
+    else newHit->SetDetection(false);
+
+    fHitsCollection->insert(newHit);
     
-
-    if(posDetector[2]<200)
-    {
-        fHitsCollectionwGhostsFront->insert(newHit);
-        if(G4UniformRand()<=GS.PDE_SiPM)
-        {
-            fHitsCollectionFront->insert(newHit);
-        }
-    }
-
-    if(posDetector[2]>200)
-    {
-        fHitsCollectionwGhostsBack->insert(newHit);
-        if(G4UniformRand()<=GS.PDE_SiPM)
-        {
-            fHitsCollectionBack->insert(newHit);
-        }
-    }
-
     return true;
 }
 
 
-void MySensitiveDetector::EndOfEvent(G4HCofThisEvent*)
+void MySensitiveDetector::EndOfEvent(G4HCofThisEvent *hce)
 {
-    G4int evt = G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID();
-    G4int entriesF = fHitsCollectionFront->entries();
-    G4int entriesB = fHitsCollectionBack->entries();
-    G4int entriesGhostsF = fHitsCollectionwGhostsFront->entries();
-    G4int entriesGhostsB = fHitsCollectionwGhostsBack->entries();
-
     G4AnalysisManager *man = G4AnalysisManager::Instance();
 
-    man->FillNtupleIColumn(0, 0, evt);
-    man->FillNtupleIColumn(0, 1, entriesF);
-    man->FillNtupleIColumn(0, 2, entriesB);
-    man->FillNtupleIColumn(0, 3, entriesF+entriesB);
-    man->FillNtupleIColumn(0, 4, entriesGhostsF);
-    man->FillNtupleIColumn(0, 5, entriesGhostsB);
-    man->FillNtupleIColumn(0, 6, entriesGhostsF+entriesGhostsB);
-    man->AddNtupleRow(0);
+    MyHitsCollection *THC = NULL;
 
-    for(G4int i = 0; i < entriesF; i++)
+    if(hce)
     {
-        man->FillNtupleIColumn(1, 0, evt);
-        man->FillNtupleDColumn(1, 1, (*fHitsCollectionFront)[i]->GetOpticalPhotonTime());
-        man->FillNtupleDColumn(1, 2, (*fHitsCollectionFront)[i]->GetDetectorPos().x());
-        man->FillNtupleDColumn(1, 3, (*fHitsCollectionFront)[i]->GetDetectorPos().y());
-        man->FillNtupleDColumn(1, 4, (*fHitsCollectionFront)[i]->GetDetectorPos().z());
-        man->FillNtupleIColumn(1, 5, (*fHitsCollectionFront)[i]->GetDetectorChannel());
-        man->AddNtupleRow(1);
+        THC = (MyHitsCollection *)(hce->GetHC(0));
+    }
+    if(THC)
+    {
+        G4int evt = G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID();
+
+        G4int entriesF = 0;
+        G4int entriesB = 0;
+        G4int entrieswGhostsF = 0;
+        G4int entrieswGhostsB = 0;
+
+        G4int nHits = THC->entries();
+
+        for(G4int i = 0; i < nHits; i++)
+        {
+            if((*THC)[i]->GetDetectorPos()[2]<200)
+            {   
+                entrieswGhostsF++;
+                if((*THC)[i]->GetDetection())
+                {
+                    entriesF++;
+                    man->FillNtupleIColumn(1, 0, evt);
+                    man->FillNtupleDColumn(1, 1, (*THC)[i]->GetOpticalPhotonTime());
+                    man->FillNtupleDColumn(1, 2, (*THC)[i]->GetDetectorPos().x());
+                    man->FillNtupleDColumn(1, 3, (*THC)[i]->GetDetectorPos().y());
+                    man->FillNtupleDColumn(1, 4, (*THC)[i]->GetDetectorPos().z());
+                    man->FillNtupleIColumn(1, 5, (*THC)[i]->GetDetectorChannel());
+                    man->AddNtupleRow(1);
+                }
+            }
+
+            if((*THC)[i]->GetDetectorPos()[2]>200)
+            {
+                entrieswGhostsB++;
+                if((*THC)[i]->GetDetection()) 
+                {
+                    entriesB++;
+                    man->FillNtupleIColumn(2, 0, evt);
+                    man->FillNtupleDColumn(2, 1, (*THC)[i]->GetOpticalPhotonTime());
+                    man->FillNtupleDColumn(2, 2, (*THC)[i]->GetDetectorPos().x());
+                    man->FillNtupleDColumn(2, 3, (*THC)[i]->GetDetectorPos().y());
+                    man->FillNtupleDColumn(2, 4, (*THC)[i]->GetDetectorPos().z());
+                    man->FillNtupleIColumn(2, 5, (*THC)[i]->GetDetectorChannel());
+                    man->AddNtupleRow(2);
+                }
+            }
+        }
+
+        man->FillNtupleIColumn(0, 0, evt);
+        man->FillNtupleIColumn(0, 1, entriesF);
+        man->FillNtupleIColumn(0, 2, entriesB);
+        man->FillNtupleIColumn(0, 3, entriesF+entriesB);
+        man->FillNtupleIColumn(0, 4, entrieswGhostsF);
+        man->FillNtupleIColumn(0, 5, entrieswGhostsB);
+        man->FillNtupleIColumn(0, 6, entrieswGhostsF+entrieswGhostsB);
+        man->AddNtupleRow(0);
     }
     
-    for(G4int i = 0; i < entriesB; i++)
-    {
-        man->FillNtupleIColumn(2, 0, evt);
-        man->FillNtupleDColumn(2, 1, (*fHitsCollectionBack)[i]->GetOpticalPhotonTime());
-        man->FillNtupleDColumn(2, 2, (*fHitsCollectionBack)[i]->GetDetectorPos().x());
-        man->FillNtupleDColumn(2, 3, (*fHitsCollectionBack)[i]->GetDetectorPos().y());
-        man->FillNtupleDColumn(2, 4, (*fHitsCollectionBack)[i]->GetDetectorPos().z());
-        man->FillNtupleIColumn(2, 5, (*fHitsCollectionBack)[i]->GetDetectorChannel());
-        man->AddNtupleRow(2);
-    }
-
 }

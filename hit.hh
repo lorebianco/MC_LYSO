@@ -27,6 +27,7 @@ public:
 
     // Set methods
     void SetTrackID(G4int track) { fTrackID = track; }
+    void SetDetection(G4bool detected) {isDetected = detected; }
     void SetOpticalPhotonTime (G4double t) {fOpticalPhotonTime = t; }
     void SetOpticalPhotonPos (G4ThreeVector xyz) { fOpticalPhotonPos = xyz; }
     void SetDetectorPos (G4ThreeVector xyz) {fDetectorPos = xyz; }
@@ -34,6 +35,7 @@ public:
 
     // Get methods
     G4int GetTrackID() const     { return fTrackID; }
+    G4bool GetDetection() {return isDetected; } 
     G4double GetOpticalPhotonTime() const   { return fOpticalPhotonTime; }
     G4ThreeVector GetOpticalPhotonPos() const     { return fOpticalPhotonPos; }
     G4ThreeVector GetDetectorPos() const { return fDetectorPos; }
@@ -41,6 +43,7 @@ public:
 
   private:
     G4int fTrackID = -1;
+    G4bool isDetected;
     G4double fOpticalPhotonTime;
     G4ThreeVector fOpticalPhotonPos, fDetectorPos;
     G4int         fCh = -1;

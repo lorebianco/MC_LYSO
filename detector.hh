@@ -27,13 +27,13 @@ public:
     MyGlobalSettings GS;
     
     virtual void Initialize(G4HCofThisEvent*);
+    virtual G4bool ProcessHits(G4Step *, G4TouchableHistory *);
     virtual void EndOfEvent(G4HCofThisEvent*);
 
+    MyHitsCollection *fHitsCollection;
+
 private:
-    virtual G4bool ProcessHits(G4Step *, G4TouchableHistory *);
-
-    MyHitsCollection *fHitsCollectionFront, *fHitsCollectionBack, *fHitsCollectionwGhostsFront, *fHitsCollectionwGhostsBack;
-
+    MyHit *newHit;
 };
 
 #endif

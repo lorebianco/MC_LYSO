@@ -20,6 +20,7 @@
 #include "globalsettings.hh"
 #include "detector.hh"
 
+
 class MyDetectorConstruction : public G4VUserDetectorConstruction
 {
 public:
@@ -63,8 +64,6 @@ private:
     //MultiUnion
     G4MultiUnion *solidHoles;
 
-    //Sensitive detectors
-    MySensitiveDetector *sensDet;
 
     G4GenericMessenger *fMessenger;
     G4bool isLightGuide, isPCB, isEndcap;

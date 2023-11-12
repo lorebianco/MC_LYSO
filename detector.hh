@@ -16,8 +16,7 @@
 #include "globalsettings.hh"
 #include "hit.hh"
 
-//class G4Step;
-//class G4HCofThisEvent;
+
 
 class MySensitiveDetector : public G4VSensitiveDetector
 {

@@ -368,7 +368,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 
 void MyDetectorConstruction::ConstructSDandField()
 {
-    sensDet = new MySensitiveDetector("SensitiveDetector", "HitsCollection");
+    MySensitiveDetector *sensDet = new MySensitiveDetector("SensitiveDetector", "HitsCollection");
     G4SDManager::GetSDMpointer()->AddNewDetector(sensDet);
     SetSensitiveDetector(logicDetector, sensDet);
 }

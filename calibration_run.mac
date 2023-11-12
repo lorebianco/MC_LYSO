@@ -1,6 +1,6 @@
 /run/numberOfThreads 16
-/run/initialize
 /control/execute construction.mac
+/run/initialize
 /my_gun/calibration/enable true
 /my_gun/calibration/FrontOrBack "F"
 /my_gun/calibration/switchOnLED "u"

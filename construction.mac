@@ -2,4 +2,3 @@
 /my_construction/MaterialOfLightGuide 1
 /my_construction/isPCB true
 /my_construction/isEndcap true
-/run/reinitializeGeometry

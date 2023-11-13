@@ -41,11 +41,11 @@ public:
     const G4double halfYsidePackageSiPM = 3.425*mm;
     const G4double halfZsidePackageSiPM = 0.725*mm;
         //Window in epoxy resin only: it's the detector's mother volume
-    const G4double halfXsideWindowSiPM = halfXsidePackageSiPM;
-    const G4double halfYsideWindowSiPM = halfYsidePackageSiPM;
+    const G4double halfXsideWindowSiPM = 3.425*mm;
+    const G4double halfYsideWindowSiPM = 3.425*mm;
     const G4double halfZsideWindowSiPM = 0.15*mm;
 
-    const G4double xWindowSiPM = 0*mm;
+    const G4double xWindowSiPM = halfXsidePackageSiPM-0.5*mm-halfXsideWindowSiPM;
     const G4double yWindowSiPM = 0*mm;
     const G4double zWindowSiPM = halfZsidePackageSiPM-halfZsideWindowSiPM;
         //detector in Si: note that now it is inside the window
@@ -53,7 +53,7 @@ public:
     const G4double halfYsideDetector = 3*mm;
     const G4double halfZsideDetector = 25*um;
   
-    const G4double xDetector = halfXsideWindowSiPM-0.925*mm-halfXsideDetector;
+    const G4double xDetector = 0*mm;
     const G4double yDetector = 0*mm;
     const G4double zDetector = halfZsideDetector-halfZsideWindowSiPM;
 

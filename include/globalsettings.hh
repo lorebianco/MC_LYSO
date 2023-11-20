@@ -4,9 +4,8 @@
 #include "G4SystemOfUnits.hh"
 
 
-class MyGlobalSettings
+namespace GS
 {
-public:
     //*****     Run settings     *****//
 
 
@@ -80,7 +79,7 @@ public:
     const G4double halfYsideWorld = 0.5*m;
     const G4double halfZsideWorld = 0.5*m;
 
-};
+}
 
 
 #endif

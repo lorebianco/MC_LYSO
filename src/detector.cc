@@ -51,7 +51,7 @@ G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
     newHit->SetDetectorPos(posDetector);
     newHit->SetDetectorChannel(touchable->GetCopyNumber(2));
 
-    if(G4UniformRand()<=GS.PDE_SiPM) newHit->SetDetection(true);
+    if(G4UniformRand()<=GS::PDE_SiPM) newHit->SetDetection(true);
     else newHit->SetDetection(false);
 
     fHitsCollection->insert(newHit);

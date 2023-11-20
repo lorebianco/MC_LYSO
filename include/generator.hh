@@ -25,7 +25,6 @@ public:
 private:
     G4ParticleGun *fParticleGun;
     G4ParticleTable* fParticleTable;
-    MyGlobalSettings GS;
 
     G4GenericMessenger *fMessenger_Run, *fMessenger_Spread, *fMessenger_Calib;
 

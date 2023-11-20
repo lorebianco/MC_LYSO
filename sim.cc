@@ -1,3 +1,10 @@
+////////////////////////////////////////////////////////////////////////////////
+//                        Lorenzo Bianco 27/10/2023                           //
+//                                                                            //
+//        My Montecarlo Simulation for the LYSO calorimeter prototype         //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+
 #include <iostream>
 #include <chrono>
 

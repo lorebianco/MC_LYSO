@@ -35,7 +35,6 @@ private:
     virtual void ConstructSDandField();
     void DefineMaterialsAndSurfaces();
     void DefineVisAttributes();
-    MyGlobalSettings GS;
 
     //Solidi
     G4Box *solidWorld, *solidPackageSiPM, *solidWindowSiPM, *solidDetector;

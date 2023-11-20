@@ -23,7 +23,6 @@ class MySensitiveDetector : public G4VSensitiveDetector
 public:
     MySensitiveDetector(G4String, G4String);
     ~MySensitiveDetector();
-    MyGlobalSettings GS;
     
     virtual void Initialize(G4HCofThisEvent*);
     virtual G4bool ProcessHits(G4Step *, G4TouchableHistory *);

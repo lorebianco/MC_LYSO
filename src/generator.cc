@@ -53,7 +53,7 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent)
         
         if(isSpreadEnabled)
         {
-            G4double fThetaMax = std::atan(radiusSpread/GS.zFrontFaceScintillator);
+            G4double fThetaMax = std::atan(radiusSpread/GS::zFrontFaceScintillator);
             G4double fCosThetaMax = std::cos(fThetaMax);
 
             G4double cosTheta = 1-G4UniformRand()*(1-fCosThetaMax);
@@ -80,13 +80,13 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent)
     {
         G4double posZLed;
         
-        if(chooseFrontorBack=="F") posZLed = GS.zFrontFaceScintillator-GS.halfheightLightGuide; 
-        if(chooseFrontorBack=="B") posZLed = GS.zBackFaceScintillator+GS.halfheightLightGuide; 
+        if(chooseFrontorBack=="F") posZLed = GS::zFrontFaceScintillator-GS::halfheightLightGuide; 
+        if(chooseFrontorBack=="B") posZLed = GS::zBackFaceScintillator+GS::halfheightLightGuide; 
 
-        if(switchOnLED=="u") pos = G4ThreeVector(0, GS.radiusLightGuide-GS.depthLED, posZLed);
-        if(switchOnLED=="d") pos = G4ThreeVector(0, -GS.radiusLightGuide+GS.depthLED, posZLed);
-        if(switchOnLED=="l") pos = G4ThreeVector(GS.radiusLightGuide-GS.depthLED, 0, posZLed);
-        if(switchOnLED=="r") pos = G4ThreeVector(-GS.radiusLightGuide+GS.depthLED, 0, posZLed);
+        if(switchOnLED=="u") pos = G4ThreeVector(0, GS::radiusLightGuide-GS::depthLED, posZLed);
+        if(switchOnLED=="d") pos = G4ThreeVector(0, -GS::radiusLightGuide+GS::depthLED, posZLed);
+        if(switchOnLED=="l") pos = G4ThreeVector(GS::radiusLightGuide-GS::depthLED, 0, posZLed);
+        if(switchOnLED=="r") pos = G4ThreeVector(-GS::radiusLightGuide+GS::depthLED, 0, posZLed);
 
         G4double cosTheta = 2*G4UniformRand() - 1.;
         G4double phi = CLHEP::twopi*G4UniformRand();
@@ -99,7 +99,7 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent)
         G4ParticleDefinition* particle = fParticleTable->FindParticle("opticalphoton");
         fParticleGun->SetParticleDefinition(particle);
         fParticleGun->SetParticlePosition(pos);
-        fParticleGun->SetParticleMomentumDirection(mom);        fParticleGun->SetParticleEnergy(GS.energyLED);
+        fParticleGun->SetParticleMomentumDirection(mom);        fParticleGun->SetParticleEnergy(GS::energyLED);
     }
     
 

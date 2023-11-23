@@ -11,7 +11,7 @@ namespace GS
 
     //*****     Construction settings     *****//
     //Scintillator
-    const G4double radiusScintillator = 3.5*cm;
+    const G4double radiusScintillator = 42.5*mm;
     const G4double halfheightScintillator = 5.*cm;
 
     const G4double xScintillator = 0*cm;
@@ -23,7 +23,7 @@ namespace GS
 
 
     //Light Guide
-    const G4double radiusLightGuide = 3.5*cm;
+    const G4double radiusLightGuide = 42.5*mm;
     const G4double halfheightLightGuide = 1*mm;
     const G4double radiusHole = 0.4*mm;
     const G4double depthHole = 0.5*cm;
@@ -60,12 +60,12 @@ namespace GS
 
 
     //PCB
-    const G4double radiusPCB = 5.*cm;
+    const G4double radiusPCB = 5.25*cm;
     const G4double halfheightPCB = 0.75*mm;
 
 
     //Endcap
-    const G4double radiusEndcap = 5.5*cm;
+    const G4double radiusEndcap = 5.8*cm;
     const G4double halfheightEndcap = 0.25*mm;
 
 

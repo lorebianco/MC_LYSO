@@ -33,6 +33,10 @@ public:
 
 private:
     virtual void ConstructSDandField();
+    void ConstructLightGuide();
+    void ConstructPCB();
+    void ConstructEndcap();
+    void PositionSIPMs(G4int row, G4int col, G4int halfCols, G4int index);
     void DefineMaterialsAndSurfaces();
     void DefineVisAttributes();
     void DefineCommands();

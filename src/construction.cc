@@ -27,11 +27,12 @@ void MyDetectorConstruction::DefineMaterialsAndSurfaces()
 
     G4NistManager *nist = G4NistManager::Instance();
 
+
     //*******************************************************************//
     //**********************       MATERIALS       **********************//
     //*******************************************************************//
     
-    //******************       LYSO       ******************//
+    // LYSO
     fLYSO = new G4Material("LYSO", 7.25*g/cm3, 5, kStateSolid);
     fLYSO->AddElement(nist->FindOrBuildElement("Lu"), 73.8579*perCent);
     fLYSO->AddElement(nist->FindOrBuildElement("Y"), 1.9747*perCent);
@@ -39,7 +40,6 @@ void MyDetectorConstruction::DefineMaterialsAndSurfaces()
     fLYSO->AddElement(nist->FindOrBuildElement("O"), 17.77*perCent);
     fLYSO->AddElement(nist->FindOrBuildElement("Ce"), 0.1556*perCent);
 
-    
     G4MaterialPropertiesTable *mptLYSO = new G4MaterialPropertiesTable();
     
     G4double Energies[nEntries] = {2.97*eV, 3*eV, 3.56*eV};
@@ -56,9 +56,8 @@ void MyDetectorConstruction::DefineMaterialsAndSurfaces()
     mptLYSO->AddConstProperty("SCINTILLATIONYIELD1", 1.);  
     
     fLYSO->SetMaterialPropertiesTable(mptLYSO);
-    //******************************************************//
     
-    //******************       AIR       ******************//
+    // AIR
     fAir = nist->FindOrBuildMaterial("G4_AIR");
     
     G4MaterialPropertiesTable *mptAir = new G4MaterialPropertiesTable();
@@ -67,9 +66,8 @@ void MyDetectorConstruction::DefineMaterialsAndSurfaces()
     mptAir->AddProperty("RINDEX", Energies, AIR_RINDEX, nEntries);
 
     fAir->SetMaterialPropertiesTable(mptAir);
-    //*****************************************************//
 
-    //******************       VACUUM       ******************//
+    // VACUUM
     fVacuum = nist->FindOrBuildMaterial("G4_Galactic");
 
     G4MaterialPropertiesTable *mptVacuum = new G4MaterialPropertiesTable();
@@ -78,22 +76,19 @@ void MyDetectorConstruction::DefineMaterialsAndSurfaces()
     mptVacuum->AddProperty("RINDEX", Energies, VACUUM_RINDEX, nEntries);
 
     fVacuum->SetMaterialPropertiesTable(mptVacuum);
-    //********************************************************//
 
-    //******************       ALUMINIUM       ******************//
+    // ALUMINIUM
     fAluminium = nist->FindOrBuildMaterial("G4_Al");
-    //***********************************************************//
 
-    //******************       SILICON       ******************//
+    // SILICON
     fSilicon = nist->FindOrBuildMaterial("G4_Si");
     G4MaterialPropertiesTable *mptDetector = new G4MaterialPropertiesTable();
-    G4double DETECTOR_RINDEX[nEntries] = {1.55, 1.55, 1.55}; //need to change? should be 3.88, but I THINK it is included in the PDE, so let's fix it at the same value of window (Total transmission)
+    G4double DETECTOR_RINDEX[nEntries] = {1.55, 1.55, 1.55}; //should be 3.88, but it is included in the PDE, so it's fixed at the same value of the window (Total transmission)
     mptDetector->AddProperty("RINDEX", Energies, DETECTOR_RINDEX, nEntries);
 
     fSilicon->SetMaterialPropertiesTable(mptDetector);
-    //*******************************************************************//
 
-    //***********************       EPOXY       ***********************//
+    // EPOXY
     fEpoxy = new G4Material("Epoxy", 1.2*g/cm3, 2);
     fEpoxy->AddElement(nist->FindOrBuildElement("H"), 2);
     fEpoxy->AddElement(nist->FindOrBuildElement("C"), 2);
@@ -102,20 +97,17 @@ void MyDetectorConstruction::DefineMaterialsAndSurfaces()
     mptEpoxy->AddProperty("RINDEX", Energies, EPOXY_RINDEX, nEntries);
 
     fEpoxy->SetMaterialPropertiesTable(mptEpoxy);
-    //*****************************************************************//
 
-    //******************       FR4       ******************//
+    // FR4
     fFR4 = new G4Material("FR4", 1.85*g/cm3, 2);
     fFR4->AddMaterial(nist->FindOrBuildMaterial("G4_SILICON_DIOXIDE"), 52.8*perCent);
     fFR4->AddMaterial(fEpoxy, 47.2*perCent);
-    //*****************************************************//
 
-    //******************       CARBBON FIBER (d=???)       ******************//
+    // CARBBON FIBER (d=???)
     fCarbonFiber = new G4Material("Carbon Fiber", 1.5*g/cm3, 1);
     fCarbonFiber->AddElement(nist->FindOrBuildElement("C"), 1);
-    //***********************************************************************//
 
-    //******************       PLEXIGLASS       ******************//
+    // PLEXIGLASS
     fPlexiglass = nist->FindOrBuildMaterial("G4_PLEXIGLASS");
     
     G4MaterialPropertiesTable *mptPlexiglass = new G4MaterialPropertiesTable();
@@ -125,9 +117,7 @@ void MyDetectorConstruction::DefineMaterialsAndSurfaces()
     
     fPlexiglass->SetMaterialPropertiesTable(mptPlexiglass);
     
-    //************************************************************//
-
-    //******************       SAPPHIRE       ******************//
+    // SAPPHIRE
     fSapphire = new G4Material("Sapphire", 3.98*g/cm3, 2, kStateSolid);
     fSapphire->AddElement(nist->FindOrBuildElement("Al"), 2);
     fSapphire->AddElement(nist->FindOrBuildElement("O"), 3);
@@ -139,17 +129,12 @@ void MyDetectorConstruction::DefineMaterialsAndSurfaces()
 
     fSapphire->SetMaterialPropertiesTable(mptSapphire);
 
-    //**********************************************************//
 
-
-
-
-    
     //********************************************************************//
     //***********************       SURFACES       ***********************//
     //********************************************************************//
 
-    //******************       TAPE SURFACE       ******************//
+    // TAPE SURFACE
     tapeSurface = new G4OpticalSurface("tapeSurface");
     tapeSurface->SetType(dielectric_metal);
     tapeSurface->SetFinish(polished);
@@ -161,156 +146,60 @@ void MyDetectorConstruction::DefineMaterialsAndSurfaces()
     mptTape->AddProperty("REFLECTIVITY", Energies, TAPE_REFLECTIVITY, nEntries);
     
     tapeSurface->SetMaterialPropertiesTable(mptTape);
-    //**************************************************************//
-
 }
 
 
 
 G4VPhysicalVolume *MyDetectorConstruction::Construct()
 {
-    //Light Guide
-    G4double this_radiusLightGuide = GS::radiusLightGuide;
-    G4double this_halfheightLightGuide = GS::halfheightLightGuide;
-    if(!fIsLightGuide)
-    {
-        this_radiusLightGuide = 0.;
-        this_halfheightLightGuide = 0.;
-    }
-
-    //PCB
-    G4double this_radiusPCB = GS::radiusPCB;
-    G4double this_halfheightPCB = GS::halfheightPCB;
-    if(!fIsPCB)
-    {
-        this_radiusPCB = 0.;
-        this_halfheightPCB = 0.;
-    }
-
-    //Endcap
-    G4double this_radiusEndcap = GS::radiusEndcap;
-    G4double this_halfheightEndcap = GS::halfheightEndcap;
-    if(!fIsEndcap)
-    {
-        this_radiusEndcap = 0.;
-        this_halfheightEndcap = 0.;
-    }
-
-    //************************************************************************//
-
-
+    // Construct the World
     solidWorld = new G4Box("solidWorld", GS::halfXsideWorld, GS::halfYsideWorld, GS::halfZsideWorld);
     logicWorld = new G4LogicalVolume(solidWorld, fAir, "logicWorld");
     physWorld = new G4PVPlacement(0, G4ThreeVector(0., 0., 0.), logicWorld, "physWorld", 0, false, 0, true);
 
+    // Construct the crystal
     solidScintillator = new G4Tubs("solidScintillator", 0.*cm, GS::radiusScintillator, GS::halfheightScintillator, 0.*deg, 360.*deg);
     logicScintillator = new G4LogicalVolume(solidScintillator, fLYSO, "logicScintillator");
     physScintillator = new G4PVPlacement(0, G4ThreeVector(GS::xScintillator, GS::yScintillator, GS::zScintillator), logicScintillator, "physScintillator", logicWorld, false, 0, true);
 
+    // Assign the logic scoring volume to the crystal
     fScoringVolume = logicScintillator;
-
-    if(fIsLightGuide)
-    {
-        G4Material *fLightGuideMaterial = 0;
-
-        solidLightGuide = new G4Tubs("solidLightGuide", 0, this_radiusLightGuide, this_halfheightLightGuide, 0.*deg, 360.*deg);
-
-        //Drill 4 holes in the light guide for LEDs 
-        solidHoleUP = new G4Tubs("solidHoleLightGuide", 0, GS::radiusHole, GS::depthHole, 0.*deg, 360*deg);
-        solidHoleDOWN = new G4Tubs("solidHoleLightGuide", 0, GS::radiusHole, GS::depthHole, 0.*deg, 360*deg);
-        solidHoleRIGHT = new G4Tubs("solidHoleLightGuide", 0, GS::radiusHole, GS::depthHole, 0.*deg, 360*deg);
-        solidHoleLEFT = new G4Tubs("solidHoleLightGuide", 0, GS::radiusHole, GS::depthHole, 0.*deg, 360*deg);
-
-        G4Rotate3D rotXholeUP(90*deg, G4ThreeVector(1, 0, 0));
-        G4Translate3D transYholeUP(G4ThreeVector(0, this_radiusLightGuide, 0));
-        G4Transform3D transformHoleUP = (transYholeUP)*(rotXholeUP);
-
-        G4Rotate3D rotXholeDOWN(90*deg, G4ThreeVector(1, 0, 0));
-        G4Translate3D transYholeDOWN(G4ThreeVector(0, -this_radiusLightGuide, 0));
-        G4Transform3D transformHoleDOWN = (transYholeDOWN)*(rotXholeDOWN);
-
-        G4Rotate3D rotYholeRIGHT(90*deg, G4ThreeVector(0, 1, 0));
-        G4Translate3D transYholeRIGHT(G4ThreeVector(this_radiusLightGuide, 0, 0));
-        G4Transform3D transformHoleRIGHT = (transYholeRIGHT)*(rotYholeRIGHT);
-
-        G4Rotate3D rotYholeLEFT(90*deg, G4ThreeVector(0, 1, 0));
-        G4Translate3D transYholeLEFT(G4ThreeVector(-this_radiusLightGuide, 0, 0));
-        G4Transform3D transformHoleLEFT = (transYholeLEFT)*(rotYholeLEFT);
-
-        solidHoles = new G4MultiUnion("solidHoles");
-        solidHoles->AddNode(*solidHoleUP, transformHoleUP);
-        solidHoles->AddNode(*solidHoleDOWN, transformHoleDOWN);
-        solidHoles->AddNode(*solidHoleRIGHT, transformHoleRIGHT);
-        solidHoles->AddNode(*solidHoleLEFT, transformHoleLEFT);
-        solidHoles->Voxelize();
-
-        realsolidLightGuide = new G4SubtractionSolid("LightGuide-Holes", solidLightGuide, solidHoles);
-        
-        //Options for material
-        if(nLightGuideMat==1) //Plexiglass
-        {
-            fLightGuideMaterial = fPlexiglass;
-        }
-        if(nLightGuideMat==2) //Sapphire
-        {
-            fLightGuideMaterial = fSapphire;
-        }
-
-        logicLightGuide = new G4LogicalVolume(realsolidLightGuide, fLightGuideMaterial, "logicLightGuide");
-        physFrontLightGuide = new G4PVPlacement(0, G4ThreeVector(0., 0., GS::zFrontFaceScintillator-this_halfheightLightGuide), logicLightGuide, "physFrontLightGuide", logicWorld, false, 0, true);
-        physBackLightGuide = new G4PVPlacement(0, G4ThreeVector(0., 0., GS::zBackFaceScintillator+this_halfheightLightGuide), logicLightGuide, "physBackLightGuide", logicWorld, false, 1, true);
-    }
     
-    solidCoating = new G4Tubs("solidCoating", (GS::radiusScintillator + GS::coating_space), (GS::radiusScintillator + GS::coating_space + GS::coating_thickness), GS::halfheightScintillator+2*this_halfheightLightGuide, 0.*deg, 360.*deg);
+    // Construct a coating for the crystal and the lightguide (if present)
+    solidCoating = new G4Tubs("solidCoating", (GS::radiusScintillator + GS::coating_space), (GS::radiusScintillator + GS::coating_space + GS::coating_thickness), GS::halfheightScintillator+2*(GS::halfheightLightGuide*fIsLightGuide), 0.*deg, 360.*deg);
     logicCoating = new G4LogicalVolume(solidCoating, fAluminium, "logicCoating");
     physCoating = new G4PVPlacement(0, G4ThreeVector(GS::xScintillator, GS::yScintillator, GS::zScintillator), logicCoating, "physCoating", logicWorld, false, 0, true);
     
     tapeSkin = new G4LogicalSkinSurface("tapeSkin", logicCoating, tapeSurface);
 
-    if(fIsPCB)
-    {
-        solidPCB = new G4Tubs("solidPCB", 0, this_radiusPCB, this_halfheightPCB, 0.*deg, 360.*deg);
-        logicPCB = new G4LogicalVolume(solidPCB, fFR4, "logicPCB");
-        physFrontPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zFrontFaceScintillator-2*this_halfheightLightGuide-2*GS::halfZsidePackageSiPM-this_halfheightPCB), logicPCB, "physFrontPCB", logicWorld, false, 0, true);
-        physBackPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zBackFaceScintillator+2*this_halfheightLightGuide+2*GS::halfZsidePackageSiPM+this_halfheightPCB), logicPCB, "physBackPCB", logicWorld, false, 1, true);
-    }
+    // Construct lightguides, PCBs and endcaps -if setted-
+    if(fIsLightGuide) ConstructLightGuide();
+    if(fIsPCB) ConstructPCB();
+    if(fIsEndcap) ConstructEndcap();
 
-    if(fIsEndcap)
-    {
-        solidEndcap = new G4Tubs("solidEndcap", 0, this_radiusEndcap, this_halfheightEndcap, 0.*deg, 360.*deg);
-        logicEndcap = new G4LogicalVolume(solidEndcap, fCarbonFiber, "logicEndcap");
-        physFrontEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zFrontFaceScintillator-2*this_halfheightLightGuide-2*GS::halfZsidePackageSiPM-2*this_halfheightPCB-this_halfheightEndcap), logicEndcap, "physFrontEndcap", logicWorld, false, 0, true);
-        physBackEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zBackFaceScintillator+2*this_halfheightLightGuide+2*GS::halfZsidePackageSiPM+2*this_halfheightPCB+this_halfheightEndcap), logicEndcap, "physBackEndcap", logicWorld, false, 1, true);
-    }
-
-
+    // Construct the package of the SIPM
     solidPackageSiPM = new G4Box("solidPackageSiPM", GS::halfXsidePackageSiPM, GS::halfYsidePackageSiPM, GS::halfZsidePackageSiPM);
     logicPackageSiPM = new G4LogicalVolume(solidPackageSiPM, fFR4, "logicPackageSiPM");
 
+    // Construct the window of the SIPM and put it inside the package
     solidWindowSiPM = new G4Box("solidWindowSiPM", GS::halfXsideWindowSiPM, GS::halfYsideWindowSiPM, GS::halfZsideWindowSiPM);
     logicWindowSiPM = new G4LogicalVolume(solidWindowSiPM, fEpoxy, "logicWindowSiPM");
     physWindowSiPM = new G4PVPlacement(0, G4ThreeVector(GS::xWindowSiPM, GS::yWindowSiPM, GS::zWindowSiPM), logicWindowSiPM, "physWindowSiPM", logicPackageSiPM, false, 0, true);
 
+    // Construct the silicon layer and put it inside the window
     solidDetector = new G4Box("solidDetector", GS::halfXsideDetector, GS::halfYsideDetector, GS::halfZsideDetector);
     logicDetector = new G4LogicalVolume(solidDetector, fSilicon, "logicDetector");
     physDetector = new G4PVPlacement(0, G4ThreeVector(GS::xDetector, GS::yDetector, GS::zDetector), logicDetector, "physDetector", logicWindowSiPM, false, 0, true);
 
-    //Define the arrangement of SiPMs
+    // Define the arrangement of SiPMs
     G4int indexDetector = 0;
-    G4Rotate3D rotXBackDet(180*deg, G4ThreeVector(1, 0, 0));
     for(G4int i = 0; i<13; i++)
     {
         if(i==0 || i==12)
         {
             for(G4int j = 0; j<3; j++)
             {
-                physFrontPackageSiPM = new G4PVPlacement(0,G4ThreeVector((2*GS::halfXsidePackageSiPM*(j-1))*mm, (2*GS::halfYsidePackageSiPM*(6-i))*mm, GS::zFrontFaceScintillator-2*this_halfheightLightGuide-GS::halfZsidePackageSiPM), logicPackageSiPM, "physFrontPackageSiPM", logicWorld, false, indexDetector, true);
-                
-                G4Translate3D transBackDet(G4ThreeVector(2*GS::halfXsidePackageSiPM*(j-1), 2*GS::halfYsidePackageSiPM*(6-i), GS::zBackFaceScintillator+2*this_halfheightLightGuide+GS::halfZsidePackageSiPM));
-                G4Transform3D transformBackDet = (transBackDet)*(rotXBackDet);
-                
-                physBackPackageSiPM = new G4PVPlacement(transformBackDet, logicPackageSiPM, "physBackPackageSiPM", logicWorld, false, indexDetector, true);
-
+                PositionSIPMs(i, j, 1, indexDetector);
                 indexDetector++;
             }
         }
@@ -318,13 +207,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<7; j++)
             {
-                physFrontPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS::halfXsidePackageSiPM*(j-3), 2*GS::halfYsidePackageSiPM*(6-i), GS::zFrontFaceScintillator-2*this_halfheightLightGuide-GS::halfZsidePackageSiPM), logicPackageSiPM, "physFrontPackageSiPM", logicWorld, false, indexDetector, true);
-                
-                G4Translate3D transBackDet(G4ThreeVector(2*GS::halfXsidePackageSiPM*(j-3), 2*GS::halfYsidePackageSiPM*(6-i), GS::zBackFaceScintillator+2*this_halfheightLightGuide+GS::halfZsidePackageSiPM));
-                G4Transform3D transformBackDet = (transBackDet)*(rotXBackDet);
-
-                physBackPackageSiPM = new G4PVPlacement(transformBackDet, logicPackageSiPM, "physBackPackageSiPM", logicWorld, false, indexDetector, true);
-                
+                PositionSIPMs(i, j, 3, indexDetector);
                 indexDetector++;
             }
         }
@@ -332,13 +215,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<9; j++)
             {
-                physFrontPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS::halfXsidePackageSiPM*(j-4), 2*GS::halfYsidePackageSiPM*(6-i), GS::zFrontFaceScintillator-2*this_halfheightLightGuide-GS::halfZsidePackageSiPM), logicPackageSiPM, "physFrontPackageSiPM", logicWorld, false, indexDetector, true);
-                
-                G4Translate3D transBackDet(G4ThreeVector(2*GS::halfXsidePackageSiPM*(j-4), 2*GS::halfYsidePackageSiPM*(6-i), GS::zBackFaceScintillator+2*this_halfheightLightGuide+GS::halfZsidePackageSiPM));
-                G4Transform3D transformBackDet = (transBackDet)*(rotXBackDet);
-
-                physBackPackageSiPM = new G4PVPlacement(transformBackDet, logicPackageSiPM, "physBackPackageSiPM", logicWorld, false, indexDetector, true);
-             
+                PositionSIPMs(i, j, 4, indexDetector);
                 indexDetector++;
             }
         }
@@ -346,13 +223,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<11; j++)
             {
-                physFrontPackageSiPM = new G4PVPlacement(0,G4ThreeVector(2*GS::halfXsidePackageSiPM*(j-5), 2*GS::halfYsidePackageSiPM*(6-i), GS::zFrontFaceScintillator-2*this_halfheightLightGuide-GS::halfZsidePackageSiPM), logicPackageSiPM, "physFrontPackageSiPM", logicWorld, false, indexDetector, true);
-                
-                G4Translate3D transBackDet(G4ThreeVector(2*GS::halfXsidePackageSiPM*(j-5), 2*GS::halfYsidePackageSiPM*(6-i), GS::zBackFaceScintillator+2*this_halfheightLightGuide+GS::halfZsidePackageSiPM));
-                G4Transform3D transformBackDet = (transBackDet)*(rotXBackDet);
-
-                physBackPackageSiPM = new G4PVPlacement(transformBackDet, logicPackageSiPM, "physBackPackageSiPM", logicWorld, false, indexDetector, true);
-
+                PositionSIPMs(i, j, 5, indexDetector);
                 indexDetector++;
             }
         }
@@ -371,6 +242,97 @@ void MyDetectorConstruction::ConstructSDandField()
     MySensitiveDetector *sensDet = new MySensitiveDetector("SensitiveDetector", "HitsCollection");
     G4SDManager::GetSDMpointer()->AddNewDetector(sensDet);
     SetSensitiveDetector(logicDetector, sensDet);
+}
+
+
+
+void MyDetectorConstruction::ConstructLightGuide()
+{
+    G4Material *fLightGuideMaterial = 0;
+
+    solidLightGuide = new G4Tubs("solidLightGuide", 0, GS::radiusLightGuide, GS::halfheightLightGuide, 0.*deg, 360.*deg);
+
+    // Drill 4 holes in the light guide for LEDs 
+    solidHoleUP = new G4Tubs("solidHoleLightGuide", 0, GS::radiusHole, GS::depthHole, 0.*deg, 360*deg);
+    solidHoleDOWN = new G4Tubs("solidHoleLightGuide", 0, GS::radiusHole, GS::depthHole, 0.*deg, 360*deg);
+    solidHoleRIGHT = new G4Tubs("solidHoleLightGuide", 0, GS::radiusHole, GS::depthHole, 0.*deg, 360*deg);
+    solidHoleLEFT = new G4Tubs("solidHoleLightGuide", 0, GS::radiusHole, GS::depthHole, 0.*deg, 360*deg);
+
+    G4Rotate3D rotXholeUP(90*deg, G4ThreeVector(1, 0, 0));
+    G4Translate3D transYholeUP(G4ThreeVector(0, GS::radiusLightGuide, 0));
+    G4Transform3D transformHoleUP = (transYholeUP)*(rotXholeUP);
+
+    G4Rotate3D rotXholeDOWN(90*deg, G4ThreeVector(1, 0, 0));
+    G4Translate3D transYholeDOWN(G4ThreeVector(0, -GS::radiusLightGuide, 0));
+    G4Transform3D transformHoleDOWN = (transYholeDOWN)*(rotXholeDOWN);
+
+    G4Rotate3D rotYholeRIGHT(90*deg, G4ThreeVector(0, 1, 0));
+    G4Translate3D transYholeRIGHT(G4ThreeVector(GS::radiusLightGuide, 0, 0));
+    G4Transform3D transformHoleRIGHT = (transYholeRIGHT)*(rotYholeRIGHT);
+
+    G4Rotate3D rotYholeLEFT(90*deg, G4ThreeVector(0, 1, 0));
+    G4Translate3D transYholeLEFT(G4ThreeVector(-GS::radiusLightGuide, 0, 0));
+    G4Transform3D transformHoleLEFT = (transYholeLEFT)*(rotYholeLEFT);
+
+    solidHoles = new G4MultiUnion("solidHoles");
+    solidHoles->AddNode(*solidHoleUP, transformHoleUP);
+    solidHoles->AddNode(*solidHoleDOWN, transformHoleDOWN);
+    solidHoles->AddNode(*solidHoleRIGHT, transformHoleRIGHT);
+    solidHoles->AddNode(*solidHoleLEFT, transformHoleLEFT);
+    solidHoles->Voxelize();
+
+    realsolidLightGuide = new G4SubtractionSolid("LightGuide-Holes", solidLightGuide, solidHoles);
+        
+    // Options for material
+    switch(nLightGuideMat)
+    {
+        case 1:    // Plexiglass
+            fLightGuideMaterial = fPlexiglass;
+            break;
+        case 2:    // Sapphire
+            fLightGuideMaterial = fSapphire;
+            break;
+        default:
+            G4cout << "Option for lightguide's material not valid. \"Plexiglass\" has been setted" << G4endl;
+            fLightGuideMaterial = fPlexiglass;
+    }
+
+    logicLightGuide = new G4LogicalVolume(realsolidLightGuide, fLightGuideMaterial, "logicLightGuide");
+    physFrontLightGuide = new G4PVPlacement(0, G4ThreeVector(0., 0., GS::zFrontFaceScintillator-GS::halfheightLightGuide), logicLightGuide, "physFrontLightGuide", logicWorld, false, 0, true);
+    physBackLightGuide = new G4PVPlacement(0, G4ThreeVector(0., 0., GS::zBackFaceScintillator+GS::halfheightLightGuide), logicLightGuide, "physBackLightGuide", logicWorld, false, 1, true);
+}
+
+
+
+void MyDetectorConstruction::ConstructPCB()
+{
+    solidPCB = new G4Tubs("solidPCB", 0, GS::radiusPCB, GS::halfheightPCB, 0.*deg, 360.*deg);
+    logicPCB = new G4LogicalVolume(solidPCB, fFR4, "logicPCB");
+    physFrontPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zFrontFaceScintillator-2*(GS::halfheightLightGuide*fIsLightGuide)-2*GS::halfZsidePackageSiPM-GS::halfheightPCB), logicPCB, "physFrontPCB", logicWorld, false, 0, true);
+    physBackPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zBackFaceScintillator+2*(GS::halfheightLightGuide*fIsLightGuide)+2*GS::halfZsidePackageSiPM+GS::halfheightPCB), logicPCB, "physBackPCB", logicWorld, false, 1, true);
+}
+
+
+
+void MyDetectorConstruction::ConstructEndcap()
+{
+    solidEndcap = new G4Tubs("solidEndcap", 0, GS::radiusEndcap, GS::halfheightEndcap, 0.*deg, 360.*deg);
+    logicEndcap = new G4LogicalVolume(solidEndcap, fCarbonFiber, "logicEndcap");
+    physFrontEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zFrontFaceScintillator-2*(GS::halfheightLightGuide*fIsLightGuide)-2*GS::halfZsidePackageSiPM-2*(GS::halfheightPCB*fIsPCB)-GS::halfheightEndcap), logicEndcap, "physFrontEndcap", logicWorld, false, 0, true);
+    physBackEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zBackFaceScintillator+2*(GS::halfheightLightGuide*fIsLightGuide)+2*GS::halfZsidePackageSiPM+2*(GS::halfheightPCB*fIsPCB)+GS::halfheightEndcap), logicEndcap, "physBackEndcap", logicWorld, false, 1, true);
+}
+
+
+
+void MyDetectorConstruction::PositionSIPMs(G4int row, G4int col, G4int halfCols, G4int index)
+{
+    physFrontPackageSiPM = new G4PVPlacement(0,G4ThreeVector((2*GS::halfXsidePackageSiPM*(col-halfCols)), (2*GS::halfYsidePackageSiPM*(6-row)), GS::zFrontFaceScintillator-2*(GS::halfheightLightGuide*fIsLightGuide)-GS::halfZsidePackageSiPM), logicPackageSiPM, "physFrontPackageSiPM", logicWorld, false, index, true);
+    
+    G4Rotate3D rotXBackDet(180*deg, G4ThreeVector(1, 0, 0));
+    G4Translate3D transBackDet(G4ThreeVector(2*GS::halfXsidePackageSiPM*(col-halfCols), 2*GS::halfYsidePackageSiPM*(6-row), GS::zBackFaceScintillator+2*(GS::halfheightLightGuide*fIsLightGuide)+GS::halfZsidePackageSiPM));
+    G4Transform3D transformBackDet = (transBackDet)*(rotXBackDet);
+                
+    physBackPackageSiPM = new G4PVPlacement(transformBackDet, logicPackageSiPM, "physBackPackageSiPM", logicWorld, false, index, true);
 }
 
 

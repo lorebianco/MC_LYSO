@@ -8,7 +8,7 @@ MyPrimaryGenerator::MyPrimaryGenerator()
     fIsSpreadEnabled = false;
     fRadiusSpread = 10*mm;
 
-    fIsCalibrationEnabled = true;
+    fIsCalibrationEnabled = false;
     fChooseFrontorBack = "F";
     fSwitchOnLED = "u";
 

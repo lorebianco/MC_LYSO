@@ -19,4 +19,4 @@ private:
     MyEventAction *fEventAction;
 };
 
-#endif
+#endif  //STEPPING_HH

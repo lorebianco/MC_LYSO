@@ -1,12 +1,14 @@
 #include "stepping.hh"
 
-MySteppingAction::MySteppingAction(MyEventAction *eventAction)
-{
-    fEventAction = eventAction;
-}
+MySteppingAction::MySteppingAction(MyEventAction *eventAction) : fEventAction(eventAction)
+{}
+
+
 
 MySteppingAction::~MySteppingAction()
 {}
+
+
 
 void MySteppingAction::UserSteppingAction(const G4Step *step)
 {
@@ -17,11 +19,11 @@ void MySteppingAction::UserSteppingAction(const G4Step *step)
     G4LogicalVolume *fScoringVolume = detectorConstruction->GetScoringVolume();
 
     
-    //Qui sto selezionando che voglio SOLO ciò che accade nel cristallo
+    // Here I'm selecting that I want data ONLY in the crystal
     if(volume != fScoringVolume)
         return;
     
-    //Non registrare i fotoni ottici (PDGEncoding == -22), non rispettano la conservazione dell'energia
+    // Do not register optical photons (PDGEncoding == -22), they DON'T respect energy conservation
     if(step->GetTrack()->GetParticleDefinition()->GetPDGEncoding()==-22)
         return;
 
@@ -40,5 +42,4 @@ void MySteppingAction::UserSteppingAction(const G4Step *step)
     
     G4ThreeVector maxedeppos = (step->GetPreStepPoint()->GetPosition() + step->GetPostStepPoint()->GetPosition())/2;
     fEventAction->FindMaxEdepPos(edep, maxedeppos);
-
 }

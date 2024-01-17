@@ -19,8 +19,12 @@ MyDetectorConstruction::MyDetectorConstruction()
     DefineMaterialsAndSurfaces();
 }
 
+
+
 MyDetectorConstruction::~MyDetectorConstruction()
 {}
+
+
 
 void MyDetectorConstruction::DefineMaterialsAndSurfaces()
 {
@@ -166,6 +170,8 @@ void MyDetectorConstruction::DefineMaterialsAndSurfaces()
     //**************************************************************//
 
 }
+
+
 
 G4VPhysicalVolume *MyDetectorConstruction::Construct()
 {

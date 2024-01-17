@@ -6,10 +6,7 @@
 #include "G4Allocator.hh"
 #include "G4ThreeVector.hh"
 #include "tls.hh"
-
 #include "G4UnitsTable.hh"
-
-#include <iomanip>
 
 
 class MyHit : public G4VHit
@@ -18,51 +15,54 @@ public:
     MyHit();
     ~MyHit();
 
-    // operators
+    // Operators
     MyHit& operator=(const MyHit&) = default;
     G4bool operator==(const MyHit&) const;
-
     inline void* operator new(size_t);
-    inline void  operator delete(void*);
+    inline void operator delete(void*);
 
     // Set methods
-    void SetTrackID(G4int track) { fTrackID = track; }
-    void SetDetection(G4bool detected) {isDetected = detected; }
-    void SetOpticalPhotonTime (G4double t) {fOpticalPhotonTime = t; }
-    void SetOpticalPhotonPos (G4ThreeVector xyz) { fOpticalPhotonPos = xyz; }
-    void SetDetectorPos (G4ThreeVector xyz) {fDetectorPos = xyz; }
-    void SetDetectorChannel(G4int ch)      { fCh = ch; }
+    inline void SetDetection(G4bool detected) { isDetected = detected; }
+    inline void SetOpticalPhotonTime(G4double t) { fOpticalPhotonTime = t; }
+    inline void SetOpticalPhotonPos(G4ThreeVector xyz) { fOpticalPhotonPos = xyz; }
+    inline void SetDetectorPos(G4ThreeVector xyz) { fDetectorPos = xyz; }
+    inline void SetDetectorChannel(G4int ch) { fCh = ch; }
 
     // Get methods
-    G4int GetTrackID() const     { return fTrackID; }
-    G4bool GetDetection() {return isDetected; } 
-    G4double GetOpticalPhotonTime() const   { return fOpticalPhotonTime; }
-    G4ThreeVector GetOpticalPhotonPos() const     { return fOpticalPhotonPos; }
-    G4ThreeVector GetDetectorPos() const { return fDetectorPos; }
-    G4int GetDetectorChannel() const { return fCh; }
+    inline G4bool GetDetection() const { return isDetected; } 
+    inline G4double GetOpticalPhotonTime() const { return fOpticalPhotonTime; }
+    inline G4ThreeVector GetOpticalPhotonPos() const { return fOpticalPhotonPos; }
+    inline G4ThreeVector GetDetectorPos() const { return fDetectorPos; }
+    inline G4int GetDetectorChannel() const { return fCh; }
 
-  private:
-    G4int fTrackID = -1;
+private:
     G4bool isDetected;
     G4double fOpticalPhotonTime;
-    G4ThreeVector fOpticalPhotonPos, fDetectorPos;
-    G4int         fCh = -1;
+    G4ThreeVector fOpticalPhotonPos;
+    G4ThreeVector fDetectorPos;
+    G4int         fCh;
 };
+
 
 using MyHitsCollection = G4THitsCollection<MyHit>;
 
+
 extern G4ThreadLocal G4Allocator<MyHit>* MyHitAllocator;
+
 
 inline void* MyHit::operator new(size_t)
 {
-  if(!MyHitAllocator)
-      MyHitAllocator = new G4Allocator<MyHit>;
-  return (void *) MyHitAllocator->MallocSingle();
+    if(!MyHitAllocator)
+        MyHitAllocator = new G4Allocator<MyHit>;
+    return (void *) MyHitAllocator->MallocSingle();
 }
+
+
+
 
 inline void MyHit::operator delete(void *hit)
 {
-  MyHitAllocator->FreeSingle((MyHit*) hit);
+    MyHitAllocator->FreeSingle((MyHit*) hit);
 }
 
-#endif
+#endif  // HIT_HH

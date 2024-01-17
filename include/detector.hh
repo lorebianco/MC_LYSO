@@ -11,7 +11,6 @@
 #include "G4SDManager.hh"
 #include "G4ios.hh"
 #include "G4AnalysisManager.hh"
-#include <vector>
 
 #include "globalsettings.hh"
 #include "hit.hh"
@@ -26,12 +25,11 @@ public:
     
     virtual void Initialize(G4HCofThisEvent*);
     virtual G4bool ProcessHits(G4Step *, G4TouchableHistory *);
-    virtual void EndOfEvent(G4HCofThisEvent*);
-
-    MyHitsCollection *fHitsCollection;
+    //virtual void EndOfEvent(G4HCofThisEvent*);
 
 private:
     MyHit *newHit;
+    MyHitsCollection *fHitsCollection;
 };
 
-#endif
+#endif  //DETECTOR_HH

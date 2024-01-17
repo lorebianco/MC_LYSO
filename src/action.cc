@@ -3,25 +3,33 @@
 MyActionInitialization::MyActionInitialization()
 {}
 
+
+
 MyActionInitialization::~MyActionInitialization()
 {}
 
+
+
 void MyActionInitialization::BuildForMaster() const
 {
-    MyRunAction *runAction = new MyRunAction();
+    MyEventAction *eventAction = new MyEventAction();
+    
+    MyRunAction *runAction = new MyRunAction(eventAction);
     SetUserAction(runAction);
 }
+
+
 
 void MyActionInitialization::Build() const
 {
     MyPrimaryGenerator *generator = new MyPrimaryGenerator();
     SetUserAction(generator);
 
-    MyRunAction *runAction = new MyRunAction();
-    SetUserAction(runAction);
-
-    MyEventAction *eventAction = new MyEventAction(runAction);
+    MyEventAction *eventAction = new MyEventAction();
     SetUserAction(eventAction);
+
+    MyRunAction *runAction = new MyRunAction(eventAction);
+    SetUserAction(runAction);
 
     MySteppingAction *steppingAction = new MySteppingAction(eventAction);
     SetUserAction(steppingAction);

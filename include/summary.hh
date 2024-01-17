@@ -54,14 +54,14 @@ void MC_summary(G4String macrofile, int seed, double duration, const std::string
     while (std::getline(run_file, line)) {
         line = line.substr(line.find_first_not_of(" \t"));
 
-        if (line.find("/my_gun/spread/enable true") != std::string::npos) {
+        if (line.find("/my_gun/enableSpread true") != std::string::npos) {
             outfile << "Spread: ON" << std::endl;
             boolSpread = true;
-        } else if (line.find("/my_gun/spread/enable false") != std::string::npos) {
+        } else if (line.find("/my_gun/enableSpread false") != std::string::npos) {
             outfile << "Spread: OFF" << std::endl;
             boolSpread = false;
-        } else if (boolSpread && line.find("/my_gun/spread/radiusSpread") != std::string::npos) {
-            std::string radius_value = extract_value(line, "/my_gun/spread/radiusSpread");
+        } else if (boolSpread && line.find("/my_gun/radiusSpread") != std::string::npos) {
+            std::string radius_value = extract_value(line, "/my_gun/radiusSpread");
             if (!radius_value.empty()) {
                 outfile << "RadiusSpread: " << radius_value << std::endl;
             }

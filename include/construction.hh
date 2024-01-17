@@ -35,39 +35,39 @@ private:
     virtual void ConstructSDandField();
     void DefineMaterialsAndSurfaces();
     void DefineVisAttributes();
+    void DefineCommands();
 
-    //Solidi
+    // Solidi
     G4Box *solidWorld, *solidPackageSiPM, *solidWindowSiPM, *solidDetector;
     G4Tubs *solidScintillator, *solidCoating, *solidPCB, *solidEndcap, *solidLightGuide, *solidHoleUP, *solidHoleDOWN, *solidHoleRIGHT, *solidHoleLEFT;
     G4VSolid *realsolidLightGuide;
 
-    //Volumi logici
+    // Volumi logici
     G4LogicalVolume *logicWorld, *logicPackageSiPM, *logicWindowSiPM, *logicDetector, *logicScintillator, *logicCoating, *logicPCB, *logicEndcap, *logicLightGuide;
+    
+    // Scoring volume
+    G4LogicalVolume *fScoringVolume;
 
-    //Volumi fisici
+    // Volumi fisici
     G4VPhysicalVolume *physWorld, *physScintillator, *physFrontPackageSiPM, *physBackPackageSiPM, *physWindowSiPM, *physDetector, *physCoating, *physFrontPCB, *physBackPCB, *physFrontEndcap, *physBackEndcap, *physFrontLightGuide, *physBackLightGuide;
 
-    //G4VisAttributes 
+    // MultiUnion
+    G4MultiUnion *solidHoles;
+
+    // Vis Attributes 
     G4VisAttributes  *visScintillator, *visLightGuide, *visCoating, *visPackage, *visWindow, *visDetector, *visPCB, *visEndcap;
 
-    //Materiali
+    // Materiali
     G4Material *fLYSO, *fAir, *fVacuum, *fAluminium, *fSilicon, *fMylar, *fEpoxy, *fFR4, *fCarbonFiber, *fPlexiglass, *fSapphire;
 
-    //Superfici
+    // Superfici
     G4OpticalSurface *tapeSurface;
     G4LogicalSkinSurface *tapeSkin;
 
-    //Scoring volume
-    G4LogicalVolume *fScoringVolume;
-
-    //MultiUnion
-    G4MultiUnion *solidHoles;
-
-
+    // Generic Messenger and settable variables 
     G4GenericMessenger *fMessenger;
-    G4bool isLightGuide, isPCB, isEndcap;
+    G4bool fIsLightGuide, fIsPCB, fIsEndcap;
     G4int nLightGuideMat;
-
 };
 
 

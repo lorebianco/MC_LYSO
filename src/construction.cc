@@ -2,19 +2,13 @@
 
 MyDetectorConstruction::MyDetectorConstruction()
 {
-    //Define my UD-messenger
-    fMessenger = new G4GenericMessenger(this, "/my_construction/", "Construction settings");
-    fMessenger->DeclareProperty("isLightGuide", isLightGuide, "Set if the two light guides are present");
-    fMessenger->DeclareProperty("isPCB", isPCB, "Set if the two PCBs are present");
-    fMessenger->DeclareProperty("isEndcap", isEndcap, "Set if the two endcaps are present");
-    fMessenger->DeclareProperty("MaterialOfLightGuide", nLightGuideMat, "Set the material of light guide: 1 = Plexiglass, 2 = Sapphire");
-    //*********************************//
+    DefineCommands();
     
-    isLightGuide = false;
-    nLightGuideMat = 1;
-
-    isPCB = true;
-    isEndcap = true;
+    // Default settings
+    fIsLightGuide = false;
+    nLightGuideMat = 1;    
+    fIsPCB = true;
+    fIsEndcap = true;
 
     DefineMaterialsAndSurfaces();
 }
@@ -178,7 +172,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     //Light Guide
     G4double this_radiusLightGuide = GS::radiusLightGuide;
     G4double this_halfheightLightGuide = GS::halfheightLightGuide;
-    if(!isLightGuide)
+    if(!fIsLightGuide)
     {
         this_radiusLightGuide = 0.;
         this_halfheightLightGuide = 0.;
@@ -187,7 +181,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     //PCB
     G4double this_radiusPCB = GS::radiusPCB;
     G4double this_halfheightPCB = GS::halfheightPCB;
-    if(!isPCB)
+    if(!fIsPCB)
     {
         this_radiusPCB = 0.;
         this_halfheightPCB = 0.;
@@ -196,7 +190,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     //Endcap
     G4double this_radiusEndcap = GS::radiusEndcap;
     G4double this_halfheightEndcap = GS::halfheightEndcap;
-    if(!isEndcap)
+    if(!fIsEndcap)
     {
         this_radiusEndcap = 0.;
         this_halfheightEndcap = 0.;
@@ -215,7 +209,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 
     fScoringVolume = logicScintillator;
 
-    if(isLightGuide)
+    if(fIsLightGuide)
     {
         G4Material *fLightGuideMaterial = 0;
 
@@ -273,7 +267,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     
     tapeSkin = new G4LogicalSkinSurface("tapeSkin", logicCoating, tapeSurface);
 
-    if(isPCB)
+    if(fIsPCB)
     {
         solidPCB = new G4Tubs("solidPCB", 0, this_radiusPCB, this_halfheightPCB, 0.*deg, 360.*deg);
         logicPCB = new G4LogicalVolume(solidPCB, fFR4, "logicPCB");
@@ -281,7 +275,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         physBackPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zBackFaceScintillator+2*this_halfheightLightGuide+2*GS::halfZsidePackageSiPM+this_halfheightPCB), logicPCB, "physBackPCB", logicWorld, false, 1, true);
     }
 
-    if(isEndcap)
+    if(fIsEndcap)
     {
         solidEndcap = new G4Tubs("solidEndcap", 0, this_radiusEndcap, this_halfheightEndcap, 0.*deg, 360.*deg);
         logicEndcap = new G4LogicalVolume(solidEndcap, fCarbonFiber, "logicEndcap");
@@ -383,21 +377,21 @@ void MyDetectorConstruction::ConstructSDandField()
 
 void MyDetectorConstruction::DefineVisAttributes()
 {
-    if(isEndcap)
+    if(fIsEndcap)
     {
         visEndcap = new G4VisAttributes();
         visEndcap->SetColour(0.5, 0.5, 0.5, 0.5);
         logicEndcap->SetVisAttributes(visEndcap);
     }
     
-    if(isPCB)
+    if(fIsPCB)
     {
         visPCB = new G4VisAttributes();
         visPCB->SetColour(0, 1, 0, 0.65);
         logicPCB->SetVisAttributes(visPCB);
     }
 
-    if(isLightGuide)
+    if(fIsLightGuide)
     {
         visLightGuide = new G4VisAttributes();
         visLightGuide->SetColour(1, 1, 1, 0.5);
@@ -426,4 +420,16 @@ void MyDetectorConstruction::DefineVisAttributes()
     //visCoating->SetColour(0, 0, 0, 0);
     visCoating->SetVisibility(false);
     logicCoating->SetVisAttributes(visCoating);
+}
+
+
+
+void MyDetectorConstruction::DefineCommands()
+{
+    // Define my UD-messenger for the detector construction
+    fMessenger = new G4GenericMessenger(this, "/my_construction/", "Construction settings");
+    fMessenger->DeclareProperty("isLightGuide", fIsLightGuide, "Set if the two light guides are present");
+    fMessenger->DeclareProperty("isPCB", fIsPCB, "Set if the two PCBs are present");
+    fMessenger->DeclareProperty("isEndcap", fIsEndcap, "Set if the two endcaps are present");
+    fMessenger->DeclareProperty("MaterialOfLightGuide", nLightGuideMat, "Set the material of light guide: 1 = Plexiglass, 2 = Sapphire");
 }

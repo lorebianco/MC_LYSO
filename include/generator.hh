@@ -23,15 +23,19 @@ public:
         virtual void GeneratePrimaries(G4Event*);
 
 private:
+    void DefineCommands();
+
     G4ParticleGun *fParticleGun;
     G4ParticleTable* fParticleTable;
 
-    G4GenericMessenger *fMessenger_Run, *fMessenger_Spread, *fMessenger_Calib;
+    // Generic Messengers
+    G4GenericMessenger *fMessenger_Gun; 
+    G4GenericMessenger *fMessenger_Calib;
 
-    //Define variables that want to set as UI
-    G4double meanEnergy, sigmaEnergy, radiusSpread;
-    G4bool isSpreadEnabled, isCalibrationEnabled;
-    G4String chooseFrontorBack, switchOnLED;
+    // Define variables that want to set as UI
+    G4double fMeanEnergy, fSigmaEnergy, fRadiusSpread;
+    G4bool fIsSpreadEnabled, fIsCalibrationEnabled;
+    G4String fChooseFrontorBack, fSwitchOnLED;
 
 };
 

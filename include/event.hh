@@ -20,9 +20,9 @@ public:
     virtual void BeginOfEventAction(const G4Event*);
     virtual void EndOfEventAction(const G4Event*);
 
-    inline void FindEntryTime(G4double newtimein) {fTimeIn = newtimein; }
-    inline void FindEntryPosition(G4ThreeVector newposin) {fPosIn = newposin; }
-    inline void AddEdep(G4double edep) {fEdep += edep; }
+    inline void FindEntryTime(G4double newtimein) { fTimeIn = newtimein; }
+    inline void FindEntryPosition(G4ThreeVector newposin) { fPosIn = newposin; }
+    inline void AddEdep(G4double edep) { fEdep += edep; }
     inline void FindMaxEdepPos(G4double edep, G4ThreeVector maxedeppos)
     {
         if(edep>fMaxEdep)
@@ -58,5 +58,4 @@ public:
     std::vector<G4int> fChannel_B;
 };
 
-
-#endif  //EVENT_HH
+#endif  // EVENT_HH

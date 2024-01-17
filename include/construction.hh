@@ -74,5 +74,4 @@ private:
     G4int nLightGuideMat;
 };
 
-
-#endif
+#endif  // CONSTRUCTION_HH

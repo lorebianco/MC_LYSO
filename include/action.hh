@@ -8,6 +8,7 @@
 #include "event.hh"
 #include "stepping.hh"
 
+
 class MyActionInitialization : public G4VUserActionInitialization
 {
 public:
@@ -18,4 +19,4 @@ public:
     virtual void BuildForMaster() const;
 };
 
-#endif
+#endif  // ACTION_HH

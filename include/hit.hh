@@ -40,7 +40,7 @@ private:
     G4double fOpticalPhotonTime;
     G4ThreeVector fOpticalPhotonPos;
     G4ThreeVector fDetectorPos;
-    G4int         fCh;
+    G4int fCh;
 };
 
 
@@ -56,8 +56,6 @@ inline void* MyHit::operator new(size_t)
         MyHitAllocator = new G4Allocator<MyHit>;
     return (void *) MyHitAllocator->MallocSingle();
 }
-
-
 
 
 inline void MyHit::operator delete(void *hit)

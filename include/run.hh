@@ -21,4 +21,4 @@ private:
     MyEventAction *fEventAction;
 };
 
-#endif  //RUN_HH
+#endif  // RUN_HH

@@ -16,7 +16,6 @@
 #include "hit.hh"
 
 
-
 class MySensitiveDetector : public G4VSensitiveDetector
 {
 public:
@@ -32,4 +31,4 @@ private:
     MyHitsCollection *fHitsCollection;
 };
 
-#endif  //DETECTOR_HH
+#endif  // DETECTOR_HH

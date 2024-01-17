@@ -2,7 +2,6 @@
 #define GENERATOR_HH
 
 #include "G4VUserPrimaryGeneratorAction.hh"
-
 #include "G4ParticleGun.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4ParticleTable.hh"
@@ -14,13 +13,14 @@
 
 #include "globalsettings.hh"
 
+
 class MyPrimaryGenerator : public G4VUserPrimaryGeneratorAction
 {
 public:
-        MyPrimaryGenerator();
-        ~MyPrimaryGenerator();
+    MyPrimaryGenerator();
+    ~MyPrimaryGenerator();
 
-        virtual void GeneratePrimaries(G4Event*);
+    virtual void GeneratePrimaries(G4Event*);
 
 private:
     void DefineCommands();
@@ -36,7 +36,6 @@ private:
     G4double fMeanEnergy, fSigmaEnergy, fRadiusSpread;
     G4bool fIsSpreadEnabled, fIsCalibrationEnabled;
     G4String fChooseFrontorBack, fSwitchOnLED;
-
 };
 
-#endif
+#endif  // GENERATOR_HH

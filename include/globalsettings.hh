@@ -76,5 +76,4 @@ namespace GS
     constexpr G4double halfZsideWorld = 0.5*m;
 }
 
-
 #endif  // GLOBALSETTINGS_HH

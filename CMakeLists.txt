@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 
-project(My_Simulation)
+project(MC_LYSO_Simulation)
 
 find_package(Geant4 REQUIRED ui_all vis_all)
 
@@ -16,7 +16,7 @@ file(GLOB MACRO_FILES
 
 file(COPY ${MACRO_FILES} DESTINATION ${PROJECT_BINARY_DIR})
 
-add_executable(sim sim.cc ${sources} ${headers})
-target_link_libraries(sim ${Geant4_LIBRARIES})
+add_executable(mc_lyso mc_lyso.cc ${sources} ${headers})
+target_link_libraries(mc_lyso ${Geant4_LIBRARIES})
 
-add_custom_target(My_Simulation DEPENDS sim)
+add_custom_target(MC_LYSO_Simulation DEPENDS mc_lyso)

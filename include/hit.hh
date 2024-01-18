@@ -22,21 +22,21 @@ public:
     inline void operator delete(void*);
 
     // Set methods
-    inline void SetDetection(G4bool detected) { isDetected = detected; }
+    inline void SetDetection(G4bool detected) { fIsDetected = detected; }
     inline void SetOpticalPhotonTime(G4double t) { fOpticalPhotonTime = t; }
     inline void SetOpticalPhotonPos(G4ThreeVector xyz) { fOpticalPhotonPos = xyz; }
     inline void SetDetectorPos(G4ThreeVector xyz) { fDetectorPos = xyz; }
     inline void SetDetectorChannel(G4int ch) { fCh = ch; }
 
     // Get methods
-    inline G4bool GetDetection() const { return isDetected; } 
+    inline G4bool GetDetection() const { return fIsDetected; } 
     inline G4double GetOpticalPhotonTime() const { return fOpticalPhotonTime; }
     inline G4ThreeVector GetOpticalPhotonPos() const { return fOpticalPhotonPos; }
     inline G4ThreeVector GetDetectorPos() const { return fDetectorPos; }
     inline G4int GetDetectorChannel() const { return fCh; }
 
 private:
-    G4bool isDetected;
+    G4bool fIsDetected;
     G4double fOpticalPhotonTime;
     G4ThreeVector fOpticalPhotonPos;
     G4ThreeVector fDetectorPos;

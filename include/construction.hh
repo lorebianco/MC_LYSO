@@ -116,7 +116,8 @@ private:
                       *physBackLightGuide; /**< @brief Pointer to back light guide physical volume.*/
 
     // Vis Attributes 
-    G4VisAttributes *visScintillator, /**< @brief Visualization settings for the crystal.*/
+    G4VisAttributes *visWorld, /**< @brief Visualization settings for world.*/
+                    *visScintillator, /**< @brief Visualization settings for the crystal.*/
                     *visLightGuide, /**< @brief Visualization settings for the light guides.*/
                     *visCoating, /**< @brief Visualization settings for the coating.*/
                     *visPackage, /**< @brief Visualization settings for the SiPM package.*/

@@ -326,6 +326,11 @@ void MyDetectorConstruction::PositionSiPMs(G4int row, G4int col, G4int halfCols,
 
 void MyDetectorConstruction::DefineVisAttributes()
 {
+    // Worlds
+    visWorld = new G4VisAttributes();
+    visWorld->SetVisibility(false);
+    logicWorld->SetVisAttributes(visWorld);    
+
     // Endcaps
     if(fIsEndcap)
     {

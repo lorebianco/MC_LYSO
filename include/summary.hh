@@ -1,3 +1,7 @@
+/**
+ * @file summary.hh
+ * @brief Definition of the function @ref MC_summary() (and the auxiliary functions @ref extract_value() and @ref printGlobals())
+ */
 #ifndef SUMMARY_HH
 #define SUMMARY_HH
 

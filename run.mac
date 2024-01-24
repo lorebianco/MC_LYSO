@@ -6,3 +6,4 @@
 /my_gun/meanEnergy 55. MeV
 /my_gun/sigmaEnergy 0.5 MeV
 /run/beamOn 16
+#/run/printProgress 4

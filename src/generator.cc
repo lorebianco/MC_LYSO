@@ -16,8 +16,6 @@ MyPrimaryGenerator::MyPrimaryGenerator()
     fSigmaEnergy = 0.01*MeV;
 
     // Construct the Particle Gun
-    fParticleTable = G4ParticleTable::GetParticleTable();
-
     fParticleGun = new G4ParticleGun(1);
 }
 
@@ -35,17 +33,18 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent)
     G4ThreeVector pos;
     G4ThreeVector mom;
 
-    if(!fIsCalibrationEnabled)
+    if(!fIsCalibrationEnabled) // Standard mode
     {
         pos = G4ThreeVector(0., 0., 0.);
         
-        if(!fIsSpreadEnabled)
+        if(!fIsSpreadEnabled) // No spread
         {
             mom = G4ThreeVector(0., 0., 1.);
         }
         
-        if(fIsSpreadEnabled)
+        if(fIsSpreadEnabled) // With spread
         {
+            // Sample the momentum direction uniformly within the given range
             G4double fThetaMax = std::atan(fRadiusSpread/GS::zFrontFaceScintillator);
             G4double fCosThetaMax = std::cos(fThetaMax);
 
@@ -60,27 +59,43 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent)
             mom = G4ThreeVector(ux, uy, uz);
         }
         
+        // Sample the energy from Gaus
         G4double energy = G4RandGauss::shoot(fMeanEnergy, fSigmaEnergy);
 
-        G4ParticleDefinition* particle = fParticleTable->FindParticle("gamma");
+        // Set everything in fParticleGun
+        G4ParticleDefinition* particle = G4ParticleTable::GetParticleTable()->FindParticle("gamma");
         fParticleGun->SetParticleDefinition(particle);   
         fParticleGun->SetParticlePosition(pos);
         fParticleGun->SetParticleMomentumDirection(mom);
         fParticleGun->SetParticleEnergy(energy);
     }
 
-    if(fIsCalibrationEnabled)
+    if(fIsCalibrationEnabled) // Calibration mode
     {
         G4double posZLed;
         
+        // Which face
         if(fChooseFrontorBack=="F") posZLed = GS::zFrontFaceScintillator-GS::halfheightLightGuide; 
-        if(fChooseFrontorBack=="B") posZLed = GS::zBackFaceScintillator+GS::halfheightLightGuide; 
+        else if(fChooseFrontorBack=="B") posZLed = GS::zBackFaceScintillator+GS::halfheightLightGuide;
+        else
+        {
+            G4cerr << "Option for detector face not valid. 'Front' has been setted" << G4endl;
+            posZLed = GS::zFrontFaceScintillator-GS::halfheightLightGuide;
+        }
 
+        // Which LED
         if(fSwitchOnLED=="u") pos = G4ThreeVector(0, GS::radiusLightGuide-GS::depthLED, posZLed);
-        if(fSwitchOnLED=="d") pos = G4ThreeVector(0, -GS::radiusLightGuide+GS::depthLED, posZLed);
-        if(fSwitchOnLED=="l") pos = G4ThreeVector(GS::radiusLightGuide-GS::depthLED, 0, posZLed);
-        if(fSwitchOnLED=="r") pos = G4ThreeVector(-GS::radiusLightGuide+GS::depthLED, 0, posZLed);
+        else if(fSwitchOnLED=="d") pos = G4ThreeVector(0, -GS::radiusLightGuide+GS::depthLED, posZLed);
+        else if(fSwitchOnLED=="l") pos = G4ThreeVector(GS::radiusLightGuide-GS::depthLED, 0, posZLed);
+        else if(fSwitchOnLED=="r") pos = G4ThreeVector(-GS::radiusLightGuide+GS::depthLED, 0, posZLed);
+        else
+        {
+            G4cerr << "Option for LED not valid. 'up' has been setted" << G4endl;
+            pos = G4ThreeVector(0, GS::radiusLightGuide-GS::depthLED, posZLed);
+        }
 
+        // Isotropic emission (not accurate, should be Lambert's cosine law,
+        // but need G4GeneralParticleSource upgrade for this)
         G4double cosTheta = 2*G4UniformRand() - 1.;
         G4double phi = CLHEP::twopi*G4UniformRand();
         G4double sinTheta = std::sqrt(1. - cosTheta*cosTheta);
@@ -89,12 +104,14 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent)
         G4double uz = cosTheta;
         mom = G4ThreeVector(ux,uy,uz);
 
-        G4ParticleDefinition* particle = fParticleTable->FindParticle("opticalphoton");
+        // Set everything in fParticleGun
+        G4ParticleDefinition* particle = G4ParticleTable::GetParticleTable()->FindParticle("opticalphoton");
         fParticleGun->SetParticleDefinition(particle);
         fParticleGun->SetParticlePosition(pos);
         fParticleGun->SetParticleMomentumDirection(mom);        fParticleGun->SetParticleEnergy(GS::energyLED);
     }
     
+    // Finally generate the primary vertex
     fParticleGun->GeneratePrimaryVertex(anEvent);
 }
 

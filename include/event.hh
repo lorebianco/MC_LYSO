@@ -65,17 +65,18 @@ public:
      */
     inline void AddEdep(G4double edep) { fEdep += edep; }
     /**
-     * @brief Stores the maximum deposit of energy in a G4Step and its position
-     * inside the crystal.
+     * @brief Stores the maximum deposit of energy per unit length and its
+     * position inside the crystal.
      *
-     * @param edep The total energy deposit in the step.
+     * @param edepondx The total energy deposit in the step divided by the step
+     * length.
      * @param maxedeppos The position of the energy deposit in the step.
      */
-    inline void FindMaxEdep(G4double edep, G4ThreeVector maxedeppos)
+    inline void FindMaxEdep(G4double edepondx, G4ThreeVector maxedeppos)
     {
-        if(edep>fMaxEdep)
+        if(edepondx>fMaxEdep)
         {
-            fMaxEdep = edep;
+            fMaxEdep = edepondx;
             fMaxEdepPos = maxedeppos;
         }
     };
@@ -86,8 +87,8 @@ public:
     
     // Crystal's data
     G4double      fEdep; /**< @brief Total energy deposited inside the crystal.*/
-    G4double      fMaxEdep; /**< @brief Maximum deposit of energy (in a step) in the crystal.*/
-    G4ThreeVector fMaxEdepPos; /**< @brief Position of the maximum deposit of energy (in a step) in the crystal.*/
+    G4double      fMaxEdep; /**< @brief Maximum deposit of energy per unit length (MeV/mm) in the crystal.*/
+    G4ThreeVector fMaxEdepPos; /**< @brief Position of the maximum deposit of energy per unit length in the crystal.*/
 
     // Detectors' data
     G4int                 fHitsNum_F, /**< @brief Total number of optical photons detected by SiPMs on the front face.*/

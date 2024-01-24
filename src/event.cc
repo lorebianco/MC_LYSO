@@ -10,8 +10,9 @@ MyEventAction::~MyEventAction()
 
 
 
-void MyEventAction::BeginOfEventAction(const G4Event*)
+void MyEventAction::BeginOfEventAction(const G4Event *event)
 {
+    // Reset all event data
     fTimeIn = 0.;
     fPosIn = G4ThreeVector(0., 0., 0.);
     fEdep = 0.;
@@ -38,16 +39,18 @@ void MyEventAction::BeginOfEventAction(const G4Event*)
 
 void MyEventAction::EndOfEventAction(const G4Event *event)
 {
+    // Access the hit collection
     G4HCofThisEvent *hce = event->GetHCofThisEvent();
     MyHitsCollection *THC = (MyHitsCollection *)(hce->GetHC(0));
     
     if(!THC)
         return;
 
+    // Fill vectors of data about hits
     G4int nHits = THC->entries();
     for(G4int i = 0; i < nHits; i++)
     {
-        if((*THC)[i]->GetDetectorPos()[2]<200)
+        if((*THC)[i]->GetDetectorPos()[2] < GS::zScintillator)
             {   
                 fHitsNumwGhosts_F++;
                 if((*THC)[i]->GetDetection())
@@ -61,7 +64,7 @@ void MyEventAction::EndOfEventAction(const G4Event *event)
                 }
             }
 
-            if((*THC)[i]->GetDetectorPos()[2]>200)
+            if((*THC)[i]->GetDetectorPos()[2] > GS::zScintillator)
             {
                 fHitsNumwGhosts_B++;
                 if((*THC)[i]->GetDetection()) 
@@ -76,13 +79,15 @@ void MyEventAction::EndOfEventAction(const G4Event *event)
             }
     }
 
-
+    // Access info about primary particle
     G4PrimaryVertex* primaryVertex = event->GetPrimaryVertex();
     G4PrimaryParticle *primaryParticle = primaryVertex->GetPrimary(); 
 
+    // Store data
     G4AnalysisManager *man = G4AnalysisManager::Instance();
     G4int evt = G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID();
     
+    // Fill the physics TTree
     man->FillNtupleIColumn(0, 0, evt);
     man->FillNtupleDColumn(0, 1, primaryParticle->GetTotalEnergy());
     man->FillNtupleDColumn(0, 2, primaryVertex->GetX0());
@@ -102,6 +107,7 @@ void MyEventAction::EndOfEventAction(const G4Event *event)
     man->FillNtupleDColumn(0, 16, fMaxEdepPos.z());
     man->AddNtupleRow(0);
 
+    // Fill the detector TTree
     man->FillNtupleIColumn(1, 0, evt);
     man->FillNtupleIColumn(1, 1, fHitsNum_F);
     man->FillNtupleIColumn(1, 2, fHitsNum_B);
@@ -110,7 +116,4 @@ void MyEventAction::EndOfEventAction(const G4Event *event)
     man->FillNtupleIColumn(1, 5, fHitsNumwGhosts_B);
     man->FillNtupleIColumn(1, 6, fHitsNumwGhosts_F + fHitsNumwGhosts_B);
     man->AddNtupleRow(1);
-
-
-    if(evt%100==0) G4cout << "Processed event number " << evt << G4endl;
 }

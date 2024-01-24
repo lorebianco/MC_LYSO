@@ -22,51 +22,57 @@
 #include "action.hh"
 #include "summary.hh"
 
-
+/// Main of the application
 int main(int argc, char** argv)
 {
+    // Set randomly the seed of the simulation and store it
     G4Random::setTheSeed(time(NULL));
     G4int fSeed = G4Random::getTheSeed();
 
+    // Construct the run manager
     #ifdef G4MULTITHREADED
         G4MTRunManager *runManager = new G4MTRunManager();
     #else
         G4RunManager *runManager = new G4RunManager();
     #endif
     
+    // Set mandatory initialization classes
     runManager->SetUserInitialization(new MyDetectorConstruction());
     runManager->SetUserInitialization(new MyPhysicsList());
     runManager->SetUserInitialization(new MyActionInitialization());
 
-    
+    // If in singlethread mode initialize G4 kernel
+    // If in multithread mode I prefer to initialize it in the macro file
     #ifndef G4MULTITHREADED
         runManager->Initialize();
     #endif
 
-
+    // Detect interactive mode (if no arguments) and define UI session
     G4UIExecutive *ui = 0;
     if(argc == 1)
     {
         ui = new G4UIExecutive(argc, argv);
     }
 
-
+    // Initialize visualization
     G4VisManager *visManager = new G4VisExecutive();
     visManager->Initialize();
 
-
+    // Get the pointer to the User Interface manager
     G4UImanager *UImanager = G4UImanager::GetUIpointer();
 
-    //If there is a macro do not open the visualization
+    // Start UI session or process macro
     if(ui)
     {
+        // Interactive mode
         UImanager->ApplyCommand("/control/execute vis.mac");
         ui->SessionStart();
     }
     else
     {
+        // Batch mode
         auto start = std::chrono::high_resolution_clock::now();
-
+        
         G4String command = "/control/execute ";
         G4String fileName = argv[1];
         UImanager->ApplyCommand(command+fileName);
@@ -74,13 +80,15 @@ int main(int argc, char** argv)
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = end - start;
         
+        // Save a summary of the simulation
         MC_summary(fileName, fSeed, duration.count(), "MC_summaries.txt");
         G4cout << G4endl;
         G4cout << "If you have any custom settings to annotate in the summary, please edit the MC_Summaries file at the corresponding MC-SerialNumber" << G4endl;
-        G4cout << "Now you should name the hadded-rootfile as 'MCID_" << fSeed << ".root" << G4endl;
+        G4cout << "Now you should name the hadded-rootfile as ' MCID_" << fSeed << ".root '" << G4endl;
     }
 
+    // Job termination
+    delete visManager;
     delete runManager;
-    
     return 0;
 }

@@ -56,6 +56,7 @@ MyRunAction::~MyRunAction()
 
 void MyRunAction::BeginOfRunAction(const G4Run* run)
 {
+    // Create and open the file root
     G4AnalysisManager *man = G4AnalysisManager::Instance();
 
     G4int runID = run->GetRunID();
@@ -67,8 +68,9 @@ void MyRunAction::BeginOfRunAction(const G4Run* run)
 
 
 
-void MyRunAction::EndOfRunAction(const G4Run*)
+void MyRunAction::EndOfRunAction(const G4Run* run)
 {
+    // Write TTrees and close root file
     G4AnalysisManager *man = G4AnalysisManager::Instance();
 
     man->Write();

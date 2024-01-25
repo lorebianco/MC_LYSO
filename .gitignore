@@ -36,5 +36,5 @@ build/
 build_mt/
 
 # Doxygen file (for the moment)
-#html/
-#Doxyfile
+html/
+Doxyfile

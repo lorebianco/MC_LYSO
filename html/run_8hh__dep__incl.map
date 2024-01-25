@@ -1,7 +1,0 @@
-<map id="include/run.hh" name="include/run.hh">
-<area shape="rect" id="node1" title="Declaration of the class MyRunAction." alt="" coords="57,5,171,32"/>
-<area shape="rect" id="node2" href="$run_8cc.html" title="Definition of the class MyRunAction." alt="" coords="5,80,89,107"/>
-<area shape="rect" id="node3" href="$action_8hh.html" title="Declaration of the class MyActionInitialization." alt="" coords="114,80,247,107"/>
-<area shape="rect" id="node4" href="$mc__lyso_8cc.html" title="Definition of the main function of MC_LYSO." alt="" coords="72,155,167,181"/>
-<area shape="rect" id="node5" href="$action_8cc.html" title="Definition of the class MyActionInitialization." alt="" coords="191,155,293,181"/>
-</map>

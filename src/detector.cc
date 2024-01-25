@@ -1,3 +1,7 @@
+/**
+ * @file detector.cc
+ * @brief Definition of the class @ref MySensitiveDetector
+ */
 #include "detector.hh"
 
 MySensitiveDetector::MySensitiveDetector(G4String name, G4String hitsCollectionName) : G4VSensitiveDetector(name)

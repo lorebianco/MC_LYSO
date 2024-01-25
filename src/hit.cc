@@ -1,3 +1,7 @@
+/**
+ * @file hit.cc
+ * @brief Definition of the class @ref MyHit
+ */
 #include "hit.hh"
 
 MyHit::MyHit()

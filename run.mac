@@ -5,5 +5,5 @@
 /my_gun/radiusSpread 2 cm
 /my_gun/meanEnergy 55. MeV
 /my_gun/sigmaEnergy 0.5 MeV
+/run/printProgress 4
 /run/beamOn 16
-#/run/printProgress 4

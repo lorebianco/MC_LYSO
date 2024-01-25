@@ -5,6 +5,10 @@
 //                                                                            //
 //****************************************************************************//
 
+/**
+ * @file mc_lyso.cc
+ * @brief Definition of the @ref main function of MC_LYSO
+ */
 #include <iostream>
 #include <chrono>
 
@@ -22,7 +26,7 @@
 #include "action.hh"
 #include "summary.hh"
 
-/// Main of the application
+/** @brief Main of the application */
 int main(int argc, char** argv)
 {
     // Set randomly the seed of the simulation and store it

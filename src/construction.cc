@@ -1,3 +1,7 @@
+/**
+ * @file construction.cc
+ * @brief Definition of the class @ref MyDetectorConstruction
+ */
 #include "construction.hh"
 
 MyDetectorConstruction::MyDetectorConstruction()

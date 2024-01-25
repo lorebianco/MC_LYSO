@@ -1,6 +1,7 @@
 /**
  * @file summary.hh
- * @brief Definition of the function @ref MC_summary() (and the auxiliary functions @ref extract_value() and @ref printGlobals())
+ * @brief Declaration of the function @ref MC_summary() (and the auxiliary
+ * function @ref extract_value())
  */
 #ifndef SUMMARY_HH
 #define SUMMARY_HH
@@ -11,161 +12,35 @@
 #include <cstdlib>
 #include <string>
 #include <unistd.h>
+#include "globals.hh"
 
 
-G4bool boolSpread = false;
-G4bool boolLightGuide = false;
+/**
+ * @brief Auxiliary function called by @ref MC_summary() to extract settings
+ * from the macro files used for the Monte Carlo.
+ *
+ * @param line The line from the macro file
+ * @param keyword The string representing the command in the macro files, after
+ * which the setting is taken
+ * @return The extracted value
+ */
+G4String extract_value(const G4String& line, const G4String& keyword);
 
-
-std::string extract_value(const std::string& line, const std::string& keyword)
-{
-    size_t start = line.find(keyword);
-    if(start != std::string::npos)
-    {
-        start += keyword.length();
-        std::string value = line.substr(start);
-        return value;
-    }
-    return "";
-}
-
-
-
-void printGlobals(int seed, double duration, std::ofstream& outfile)
-{
-    outfile << "MonteCarlo serial number (Seed): " << seed << std::endl;
-    outfile << std::endl;
-    std::time_t now = std::time(0);
-    std::tm* current_time = std::localtime(&now);
-    outfile << "Date: " << std::asctime(current_time);
-    outfile << "User Name: " << getlogin() << std::endl;
-    outfile << "Duration of the simulation: " << duration << std::endl;
-    outfile << std::endl;
-}
-
-
-
-void MC_summary(G4String macrofile, int seed, double duration, const std::string& output_filename)
-{
-    // Apri il file di output in modalità scrittura
-    std::ofstream outfile(output_filename, std::ios::app);
-
-    // Chiama la funzione per stampare data, nome utente e il seed su un file
-    printGlobals(seed, duration, outfile);
-
-    // Apri il file "run.mac" in modalità lettura
-    std::ifstream run_file(macrofile);
-    if(!run_file)
-    {
-        std::cerr << "Can't open file 'run.mac'" << std::endl;
-        return;
-    }
-
-    std::string line;
-
-    while(std::getline(run_file, line))
-    {
-        line = line.substr(line.find_first_not_of(" \t"));
-
-        if(line.find("/my_gun/enableSpread true") != std::string::npos)
-        {
-            outfile << "Spread: ON" << std::endl;
-            boolSpread = true;
-        }
-        else if(line.find("/my_gun/enableSpread false") != std::string::npos)
-        {
-            outfile << "Spread: OFF" << std::endl;
-            boolSpread = false;
-        }
-        else if(boolSpread && line.find("/my_gun/radiusSpread") != std::string::npos)
-        {
-            std::string radius_value = extract_value(line, "/my_gun/radiusSpread");
-            if(!radius_value.empty())
-            {
-                outfile << "RadiusSpread: " << radius_value << std::endl;
-            }
-        }
-        else if(line.find("/my_gun/meanEnergy") != std::string::npos)
-        {
-            std::string energy_value = extract_value(line, "/my_gun/meanEnergy");
-            if(!energy_value.empty())
-            {
-                outfile << "Energy: " << energy_value << std::endl;
-            }
-        }
-        else if(line.find("/my_gun/sigmaEnergy") != std::string::npos)
-        {
-            std::string sigma_value = extract_value(line, "/my_gun/sigmaEnergy");
-            if(!sigma_value.empty())
-            {
-                outfile << "SigmaEnergy: " << sigma_value << std::endl;
-            }
-        }
-        else if(line.find("/run/beamOn") != std::string::npos)
-        {
-            std::string events_value = extract_value(line, "/run/beamOn");
-            if(!events_value.empty())
-            {
-                outfile << "Number of events: " << events_value << std::endl;
-            }
-        }
-    }
-
-    run_file.close();
-
-    // Apri il file "construction.mac" in modalità lettura
-    std::ifstream construction_file("construction.mac");
-    if(!construction_file)
-    {
-        std::cerr << "Can't open file 'construction.mac'" << std::endl;
-        return;
-    }
-
-    while(std::getline(construction_file, line))
-    {
-        line = line.substr(line.find_first_not_of(" \t"));
-
-        if(line.find("/my_construction/isLightGuide true") != std::string::npos)
-        {
-            outfile << "Light Guide: ON" << std::endl;
-            boolLightGuide = true;
-        }
-        else if(line.find("/my_construction/isLightGuide false") != std::string::npos)
-        {
-            outfile << "Light Guide: OFF" << std::endl;
-            boolLightGuide = false;
-        }
-        else if(boolLightGuide && line.find("/my_construction/MaterialOfLightGuide") != std::string::npos)
-        {
-            std::string material_value = extract_value(line, "/my_construction/MaterialOfLightGuide");
-            if(!material_value.empty())
-            {
-                outfile << "Material of Light Guide: " << material_value << std::endl;
-            }
-        }
-        else if(line.find("/my_construction/isPCB true") != std::string::npos)
-        {
-            outfile << "PCB: ON" << std::endl;
-        }
-        else if(line.find("/my_construction/isPCB false") != std::string::npos)
-        {
-            outfile << "PCB: OFF" << std::endl;
-        }
-        else if(line.find("/my_construction/isEndcap true") != std::string::npos)
-        {
-            outfile << "Endcap: ON" << std::endl;
-        }
-        else if(line.find("/my_construction/isEndcap false") != std::string::npos)
-        {
-            outfile << "Endcap: OFF" << std::endl;
-        }
-    }
-
-    construction_file.close();
-
-    outfile << std::endl;
-    outfile << "########################################################" << std::endl;
-    outfile << std::endl;
-}
+/**
+ * @brief Writes the summary of the Monte Carlo to a text file, updating
+ * it at the end of every simulation.
+ *
+ * The summary includes:
+ * - Monte Carlo ID (the seed of the run), date, username and
+ * duration;
+ * - Settings related to the primary generator;
+ * - Settings related to the construction.
+ *
+ * @param macrofile The name of the run macro file
+ * @param seed The seed of the simulation
+ * @param duration The duration (in seconds) of the simulation
+ * @param output_filename The name of the text output file
+ */
+void MC_summary(G4String macrofile, G4int seed, G4double duration, const G4String& output_filename);
 
 #endif  // SUMMARY_HH

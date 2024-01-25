@@ -1,3 +1,7 @@
+/**
+ * @file event.cc
+ * @brief Definition of the class @ref MyEventAction
+ */
 #include "event.hh"
 
 MyEventAction::MyEventAction()

@@ -1,3 +1,7 @@
+/**
+ * @file run.cc
+ * @brief Definition of the class @ref MyRunAction
+ */
 #include "run.hh"
 
 MyRunAction::MyRunAction(MyEventAction *eventAction) : fEventAction(eventAction)

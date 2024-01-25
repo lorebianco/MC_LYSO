@@ -1,4 +1,8 @@
-#include "stepping.hh"
+/**
+ * @file stepping.cc
+ * @brief Definition of the class @ref MySteppingAction
+ */
+ #include "stepping.hh"
 
 MySteppingAction::MySteppingAction(MyEventAction *eventAction) : fEventAction(eventAction)
 {}

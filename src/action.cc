@@ -1,3 +1,7 @@
+/**
+ * @file action.cc
+ * @brief Definition of the class @ref MyActionInitialization
+ */
 #include "action.hh"
 
 MyActionInitialization::MyActionInitialization()

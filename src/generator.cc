@@ -1,3 +1,7 @@
+/**
+ * @file generator.cc
+ * @brief Definition of the class @ref MyPrimaryGenerator
+ */
 #include "generator.hh"
 
 MyPrimaryGenerator::MyPrimaryGenerator()

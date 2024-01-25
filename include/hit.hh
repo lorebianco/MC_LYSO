@@ -19,8 +19,8 @@
 class MyHit : public G4VHit
 {
 public:
-    MyHit(); /**< @brief Constructor of the class.*/
-    ~MyHit(); /**< @brief Destructor of the class.*/
+    MyHit() = default; /**< @brief Constructor of the class.*/
+    ~MyHit() override = default; /**< @brief Destructor of the class.*/
 
     // Operators
     MyHit& operator=(const MyHit&) = default; /**< @brief Assignment operator, default implementation.*/

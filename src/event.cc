@@ -4,16 +4,6 @@
  */
 #include "event.hh"
 
-MyEventAction::MyEventAction()
-{}
-
-
-
-MyEventAction::~MyEventAction()
-{}
-
-
-
 void MyEventAction::BeginOfEventAction(const G4Event *event)
 {
     // Reset all event data

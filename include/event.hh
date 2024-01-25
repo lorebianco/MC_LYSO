@@ -24,15 +24,15 @@
 class MyEventAction : public G4UserEventAction
 {
 public:
-    MyEventAction(); /**< @brief Constructor of the class.*/
-    ~MyEventAction(); /**< @brief Destructor of the class.*/
+    MyEventAction() = default; /**< @brief Constructor of the class.*/
+    ~MyEventAction() override = default; /**< @brief Destructor of the class.*/
 
     /**
      * @brief Resets every data containers at the beginning of a new event.
      * 
      * @param event Pointer to the G4Event.
      */
-    virtual void BeginOfEventAction(const G4Event *event);
+    void BeginOfEventAction(const G4Event *event) override;
     /**
      * @brief Fills the TTrees with the data of the event.
      *  
@@ -43,7 +43,7 @@ public:
      *
      * @param event Pointer to the G4Event.
      */
-    virtual void EndOfEventAction(const G4Event *event);
+    void EndOfEventAction(const G4Event *event) override;
 
     /**
      * @brief Stores the time of arrival to the crystal of the primary gamma.

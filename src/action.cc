@@ -4,16 +4,6 @@
  */
 #include "action.hh"
 
-MyActionInitialization::MyActionInitialization()
-{}
-
-
-
-MyActionInitialization::~MyActionInitialization()
-{}
-
-
-
 void MyActionInitialization::BuildForMaster() const
 {
     // Here must be initialized only Run Action

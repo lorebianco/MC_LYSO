@@ -28,7 +28,7 @@ public:
      * associating data saved in each event with the TTrees.
      */
     MyRunAction(MyEventAction* eventAction);
-    ~MyRunAction(); /**< @brief Destructor of the class.*/
+    ~MyRunAction() override = default; /**< @brief Destructor of the class.*/
 
     /**
      * @brief Creates and accesses the output root file at the beginning of the
@@ -36,14 +36,14 @@ public:
      * 
      * @param run Pointer to the G4Run.
      */
-    virtual void BeginOfRunAction(const G4Run* run);
+    void BeginOfRunAction(const G4Run* run) override;
     /**
      * @brief Writes TTrees to the output root file and closes it at the end of
      * the run.
      * 
      * @param run Pointer to the G4Run.
      */
-    virtual void EndOfRunAction(const G4Run* run);
+    void EndOfRunAction(const G4Run* run) override;
 
 private:
     MyEventAction *fEventAction; /**< @brief Pointer to the MyEventAction object.*/

@@ -18,7 +18,7 @@ class MyPhysicsList : public G4VModularPhysicsList
 {
 public:
     MyPhysicsList(); /**< @brief Constructor of the class.*/
-    ~MyPhysicsList(); /**< @brief Destructor of the class.*/
+    ~MyPhysicsList() override = default; /**< @brief Destructor of the class.*/
 };
 
 #endif  // PHYSICS_HH

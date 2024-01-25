@@ -9,11 +9,6 @@ MySteppingAction::MySteppingAction(MyEventAction *eventAction) : fEventAction(ev
 
 
 
-MySteppingAction::~MySteppingAction()
-{}
-
-
-
 void MySteppingAction::UserSteppingAction(const G4Step *step)
 {
     // Get the logical volume containing the step

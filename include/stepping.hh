@@ -25,7 +25,7 @@ public:
      * updating and storing data of the event.
      */
     MySteppingAction(MyEventAction *eventAction);
-    ~MySteppingAction(); /**< @brief Destructor of the class.*/
+    ~MySteppingAction() override = default; /**< @brief Destructor of the class.*/
 
     /**
      * @brief For every step updates and stores quantities about the physics
@@ -33,7 +33,7 @@ public:
      * 
      * @param step Pointer to the G4Step object.
      */
-    virtual void UserSteppingAction(const G4Step *step);
+    void UserSteppingAction(const G4Step *step) override;
 
 private:
     MyEventAction *fEventAction; /**< @brief Pointer to the MyEventAction object.*/

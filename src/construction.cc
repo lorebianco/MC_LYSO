@@ -19,11 +19,6 @@ MyDetectorConstruction::MyDetectorConstruction()
 
 
 
-MyDetectorConstruction::~MyDetectorConstruction()
-{}
-
-
-
 void MyDetectorConstruction::DefineMaterials()
 {
     //Entries for LYSO properties

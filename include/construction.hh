@@ -41,7 +41,7 @@ public:
      * It also calls DefineMaterialsAndSurfaces().
      */
     MyDetectorConstruction();
-    ~MyDetectorConstruction(); /**< @brief Destructor of the class.*/
+    ~MyDetectorConstruction() override = default; /**< @brief Destructor of the class.*/
 
     inline G4LogicalVolume *GetScoringVolume() const { return fScoringVolume;} /**< @brief Get the scoring volume. It will be used by MySteppingAction::UserSteppingAction().*/
     /**
@@ -54,10 +54,10 @@ public:
      *
      * @return The world physical volume @ref physWorld.
      */
-    virtual G4VPhysicalVolume *Construct();
+    G4VPhysicalVolume *Construct() override;
 
 private:
-    virtual void ConstructSDandField(); /**< @brief It sets all the SiPMs' silicon layers as sensitive detectors.*/
+    void ConstructSDandField() override; /**< @brief It sets all the SiPMs' silicon layers as sensitive detectors.*/
     void ConstructLightGuide(); /**< @brief Auxiliary function called by Construct() for building the lightguides.*/
     void ConstructPCB(); /**< @brief Auxiliary function called by Construct() for building the PCBs.*/
     void ConstructEndcap(); /**< @brief Auxiliary function called by Construct() for building the endcaps.*/

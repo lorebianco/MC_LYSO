@@ -33,7 +33,7 @@ public:
      * G4ParticleGun object, representing the source of one primary gamma.
      */
     MyPrimaryGenerator();
-    ~MyPrimaryGenerator(); /**< @brief Destructor of the class.*/
+    ~MyPrimaryGenerator() override; /**< @brief Destructor of the class.*/
 
     /**
      * @brief It generates the primary vertex of the event.
@@ -51,7 +51,7 @@ public:
      *
      * @param anEvent Pointer to the G4Event.
      */
-    virtual void GeneratePrimaries(G4Event *anEvent);
+    void GeneratePrimaries(G4Event *anEvent) override;
 
 private:
     void DefineCommands(); /**< @brief Defines new user commands for primary particle generation.*/

@@ -53,11 +53,6 @@ MyRunAction::MyRunAction(MyEventAction *eventAction) : fEventAction(eventAction)
 
 
 
-MyRunAction::~MyRunAction()
-{}
-
-
-
 void MyRunAction::BeginOfRunAction(const G4Run* run)
 {
     // Create and open the file root

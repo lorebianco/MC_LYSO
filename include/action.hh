@@ -20,8 +20,8 @@
 class MyActionInitialization : public G4VUserActionInitialization
 {
 public:
-    MyActionInitialization(); /**< @brief Constructor of the class.*/
-    ~MyActionInitialization(); /**< @brief Destructor of the class.*/
+    MyActionInitialization() = default; /**< @brief Constructor of the class.*/
+    ~MyActionInitialization() override = default; /**< @brief Destructor of the class.*/
     
     /** 
      * @brief Configures user action classes for worker threads.
@@ -29,12 +29,12 @@ public:
      * In addition to @ref MyPrimaryGenerator, these include @ref MyRunAction(),
      * @ref MyEventAction(), and @ref MySteppingAction().
      */
-    virtual void Build() const;
+    void Build() const override;
     /** 
      * @brief Configures the @ref MyRunAction class for the master thread
      * (in multithreading mode).
      */
-    virtual void BuildForMaster() const;
+    void BuildForMaster() const override;
 };
 
 #endif  // ACTION_HH

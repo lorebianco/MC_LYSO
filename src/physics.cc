@@ -11,8 +11,3 @@ MyPhysicsList::MyPhysicsList()
     // Optical physics
     RegisterPhysics (new G4OpticalPhysics());
 }
-
-
-
-MyPhysicsList::~MyPhysicsList()
-{}

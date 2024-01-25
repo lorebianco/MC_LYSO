@@ -33,7 +33,7 @@ public:
      * associated with the SD.
      */
     MySensitiveDetector(G4String name, G4String hitsCollectionName);
-    ~MySensitiveDetector(); /**< @brief Destructor of the class.*/
+    ~MySensitiveDetector() override = default; /**< @brief Destructor of the class.*/
     
     /**
      * @brief Associates a new @ref MyHitsCollection with a G4HCofThisEvent
@@ -41,7 +41,7 @@ public:
      * 
      * @param hce Pointer to the G4HCofThisEvent object.
      */
-    virtual void Initialize(G4HCofThisEvent *hce);
+    void Initialize(G4HCofThisEvent *hce) override;
     /**
      * @brief For every optical photon that hits the SD this method
      * instantiates a MyHit object, fills his data and store it in the
@@ -53,8 +53,8 @@ public:
      * @param aStep G4Step object of the current step.
      * @param ROhist G4TouchableHistory object. Obsolete, not used.
      */
-    virtual G4bool ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist);
-    //virtual void EndOfEvent(G4HCofThisEvent*);
+    G4bool ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist) override;
+    // void EndOfEvent(G4HCofThisEvent*) override;
 
 private:
     MyHit *newHit; /**< @brief Pointer to the MyHit of the optical photon.*/

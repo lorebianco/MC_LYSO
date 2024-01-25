@@ -12,11 +12,6 @@ MySensitiveDetector::MySensitiveDetector(G4String name, G4String hitsCollectionN
 
 
 
-MySensitiveDetector::~MySensitiveDetector()
-{}
-
-
-
 void MySensitiveDetector::Initialize(G4HCofThisEvent *hce)
 {
     // Add fHitsCollection to the GHCofThisEvent container

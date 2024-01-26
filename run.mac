@@ -2,7 +2,7 @@
 /control/execute construction.mac
 /run/initialize
 /my_gun/enableSpread false
-/my_gun/radiusSpread 2 cm
+/my_gun/radiusSpread 3 cm
 /my_gun/meanEnergy 55. MeV
 /my_gun/sigmaEnergy 0.5 MeV
 /run/printProgress 4

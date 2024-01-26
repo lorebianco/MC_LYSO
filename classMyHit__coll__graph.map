@@ -1,0 +1,5 @@
+<map id="MyHit" name="MyHit">
+<area shape="rect" id="Node000001" title="Concrete class of G4VHit, representing a hit in the MySensitiveDetector." alt="" coords="10,79,65,105"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,70,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="40,46,40,79,35,79,35,46"/>
+</map>

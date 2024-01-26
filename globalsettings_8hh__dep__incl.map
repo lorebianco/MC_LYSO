@@ -1,0 +1,39 @@
+<map id="include/globalsettings.hh" name="include/globalsettings.hh">
+<area shape="rect" id="Node000001" title="Definition of the namespace GS." alt="" coords="275,5,438,31"/>
+<area shape="rect" id="Node000002" href="$construction_8hh.html" title="Declaration of the class MyDetectorConstruction." alt="" coords="59,153,214,178"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="290,39,245,56,202,81,183,98,167,118,145,153,140,151,163,115,179,95,199,77,242,51,288,34"/>
+<area shape="rect" id="Node000009" href="$detector_8hh.html" title="Declaration of the class MySensitiveDetector." alt="" coords="213,79,343,105"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="334,43,293,81,289,77,330,40"/>
+<area shape="rect" id="Node000011" href="$event_8hh.html" title="Declaration of the class MyEventAction." alt="" coords="557,153,673,178"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="417,34,467,52,518,77,569,115,606,150,602,154,565,119,515,81,465,57,415,39"/>
+<area shape="rect" id="Node000015" href="$generator_8hh.html" title="Declaration of the class MyPrimaryGenerator." alt="" coords="366,79,504,105"/>
+<area shape="poly" id="edge19_Node000001_Node000015" title=" " alt="" coords="382,40,424,77,420,81,379,43"/>
+<area shape="rect" id="Node000003" href="$stepping_8hh.html" title="Declaration of the class MySteppingAction." alt="" coords="212,226,344,252"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="175,183,255,223,252,228,173,188"/>
+<area shape="rect" id="Node000005" href="$mc__lyso_8cc.html" title="Definition of the main function of MC_LYSO." alt="" coords="189,374,276,399"/>
+<area shape="poly" id="edge7_Node000002_Node000005" title=" " alt="" coords="150,192,208,325,229,372,225,374,203,327,145,194"/>
+<area shape="rect" id="Node000008" href="$construction_8cc.html" title="Definition of the class MyDetectorConstruction." alt="" coords="5,226,137,252"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="117,191,84,228,80,224,113,188"/>
+<area shape="rect" id="Node000004" href="$action_8hh.html" title="Declaration of the class MyActionInitialization." alt="" coords="351,300,469,326"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="314,257,388,297,386,302,312,262"/>
+<area shape="rect" id="Node000007" href="$stepping_8cc.html" title="Definition of the class MySteppingAction." alt="" coords="218,300,327,326"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="278,268,276,300,271,299,273,267"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="367,334,264,376,262,371,365,329"/>
+<area shape="rect" id="Node000006" href="$action_8cc.html" title="Definition of the class MyActionInitialization." alt="" coords="362,374,457,399"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="412,341,412,373,407,373,407,341"/>
+<area shape="poly" id="edge10_Node000009_Node000002" title=" " alt="" coords="241,114,162,154,159,150,239,110"/>
+<area shape="rect" id="Node000010" href="$detector_8cc.html" title="Definition of the class MySensitiveDetector." alt="" coords="237,153,345,178"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="285,119,291,152,286,153,280,120"/>
+<area shape="poly" id="edge17_Node000011_Node000003" title=" " alt="" coords="543,185,336,228,334,223,542,179"/>
+<area shape="poly" id="edge13_Node000011_Node000004" title=" " alt="" coords="543,185,499,203,459,228,444,245,431,265,416,301,411,299,427,263,439,242,456,224,497,198,541,180"/>
+<area shape="rect" id="Node000012" href="$run_8hh.html" title="Declaration of the class MyRunAction." alt="" coords="587,226,688,252"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="626,192,636,225,631,227,621,194"/>
+<area shape="rect" id="Node000014" href="$event_8cc.html" title="Definition of the class MyEventAction." alt="" coords="470,226,563,252"/>
+<area shape="poly" id="edge18_Node000011_Node000014" title=" " alt="" coords="588,190,534,228,531,224,584,186"/>
+<area shape="poly" id="edge15_Node000012_Node000004" title=" " alt="" coords="585,260,449,302,448,297,584,255"/>
+<area shape="rect" id="Node000013" href="$run_8cc.html" title="Definition of the class MyRunAction." alt="" coords="599,300,677,326"/>
+<area shape="poly" id="edge16_Node000012_Node000013" title=" " alt="" coords="640,267,640,300,635,300,635,267"/>
+<area shape="poly" id="edge20_Node000015_Node000004" title=" " alt="" coords="423,119,410,153,404,195,404,236,410,299,405,300,399,236,399,194,404,152,418,117"/>
+<area shape="rect" id="Node000016" href="$generator_8cc.html" title="Definition of the class MyPrimaryGenerator." alt="" coords="419,153,534,178"/>
+<area shape="poly" id="edge21_Node000015_Node000016" title=" " alt="" coords="452,117,472,151,467,154,447,119"/>
+</map>

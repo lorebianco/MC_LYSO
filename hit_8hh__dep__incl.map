@@ -1,0 +1,35 @@
+<map id="include/hit.hh" name="include/hit.hh">
+<area shape="rect" id="Node000001" title="Declaration of the class MyHit." alt="" coords="311,5,408,31"/>
+<area shape="rect" id="Node000002" href="$detector_8hh.html" title="Declaration of the class MySensitiveDetector." alt="" coords="176,79,306,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="328,42,262,81,260,76,325,37"/>
+<area shape="rect" id="Node000011" href="$event_8hh.html" title="Declaration of the class MyEventAction." alt="" coords="319,153,434,178"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="365,46,378,152,373,152,360,47"/>
+<area shape="rect" id="Node000015" href="$hit_8cc.html" title="Definition of the class MyHit." alt="" coords="397,79,471,105"/>
+<area shape="poly" id="edge18_Node000001_Node000015" title=" " alt="" coords="385,40,423,77,420,81,381,44"/>
+<area shape="rect" id="Node000003" href="$construction_8hh.html" title="Declaration of the class MyDetectorConstruction." alt="" coords="9,153,163,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="202,114,114,154,111,150,200,109"/>
+<area shape="rect" id="Node000010" href="$detector_8cc.html" title="Definition of the class MySensitiveDetector." alt="" coords="187,153,294,178"/>
+<area shape="poly" id="edge10_Node000002_Node000010" title=" " alt="" coords="243,120,243,152,238,152,238,120"/>
+<area shape="rect" id="Node000004" href="$stepping_8hh.html" title="Declaration of the class MySteppingAction." alt="" coords="176,226,308,252"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="127,183,217,223,214,228,125,188"/>
+<area shape="rect" id="Node000006" href="$mc__lyso_8cc.html" title="Definition of the main function of MC_LYSO." alt="" coords="64,374,151,399"/>
+<area shape="poly" id="edge8_Node000003_Node000006" title=" " alt="" coords="49,189,27,206,11,227,8,239,11,251,28,288,51,322,96,371,92,375,47,326,24,291,6,253,3,239,6,225,24,202,46,184"/>
+<area shape="rect" id="Node000009" href="$construction_8cc.html" title="Definition of the class MyDetectorConstruction." alt="" coords="20,226,152,252"/>
+<area shape="poly" id="edge9_Node000003_Node000009" title=" " alt="" coords="89,194,89,226,83,226,83,194"/>
+<area shape="rect" id="Node000005" href="$action_8hh.html" title="Declaration of the class MyActionInitialization." alt="" coords="270,300,388,326"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="270,260,316,298,313,302,267,264"/>
+<area shape="rect" id="Node000008" href="$stepping_8cc.html" title="Definition of the class MySteppingAction." alt="" coords="137,300,246,326"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="227,266,202,301,198,298,223,263"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="278,333,146,376,144,371,276,328"/>
+<area shape="rect" id="Node000007" href="$action_8cc.html" title="Definition of the class MyActionInitialization." alt="" coords="281,374,376,399"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="331,341,331,373,326,373,326,341"/>
+<area shape="poly" id="edge16_Node000011_Node000004" title=" " alt="" coords="342,188,266,228,264,223,339,184"/>
+<area shape="poly" id="edge12_Node000011_Node000005" title=" " alt="" coords="371,194,335,300,330,299,366,192"/>
+<area shape="rect" id="Node000012" href="$run_8hh.html" title="Declaration of the class MyRunAction." alt="" coords="383,226,485,252"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="398,189,426,224,422,228,394,192"/>
+<area shape="rect" id="Node000014" href="$event_8cc.html" title="Definition of the class MyEventAction." alt="" coords="509,226,602,252"/>
+<area shape="poly" id="edge17_Node000011_Node000014" title=" " alt="" coords="422,182,526,223,524,228,420,187"/>
+<area shape="poly" id="edge14_Node000012_Node000005" title=" " alt="" coords="405,263,348,302,345,297,402,259"/>
+<area shape="rect" id="Node000013" href="$run_8cc.html" title="Definition of the class MyRunAction." alt="" coords="412,300,491,326"/>
+<area shape="poly" id="edge15_Node000012_Node000013" title=" " alt="" coords="443,266,451,299,446,300,438,268"/>
+</map>

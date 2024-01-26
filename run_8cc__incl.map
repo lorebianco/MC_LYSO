@@ -1,0 +1,40 @@
+<map id="src/run.cc" name="src/run.cc">
+<area shape="rect" id="Node000001" title="Definition of the class MyRunAction." alt="" coords="210,5,288,31"/>
+<area shape="rect" id="Node000002" href="$run_8hh.html" title="Declaration of the class MyRunAction." alt="" coords="221,79,277,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="252,31,252,63,246,63,246,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,153,149,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="221,108,121,149,119,144,219,103"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="173,153,251,178"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="245,106,227,140,223,138,240,104"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="117,226,272,252"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="258,105,268,139,270,159,265,179,250,202,230,219,226,215,246,198,260,177,264,159,263,140,252,106"/>
+<area shape="rect" id="Node000006" href="$event_8hh.html" title="Declaration of the class MyEventAction." alt="" coords="490,153,560,178"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="278,98,475,149,474,154,277,103"/>
+<area shape="poly" id="edge9_Node000006_Node000005" title=" " alt="" coords="490,177,266,225,265,220,489,172"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="295,226,352,252"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="492,181,368,225,366,220,490,176"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="376,226,530,252"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="515,180,478,217,474,213,511,177"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="554,226,643,252"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="539,177,577,214,573,217,535,180"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="666,226,795,252"/>
+<area shape="poly" id="edge10_Node000006_Node000010" title=" " alt="" coords="561,176,682,218,680,223,559,181"/>
+<area shape="rect" id="Node000011" href="$globalsettings_8hh.html" title="Definition of the namespace GS." alt="" coords="819,226,938,252"/>
+<area shape="poly" id="edge11_Node000006_Node000011" title=" " alt="" coords="561,171,805,220,804,226,560,177"/>
+<area shape="rect" id="Node000013" href="$hit_8hh.html" title="Declaration of the class MyHit." alt="" coords="1119,226,1171,252"/>
+<area shape="poly" id="edge13_Node000006_Node000013" title=" " alt="" coords="561,168,1103,230,1103,236,560,174"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="649,300,793,326"/>
+<area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="853,255,763,296,761,291,851,250"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="818,300,899,326"/>
+<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="1119,250,915,300,914,295,1118,244"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="924,300,1068,326"/>
+<area shape="poly" id="edge15_Node000013_Node000015" title=" " alt="" coords="1121,255,1036,295,1034,291,1119,250"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="1092,300,1198,326"/>
+<area shape="poly" id="edge16_Node000013_Node000016" title=" " alt="" coords="1148,252,1148,284,1142,284,1142,252"/>
+<area shape="rect" id="Node000017" title=" " alt="" coords="1222,300,1348,326"/>
+<area shape="poly" id="edge17_Node000013_Node000017" title=" " alt="" coords="1170,250,1249,290,1247,295,1168,255"/>
+<area shape="rect" id="Node000018" title=" " alt="" coords="1372,300,1425,326"/>
+<area shape="poly" id="edge18_Node000013_Node000018" title=" " alt="" coords="1173,245,1358,297,1357,302,1171,250"/>
+<area shape="rect" id="Node000019" title=" " alt="" coords="1449,300,1567,326"/>
+<area shape="poly" id="edge19_Node000013_Node000019" title=" " alt="" coords="1172,243,1434,294,1433,300,1171,248"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="MySteppingAction" name="MySteppingAction">
+<area shape="rect" id="Node000001" title="User action concrete class of G4UserSteppingAction. It defines procedures to be executed for every st..." alt="" coords="41,169,167,195"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,80,160,106"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,121,103,168,98,169,87,122"/>
+<area shape="rect" id="Node000003" href="$classMyEventAction.html" title="User action concrete class of G4UserEventAction. In addition to defining procedures executed at the s..." alt="" coords="184,80,293,106"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="209,117,124,171,121,166,206,112"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="170,5,307,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="241,46,241,80,236,80,236,46"/>
+</map>

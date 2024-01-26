@@ -1,0 +1,15 @@
+<map id="include/hit.hh" name="include/hit.hh">
+<area shape="rect" id="Node000001" title="Declaration of the class MyHit." alt="" coords="353,5,451,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,87,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="354,31,103,81,102,76,353,26"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="111,79,256,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="366,34,236,76,234,71,364,29"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="280,79,386,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="392,33,357,70,353,66,389,29"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="410,79,536,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="416,29,452,66,448,70,412,33"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="560,79,612,105"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="434,29,546,72,544,77,432,34"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="636,79,755,105"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="452,29,631,72,630,77,450,34"/>
+</map>

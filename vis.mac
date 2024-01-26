@@ -8,5 +8,5 @@
 #/vis/scene/add/scale 10 cm
 /vis/scene/add/axes
 #/vis/scene/add/eventID
-/vis/scene/endOfEventAction accumulate
+#/vis/scene/endOfEventAction accumulate
 #/process/inactivate Scintillation

@@ -135,9 +135,9 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a9b53b70afd68df3a407b228f28cf86ed" id="r_a9b53b70afd68df3a407b228f28cf86ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b53b70afd68df3a407b228f28cf86ed">ConstructEndcap</a> ()</td></tr>
 <tr class="memdesc:a9b53b70afd68df3a407b228f28cf86ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auxiliary function called by <a class="el" href="#ac9ef5a036a6ef0c2090cbddd414c8c86" title="Construct the detector geometry.">Construct()</a> for building the endcaps.  <br /></td></tr>
 <tr class="separator:a9b53b70afd68df3a407b228f28cf86ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a7f2c75ca5fa239cab2d22af5886313" id="r_a5a7f2c75ca5fa239cab2d22af5886313"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a7f2c75ca5fa239cab2d22af5886313">PositionSiPMs</a> (G4int row, G4int col, G4int halfCols, G4int index)</td></tr>
-<tr class="memdesc:a5a7f2c75ca5fa239cab2d22af5886313"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auxiliary function called by <a class="el" href="#ac9ef5a036a6ef0c2090cbddd414c8c86" title="Construct the detector geometry.">Construct()</a> for putting in the right position every SiPM.  <br /></td></tr>
-<tr class="separator:a5a7f2c75ca5fa239cab2d22af5886313"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3de9be1f72c2c8c60f2baadf4ecd207a" id="r_a3de9be1f72c2c8c60f2baadf4ecd207a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3de9be1f72c2c8c60f2baadf4ecd207a">PositionSiPMs</a> (G4VPhysicalVolume *physFrontSiPM, G4VPhysicalVolume *physBackSiPM, G4int row, G4int col, G4int halfCols, G4int index)</td></tr>
+<tr class="memdesc:a3de9be1f72c2c8c60f2baadf4ecd207a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auxiliary function called by <a class="el" href="#ac9ef5a036a6ef0c2090cbddd414c8c86" title="Construct the detector geometry.">Construct()</a> for putting in the right position every SiPM.  <br /></td></tr>
+<tr class="separator:a3de9be1f72c2c8c60f2baadf4ecd207a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afeed30b7a91229fc6d6e9c962c3de76e" id="r_afeed30b7a91229fc6d6e9c962c3de76e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afeed30b7a91229fc6d6e9c962c3de76e">DefineMaterials</a> ()</td></tr>
 <tr class="memdesc:afeed30b7a91229fc6d6e9c962c3de76e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines all materials.  <br /></td></tr>
 <tr class="separator:afeed30b7a91229fc6d6e9c962c3de76e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -305,7 +305,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Construct the detector geometry. </p>
-<p>Depending on settings, it could call <a class="el" href="#aacfee0d62aa4c17ff7b1501d71281443" title="Auxiliary function called by Construct() for building the lightguides.">ConstructLightGuide()</a>, <a class="el" href="#aadaefe3a48125cec4408d956822db206" title="Auxiliary function called by Construct() for building the PCBs.">ConstructPCB()</a> and <a class="el" href="#a9b53b70afd68df3a407b228f28cf86ed" title="Auxiliary function called by Construct() for building the endcaps.">ConstructEndcap()</a>. It uses the auxiliary function <a class="el" href="#a5a7f2c75ca5fa239cab2d22af5886313" title="Auxiliary function called by Construct() for putting in the right position every SiPM.">PositionSiPMs()</a> for placing the SiPMs volumes and, at the end, it calls <a class="el" href="#a04d3ada300cd25e1ac490561cdbc96e9" title="Defines the visualization attributes for every component of the apparatus.">DefineVisAttributes()</a>.</p>
+<p>Depending on settings, it could call <a class="el" href="#aacfee0d62aa4c17ff7b1501d71281443" title="Auxiliary function called by Construct() for building the lightguides.">ConstructLightGuide()</a>, <a class="el" href="#aadaefe3a48125cec4408d956822db206" title="Auxiliary function called by Construct() for building the PCBs.">ConstructPCB()</a> and <a class="el" href="#a9b53b70afd68df3a407b228f28cf86ed" title="Auxiliary function called by Construct() for building the endcaps.">ConstructEndcap()</a>. It uses the auxiliary function <a class="el" href="#a3de9be1f72c2c8c60f2baadf4ecd207a" title="Auxiliary function called by Construct() for putting in the right position every SiPM.">PositionSiPMs()</a> for placing the SiPMs volumes and, at the end, it calls <a class="el" href="#a04d3ada300cd25e1ac490561cdbc96e9" title="Defines the visualization attributes for every component of the apparatus.">DefineVisAttributes()</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>The world physical volume physWorld. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00134">134</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
@@ -337,7 +337,7 @@ Private Attributes</h2></td></tr>
 
 <p>Auxiliary function called by <a class="el" href="#ac9ef5a036a6ef0c2090cbddd414c8c86" title="Construct the detector geometry.">Construct()</a> for building the endcaps. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00301">301</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00304">304</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
 
 </div>
 </div>
@@ -366,7 +366,7 @@ Private Attributes</h2></td></tr>
 
 <p>Auxiliary function called by <a class="el" href="#ac9ef5a036a6ef0c2090cbddd414c8c86" title="Construct the detector geometry.">Construct()</a> for building the lightguides. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00230">230</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00233">233</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
 
 </div>
 </div>
@@ -395,7 +395,7 @@ Private Attributes</h2></td></tr>
 
 <p>Auxiliary function called by <a class="el" href="#ac9ef5a036a6ef0c2090cbddd414c8c86" title="Construct the detector geometry.">Construct()</a> for building the PCBs. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00290">290</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00293">293</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
 
 </div>
 </div>
@@ -424,7 +424,7 @@ Private Attributes</h2></td></tr>
 
 <p>It sets all the SiPMs' silicon layers as sensitive detectors. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00220">220</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00223">223</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
 
 </div>
 </div>
@@ -453,7 +453,7 @@ Private Attributes</h2></td></tr>
 
 <p>Defines new user commands for detector construction. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00385">385</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00388">388</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
 
 </div>
 </div>
@@ -511,7 +511,7 @@ Private Attributes</h2></td></tr>
 
 <p>Defines the visualization attributes for every component of the apparatus. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00326">326</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00329">329</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
 
 </div>
 </div>
@@ -544,8 +544,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a5a7f2c75ca5fa239cab2d22af5886313" name="a5a7f2c75ca5fa239cab2d22af5886313"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a7f2c75ca5fa239cab2d22af5886313">&#9670;&#160;</a></span>PositionSiPMs()</h2>
+<a id="a3de9be1f72c2c8c60f2baadf4ecd207a" name="a3de9be1f72c2c8c60f2baadf4ecd207a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3de9be1f72c2c8c60f2baadf4ecd207a">&#9670;&#160;</a></span>PositionSiPMs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -556,6 +556,16 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void MyDetectorConstruction::PositionSiPMs </td>
           <td>(</td>
+          <td class="paramtype">G4VPhysicalVolume *</td>          <td class="paramname"><span class="paramname"><em>physFrontSiPM</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">G4VPhysicalVolume *</td>          <td class="paramname"><span class="paramname"><em>physBackSiPM</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">G4int</td>          <td class="paramname"><span class="paramname"><em>row</em>, </span></td>
         </tr>
         <tr>
@@ -584,6 +594,8 @@ Private Attributes</h2></td></tr>
 <p>Auxiliary function called by <a class="el" href="#ac9ef5a036a6ef0c2090cbddd414c8c86" title="Construct the detector geometry.">Construct()</a> for putting in the right position every SiPM. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">physFrontSiPM</td><td>The pointer to the physical volume of the SiPM to place on the front face of the scintillator </td></tr>
+    <tr><td class="paramname">physBackSiPM</td><td>The pointer to the physical volume of the SiPM to place on the back face of the scintillator </td></tr>
     <tr><td class="paramname">row</td><td>The row of the SiPMs panel where the detector has to be placed </td></tr>
     <tr><td class="paramname">col</td><td>The column of the SiPMs panel where the detector has to be placed </td></tr>
     <tr><td class="paramname">halfCols</td><td>The integer half of the number of SiPMs in the row </td></tr>
@@ -592,7 +604,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00312">312</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00315">315</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
 
 </div>
 </div>
@@ -619,7 +631,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to the air material. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00094">94</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00098">98</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -645,7 +657,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to the aluminium material. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00096">96</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00100">100</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -671,7 +683,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to the carbon fiber material. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00100">100</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00104">104</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -697,7 +709,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to the epoxy material. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00098">98</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00102">102</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -723,7 +735,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to the FR4 material. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00099">99</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00103">103</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -749,7 +761,7 @@ Private Attributes</h2></td></tr>
 
 <p>Flag indicating whether the endcaps must be constructed. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00108">108</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00112">112</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -775,7 +787,7 @@ Private Attributes</h2></td></tr>
 
 <p>Flag indicating whether the light guides must be constructed. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00106">106</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00110">110</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -801,7 +813,7 @@ Private Attributes</h2></td></tr>
 
 <p>Flag indicating whether the PCBs must be constructed. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00107">107</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00111">111</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -827,7 +839,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to the LYSO material. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00093">93</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00097">97</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -853,7 +865,7 @@ Private Attributes</h2></td></tr>
 
 <p>Generic messenger of the class. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00105">105</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00109">109</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -879,7 +891,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to the plexiglass material. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00101">101</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00105">105</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -905,7 +917,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to the sapphire material. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00102">102</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00106">106</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -931,7 +943,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer used to define the logical volume of the scoring volume. In the application it is assigned to <a class="el" href="#a454acbdbad6b8017523ac2993ebfff2e">logicScintillator</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00090">90</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00094">94</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -957,7 +969,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to the silicon material. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00097">97</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00101">101</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -983,7 +995,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to the vacuum material. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00095">95</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00099">99</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -1009,7 +1021,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to coating logical volume. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00084">84</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00088">88</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -1035,7 +1047,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to silicon layer of SiPM logical volume. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00083">83</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00087">87</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -1061,7 +1073,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to endcap logical volume. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00086">86</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00090">90</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -1087,7 +1099,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to light guide logical volume. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00087">87</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00091">91</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -1113,7 +1125,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to SiPM package logical volume. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00081">81</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00085">85</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -1139,7 +1151,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to PCB logical volume. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00085">85</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00089">89</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -1165,7 +1177,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to crystal logical volume. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00080">80</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00084">84</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -1191,7 +1203,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to SiPM window logical volume. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00082">82</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00086">86</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -1217,7 +1229,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pointer to world logical volume. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00079">79</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00083">83</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>
@@ -1243,7 +1255,7 @@ Private Attributes</h2></td></tr>
 
 <p>Indicates which material has to be used for light guides; 1 for plexiglass, 2 for sapphire. </p>
 
-<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00109">109</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8hh_source.html#l00113">113</a> of file <a class="el" href="construction_8hh_source.html">construction.hh</a>.</p>
 
 </div>
 </div>

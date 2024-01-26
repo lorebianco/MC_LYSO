@@ -64,13 +64,17 @@ private:
     /**
      * @brief Auxiliary function called by Construct() for putting in the right
      * position every SiPM.
+     * @param physFrontSiPM The pointer to the physical volume of the SiPM to
+     * place on the front face of the scintillator
+     * @param physBackSiPM The pointer to the physical volume of the SiPM to
+     * place on the back face of the scintillator
      * @param row The row of the SiPMs panel where the detector has to be placed
      * @param col The column of the SiPMs panel where the detector has to be
      * placed
      * @param halfCols The integer half of the number of SiPMs in the row
      * @param index The index number of the SiPM
      */
-    void PositionSiPMs(G4int row, G4int col, G4int halfCols, G4int index);
+    void PositionSiPMs(G4VPhysicalVolume *physFrontSiPM, G4VPhysicalVolume *physBackSiPM, G4int row, G4int col, G4int halfCols, G4int index);
     void DefineMaterials(); /**< @brief Defines all materials.*/
     void DefineVisAttributes(); /**< @brief Defines the visualization attributes for every component of the apparatus.*/
     void DefineCommands(); /**< @brief Defines new user commands for detector construction.*/

@@ -38,6 +38,8 @@ namespace GS
 
     // SiPM (will be improved more and more)
         // Package in FR4: it's the window's mother volume
+    constexpr G4int nOfSiPMs = 115; /**< @brief The number of SiPMs on a detector face.*/
+
     constexpr G4double halfXsidePackageSiPM = 3.675*mm; /**< @brief Half the x-side length of the SiPM package.*/
     constexpr G4double halfYsidePackageSiPM = 3.425*mm; /**< @brief Half the y-side length of the SiPM package.*/
     constexpr G4double halfZsidePackageSiPM = 0.725*mm; /**< @brief Half the z-side length of the SiPM package.*/

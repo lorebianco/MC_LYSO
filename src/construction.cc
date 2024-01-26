@@ -171,6 +171,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     G4VPhysicalVolume *physDetector = new G4PVPlacement(0, G4ThreeVector(GS::xDetector, GS::yDetector, GS::zDetector), logicDetector, "physDetector", logicWindowSiPM, false, 0, true);
 
     // Define the arrangement of SiPMs
+    G4VPhysicalVolume *physFrontPackageSiPM[GS::nOfSiPMs];
+    G4VPhysicalVolume *physBackPackageSiPM[GS::nOfSiPMs];
+
     G4int indexDetector = 0;
     for(G4int i = 0; i<13; i++)
     {
@@ -178,7 +181,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<3; j++)
             {
-                PositionSiPMs(i, j, 1, indexDetector);
+                PositionSiPMs(physFrontPackageSiPM[indexDetector], physBackPackageSiPM[indexDetector], i, j, 1, indexDetector);
                 indexDetector++;
             }
         }
@@ -186,7 +189,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<7; j++)
             {
-                PositionSiPMs(i, j, 3, indexDetector);
+                PositionSiPMs(physFrontPackageSiPM[indexDetector], physBackPackageSiPM[indexDetector], i, j, 3, indexDetector);
                 indexDetector++;
             }
         }
@@ -194,7 +197,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<9; j++)
             {
-                PositionSiPMs(i, j, 4, indexDetector);
+                PositionSiPMs(physFrontPackageSiPM[indexDetector], physBackPackageSiPM[indexDetector], i, j, 4, indexDetector);
                 indexDetector++;
             }
         }
@@ -202,7 +205,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
         {
             for(G4int j = 0; j<11; j++)
             {
-                PositionSiPMs(i, j, 5, indexDetector);
+                PositionSiPMs(physFrontPackageSiPM[indexDetector], physBackPackageSiPM[indexDetector], i, j, 5, indexDetector);
                 indexDetector++;
             }
         }
@@ -309,16 +312,16 @@ void MyDetectorConstruction::ConstructEndcap()
 
 
 
-void MyDetectorConstruction::PositionSiPMs(G4int row, G4int col, G4int halfCols, G4int index)
+void MyDetectorConstruction::PositionSiPMs(G4VPhysicalVolume *physFrontSiPM, G4VPhysicalVolume *physBackSiPM, G4int row, G4int col, G4int halfCols, G4int index)
 {
     // Place the packages. When in back face, need to rotate them of 180°
-    G4VPhysicalVolume *physFrontPackageSiPM = new G4PVPlacement(0,G4ThreeVector((2*GS::halfXsidePackageSiPM*(col-halfCols)), (2*GS::halfYsidePackageSiPM*(6-row)), GS::zFrontFaceScintillator-2*(GS::halfheightLightGuide*fIsLightGuide)-GS::halfZsidePackageSiPM), logicPackageSiPM, "physFrontPackageSiPM", logicWorld, false, index, true);
+    physFrontSiPM = new G4PVPlacement(0,G4ThreeVector((2*GS::halfXsidePackageSiPM*(col-halfCols)), (2*GS::halfYsidePackageSiPM*(6-row)), GS::zFrontFaceScintillator-2*(GS::halfheightLightGuide*fIsLightGuide)-GS::halfZsidePackageSiPM), logicPackageSiPM, "physFrontPackageSiPM", logicWorld, false, index, true);
     
     G4Rotate3D rotXBackDet(180*deg, G4ThreeVector(1, 0, 0));
     G4Translate3D transBackDet(G4ThreeVector(2*GS::halfXsidePackageSiPM*(col-halfCols), 2*GS::halfYsidePackageSiPM*(6-row), GS::zBackFaceScintillator+2*(GS::halfheightLightGuide*fIsLightGuide)+GS::halfZsidePackageSiPM));
     G4Transform3D transformBackDet = (transBackDet)*(rotXBackDet);
                 
-    G4VPhysicalVolume *physBackPackageSiPM = new G4PVPlacement(transformBackDet, logicPackageSiPM, "physBackPackageSiPM", logicWorld, false, index, true);
+    physBackSiPM = new G4PVPlacement(transformBackDet, logicPackageSiPM, "physBackPackageSiPM", logicWorld, false, index, true);
 }
 
 

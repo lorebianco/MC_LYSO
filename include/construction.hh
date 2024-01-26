@@ -75,17 +75,6 @@ private:
     void DefineVisAttributes(); /**< @brief Defines the visualization attributes for every component of the apparatus.*/
     void DefineCommands(); /**< @brief Defines new user commands for detector construction.*/
 
-    // Solids
-    G4Box    *solidWorld, /**< @brief Pointer to world solid.*/
-             *solidPackageSiPM, /**< @brief Pointer to SiPM package solid.*/
-             *solidWindowSiPM, /**< @brief Pointer to SiPM window solid.*/
-             *solidDetector; /**< @brief Pointer to silicon layer of SiPM solid.*/
-    G4Tubs   *solidScintillator, /**< @brief Pointer to crystal solid.*/
-             *solidCoating, /**< @brief Pointer to coating solid.*/
-             *solidPCB, /**< @brief Pointer to PCB solid.*/
-             *solidEndcap; /**< @brief Pointer to endcap solid.*/
-    G4VSolid *solidDrilledLightGuide; /**< @brief Pointer to light guide solid.*/
-
     // Logical volumes
     G4LogicalVolume *logicWorld, /**< @brief Pointer to world logical volume.*/
                     *logicScintillator, /**< @brief Pointer to crystal logical volume.*/
@@ -97,34 +86,8 @@ private:
                     *logicEndcap, /**< @brief Pointer to endcap logical volume.*/
                     *logicLightGuide; /**< @brief Pointer to light guide logical volume.*/
     
-    // Scoring volume
+    // Scoring logical volume
     G4LogicalVolume *fScoringVolume; /**< @brief Pointer used to define the logical volume of the scoring volume. In the application it is assigned to @ref logicScintillator.*/
-
-    // Physical volumes
-    G4VPhysicalVolume *physWorld, /**< @brief Pointer to world physical volume.*/
-                      *physScintillator, /**< @brief Pointer to crystal physical volume.*/
-                      *physFrontPackageSiPM, /**< @brief Pointer to front SiPM package physical volume.*/
-                      *physBackPackageSiPM, /**< @brief Pointer to back SiPM package physical volume.*/
-                      *physWindowSiPM, /**< @brief Pointer to SiPM window physical volume.*/
-                      *physDetector, /**< @brief Pointer to silicon layer of SiPM physical volume.*/
-                      *physCoating, /**< @brief Pointer to coating physical volume.*/
-                      *physFrontPCB, /**< @brief Pointer to front PCB physical volume.*/
-                      *physBackPCB, /**< @brief Pointer to back PCB physical volume.*/
-                      *physFrontEndcap, /**< @brief Pointer to front endcap physical volume.*/
-                      *physBackEndcap, /**< @brief Pointer to back endcap physical volume.*/
-                      *physFrontLightGuide, /**< @brief Pointer to front light guide physical volume.*/
-                      *physBackLightGuide; /**< @brief Pointer to back light guide physical volume.*/
-
-    // Vis Attributes 
-    G4VisAttributes *visWorld, /**< @brief Visualization settings for world.*/
-                    *visScintillator, /**< @brief Visualization settings for the crystal.*/
-                    *visLightGuide, /**< @brief Visualization settings for the light guides.*/
-                    *visCoating, /**< @brief Visualization settings for the coating.*/
-                    *visPackage, /**< @brief Visualization settings for the SiPM package.*/
-                    *visWindow, /**< @brief Visualization settings for the SiPM window.*/
-                    *visDetector, /**< @brief Visualization settings for the SiPM silicon layer.*/
-                    *visPCB, /**< @brief Visualization settings for the PCBs.*/
-                    *visEndcap; /**< @brief Visualization settings for the endcaps.*/
 
     // Materials
     G4Material *fLYSO, /**< @brief Pointer to the LYSO material.*/

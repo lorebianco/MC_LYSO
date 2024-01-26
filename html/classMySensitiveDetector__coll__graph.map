@@ -1,0 +1,6 @@
+<map id="MySensitiveDetector" name="MySensitiveDetector">
+<area shape="rect" id="node1" title="Concrete class of G4VSensitiveDetector, representing the detector (i.e. the SiPM)." alt="" coords="54,171,213,197"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,81,171,108"/>
+<area shape="rect" id="node3" href="$classMyHit.html" title="Concrete class of G4VHit, representing a hit in the MySensitiveDetector." alt="" coords="195,81,256,108"/>
+<area shape="rect" id="node4" title=" " alt="" coords="191,5,259,32"/>
+</map>

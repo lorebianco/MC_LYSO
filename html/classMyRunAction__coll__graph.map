@@ -1,6 +1,0 @@
-<map id="MyRunAction" name="MyRunAction">
-<area shape="rect" id="node1" title="User action concrete class of G4UserRunAction. It defines procedures to be executed at the start and ..." alt="" coords="67,171,175,197"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,81,141,108"/>
-<area shape="rect" id="node3" href="$classMyEventAction.html" title="User action concrete class of G4UserEventAction. In addition to defining procedures executed at the s..." alt="" coords="165,81,285,108"/>
-<area shape="rect" id="node4" title=" " alt="" coords="151,5,299,32"/>
-</map>

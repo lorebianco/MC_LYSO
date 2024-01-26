@@ -26,7 +26,7 @@
 #include "action.hh"
 #include "summary.hh"
 
-/** @brief Main function of the application */
+/** @brief Main of the application */
 int main(int argc, char** argv)
 {
     // Set randomly the seed of the simulation and store it

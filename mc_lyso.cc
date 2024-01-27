@@ -71,6 +71,7 @@ int main(int argc, char** argv)
         // Interactive mode
         UImanager->ApplyCommand("/control/execute vis.mac");
         ui->SessionStart();
+        delete ui;
     }
     else
     {

@@ -121,7 +121,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a391a0e21461dcababf63c3852f6a5330"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and accesses the output root file at the beginning of the run.  <br /></td></tr>
 <tr class="separator:a391a0e21461dcababf63c3852f6a5330"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af71a0ea4ac6e1b23bdfed7c1b1403363" id="r_af71a0ea4ac6e1b23bdfed7c1b1403363"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af71a0ea4ac6e1b23bdfed7c1b1403363">EndOfRunAction</a> (const G4Run *run) override</td></tr>
-<tr class="memdesc:af71a0ea4ac6e1b23bdfed7c1b1403363"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes TTrees to the output root file and closes it at the end of the run.  <br /></td></tr>
+<tr class="memdesc:af71a0ea4ac6e1b23bdfed7c1b1403363"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the TTree to the output root file and closes it at the end of the run.  <br /></td></tr>
 <tr class="separator:af71a0ea4ac6e1b23bdfed7c1b1403363"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
@@ -151,10 +151,10 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Constructor of the class. </p>
-<p>It creates TTrees and their corresponding branches to store simulation output.</p>
+<p>It creates the TTree and its branches to store simulation output.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">eventAction</td><td>Pointer to a <a class="el" href="classMyEventAction.html" title="User action concrete class of G4UserEventAction. In addition to defining procedures executed at the s...">MyEventAction</a> object, necessary for associating data saved in each event with the TTrees. </td></tr>
+    <tr><td class="paramname">eventAction</td><td>Pointer to a <a class="el" href="classMyEventAction.html" title="User action concrete class of G4UserEventAction. In addition to defining procedures executed at the s...">MyEventAction</a> object, necessary for associating data saved in each event with the TTree. </td></tr>
   </table>
   </dd>
 </dl>
@@ -222,7 +222,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="run_8cc_source.html#l00056">56</a> of file <a class="el" href="run_8cc_source.html">run.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="run_8cc_source.html#l00055">55</a> of file <a class="el" href="run_8cc_source.html">run.cc</a>.</p>
 
 </div>
 </div>
@@ -249,7 +249,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Writes TTrees to the output root file and closes it at the end of the run. </p>
+<p>Writes the TTree to the output root file and closes it at the end of the run. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">run</td><td>Pointer to the G4Run. </td></tr>
@@ -257,7 +257,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="run_8cc_source.html#l00070">70</a> of file <a class="el" href="run_8cc_source.html">run.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="run_8cc_source.html#l00069">69</a> of file <a class="el" href="run_8cc_source.html">run.cc</a>.</p>
 
 </div>
 </div>

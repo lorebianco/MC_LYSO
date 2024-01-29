@@ -117,7 +117,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a7fe5a86f5e6668038163cbf6f9f65b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets every data containers at the beginning of a new event.  <br /></td></tr>
 <tr class="separator:a7fe5a86f5e6668038163cbf6f9f65b3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a416818d947a6feec0071b72c598a787a" id="r_a416818d947a6feec0071b72c598a787a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a416818d947a6feec0071b72c598a787a">EndOfEventAction</a> (const G4Event *event) override</td></tr>
-<tr class="memdesc:a416818d947a6feec0071b72c598a787a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills the TTrees with the data of the event.  <br /></td></tr>
+<tr class="memdesc:a416818d947a6feec0071b72c598a787a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills the TTree with the data of the event.  <br /></td></tr>
 <tr class="separator:a416818d947a6feec0071b72c598a787a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae114d6ab1c7ebe19439c1923b720b3da" id="r_ae114d6ab1c7ebe19439c1923b720b3da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae114d6ab1c7ebe19439c1923b720b3da">FindEntryTime</a> (G4double newtimein)</td></tr>
 <tr class="memdesc:ae114d6ab1c7ebe19439c1923b720b3da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the time of arrival to the crystal of the primary gamma.  <br /></td></tr>
@@ -345,8 +345,8 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Fills the TTrees with the data of the event. </p>
-<p>It accesses the MyHitsCollection of the event and fills the detector TTree with data stored in it. After that, it fills the physics TTree with data concerning the primary particle and the energy deposit in the crystal.</p>
+<p>Fills the TTree with the data of the event. </p>
+<p>It accesses the MyHitsCollection of the event and fills the detector branches with data stored in it. After that, it fills the other branches with data concerning the primary particle and the energy deposit in the crystal.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">event</td><td>Pointer to the G4Event. </td></tr>

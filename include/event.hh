@@ -34,10 +34,10 @@ public:
      */
     void BeginOfEventAction(const G4Event *event) override;
     /**
-     * @brief Fills the TTrees with the data of the event.
+     * @brief Fills the TTree with the data of the event.
      *  
      * It accesses the MyHitsCollection of the event and fills the detector
-     * TTree with data stored in it. After that, it fills the physics TTree
+     * branches with data stored in it. After that, it fills the other branches
      * with data concerning the primary particle and the energy deposit in the
      * crystal.
      *

@@ -21,11 +21,11 @@ public:
     /**
      * @brief Constructor of the class.
      *
-     * It creates TTrees and their corresponding branches to store simulation
+     * It creates the TTree and its branches to store simulation
      * output.
      * 
      * @param eventAction Pointer to a MyEventAction object, necessary for
-     * associating data saved in each event with the TTrees.
+     * associating data saved in each event with the TTree.
      */
     MyRunAction(MyEventAction* eventAction);
     ~MyRunAction() override = default; /**< @brief Destructor of the class.*/
@@ -38,8 +38,8 @@ public:
      */
     void BeginOfRunAction(const G4Run* run) override;
     /**
-     * @brief Writes TTrees to the output root file and closes it at the end of
-     * the run.
+     * @brief Writes the TTree to the output root file and closes it at the end
+     * of the run.
      * 
      * @param run Pointer to the G4Run.
      */

@@ -81,33 +81,32 @@ void MyEventAction::EndOfEventAction(const G4Event *event)
     G4AnalysisManager *man = G4AnalysisManager::Instance();
     G4int evt = G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID();
     
-    // Fill the physics TTree
-    man->FillNtupleIColumn(0, 0, evt);
-    man->FillNtupleDColumn(0, 1, primaryParticle->GetTotalEnergy());
-    man->FillNtupleDColumn(0, 2, primaryVertex->GetX0());
-    man->FillNtupleDColumn(0, 3, primaryVertex->GetY0());
-    man->FillNtupleDColumn(0, 4, primaryVertex->GetZ0());
-    man->FillNtupleDColumn(0, 5, primaryParticle->GetMomentumDirection().x());
-    man->FillNtupleDColumn(0, 6, primaryParticle->GetMomentumDirection().y());
-    man->FillNtupleDColumn(0, 7, primaryParticle->GetMomentumDirection().z());
-    man->FillNtupleDColumn(0, 8, fTimeIn);
-    man->FillNtupleDColumn(0, 9, fPosIn.x());
-    man->FillNtupleDColumn(0, 10, fPosIn.y());
-    man->FillNtupleDColumn(0, 11, fPosIn.z());
-    man->FillNtupleDColumn(0, 12, fEdep);
-    man->FillNtupleDColumn(0, 13, fMaxEdep);
-    man->FillNtupleDColumn(0, 14, fMaxEdepPos.x());
-    man->FillNtupleDColumn(0, 15, fMaxEdepPos.y());
-    man->FillNtupleDColumn(0, 16, fMaxEdepPos.z());
+    // Fill the primary gamma branches
+    man->FillNtupleIColumn(0, evt);
+    man->FillNtupleDColumn(1, primaryParticle->GetTotalEnergy());
+    man->FillNtupleDColumn(2, primaryVertex->GetX0());
+    man->FillNtupleDColumn(3, primaryVertex->GetY0());
+    man->FillNtupleDColumn(4, primaryVertex->GetZ0());
+    man->FillNtupleDColumn(5, primaryParticle->GetMomentumDirection().x());
+    man->FillNtupleDColumn(6, primaryParticle->GetMomentumDirection().y());
+    man->FillNtupleDColumn(7, primaryParticle->GetMomentumDirection().z());
+    man->FillNtupleDColumn(8, fTimeIn);
+    man->FillNtupleDColumn(9, fPosIn.x());
+    man->FillNtupleDColumn(10, fPosIn.y());
+    man->FillNtupleDColumn(11, fPosIn.z());
+    // Fill the energy deposition branches
+    man->FillNtupleDColumn(12, fEdep);
+    man->FillNtupleDColumn(13, fMaxEdep);
+    man->FillNtupleDColumn(14, fMaxEdepPos.x());
+    man->FillNtupleDColumn(15, fMaxEdepPos.y());
+    man->FillNtupleDColumn(16, fMaxEdepPos.z());
+    // Fill the detectors branches
+    man->FillNtupleIColumn(17, fHitsNum_F);
+    man->FillNtupleIColumn(18, fHitsNum_B);
+    man->FillNtupleIColumn(19, fHitsNum_F + fHitsNum_B);
+    man->FillNtupleIColumn(20, fHitsNumwGhosts_F);
+    man->FillNtupleIColumn(21, fHitsNumwGhosts_B);
+    man->FillNtupleIColumn(22, fHitsNumwGhosts_F + fHitsNumwGhosts_B);
+    // Close the row
     man->AddNtupleRow(0);
-
-    // Fill the detector TTree
-    man->FillNtupleIColumn(1, 0, evt);
-    man->FillNtupleIColumn(1, 1, fHitsNum_F);
-    man->FillNtupleIColumn(1, 2, fHitsNum_B);
-    man->FillNtupleIColumn(1, 3, fHitsNum_F + fHitsNum_B);
-    man->FillNtupleIColumn(1, 4, fHitsNumwGhosts_F);
-    man->FillNtupleIColumn(1, 5, fHitsNumwGhosts_B);
-    man->FillNtupleIColumn(1, 6, fHitsNumwGhosts_F + fHitsNumwGhosts_B);
-    man->AddNtupleRow(1);
 }

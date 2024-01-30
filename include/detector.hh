@@ -57,7 +57,6 @@ public:
     // void EndOfEvent(G4HCofThisEvent*) override;
 
 private:
-    MyHit *newHit; /**< @brief Pointer to the MyHit of the optical photon.*/
     MyHitsCollection *fHitsCollection; /**< @brief Pointer to the hits collection of the event.*/
 };
 

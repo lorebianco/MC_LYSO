@@ -92,17 +92,13 @@ public:
 
     // Detectors' data
     G4int                 fHitsNum_F, /**< @brief Total number of optical photons detected by SiPMs on the front face.*/
-                          fHitsNum_B, /**< @brief Total number of optical photons detected by SiPMs on the back face.*/
-                          fHitsNumwGhosts_F, /**< @brief Total number of optical photons that reached the SiPMs on the front face.*/
-                          fHitsNumwGhosts_B; /**< @brief Total number of optical photons that reached the SiPMs on the back face.*/
+                          fHitsNum_B; /**< @brief Total number of optical photons detected by SiPMs on the back face.*/
     std::vector<G4double> fT_F, /**< @brief Vector containing times of detection of optical photons on the front face.*/
                           fX_F, /**< @brief Vector containing x-positions of detection of optical photons on the front face.*/
                           fY_F, /**< @brief Vector containing y-positions of detection of optical photons on the front face.*/
-                          fZ_F, /**< @brief Vector containing z-positions of detection of optical photons on the front face.*/
                           fT_B, /**< @brief Vector containing times of detection of optical photons on the back face.*/
                           fX_B, /**< @brief Vector containing x-positions of detection of optical photons on the back face.*/
-                          fY_B, /**< @brief Vector containing y-positions of detection of optical photons on the back face.*/
-                          fZ_B; /**< @brief Vector containing z-positions of detection of optical photons on the back face.*/
+                          fY_B; /**< @brief Vector containing y-positions of detection of optical photons on the back face.*/
     std::vector<G4int>    fChannel_F, /**< @brief Vector containing SiPM channels of detection of optical photons on the front face.*/
                           fChannel_B; /**< @brief Vector containing SiPM channels of detection of optical photons on the back face.*/
 };

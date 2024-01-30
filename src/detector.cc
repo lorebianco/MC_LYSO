@@ -25,7 +25,11 @@ void MySensitiveDetector::Initialize(G4HCofThisEvent *hce)
 
 G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhist)
 {
-    newHit = new MyHit();
+    // Here's implemented the PDE
+    if(G4UniformRand() > GS::PDE_SiPM) return false;
+
+    // Create a new MyHit object
+    MyHit *newHit = new MyHit();
 
     // Access the useful objects
     G4Track *track = aStep->GetTrack();
@@ -39,20 +43,14 @@ G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
 
 
     // Time of the optical photon
-    newHit->SetOpticalPhotonTime(preStepPoint->GetGlobalTime());
-
-    // Position of the optical photon
-    newHit->SetOpticalPhotonPos(preStepPoint->GetPosition());
+    newHit->SetDetectionTime(preStepPoint->GetGlobalTime());
     
     // Position of detector (Note that the position of the package is taken)
-    newHit->SetDetectorPos(touchable->GetVolume(2)->GetTranslation());
+    newHit->SetDetectorPosition(touchable->GetVolume(2)->GetTranslation());
 
     // Channel of detector
     newHit->SetDetectorChannel(touchable->GetCopyNumber(2));
 
-    // Here's implemented the PDE
-    if(G4UniformRand()<=GS::PDE_SiPM) newHit->SetDetection(true);
-    else newHit->SetDetection(false);
 
     // Insert the hit
     fHitsCollection->insert(newHit);

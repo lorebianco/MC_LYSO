@@ -12,20 +12,15 @@ void MyEventAction::BeginOfEventAction(const G4Event *event)
     fEdep = 0.;
     fMaxEdep = 0.;
     fMaxEdepPos = G4ThreeVector(0., 0., 0.);
-
     fHitsNum_F = 0.;
     fHitsNum_B = 0.;
-    fHitsNumwGhosts_F = 0.;
-    fHitsNumwGhosts_B = 0.;
     fT_F.clear();
     fX_F.clear();
     fY_F.clear();
-    fZ_F.clear();
     fChannel_F.clear();
     fT_B.clear();
     fX_B.clear();
     fY_B.clear();
-    fZ_B.clear();
     fChannel_B.clear();
 }
 
@@ -44,32 +39,22 @@ void MyEventAction::EndOfEventAction(const G4Event *event)
     G4int nHits = THC->entries();
     for(G4int i = 0; i < nHits; i++)
     {
-        if((*THC)[i]->GetDetectorPos()[2] < GS::zScintillator)
+        if((*THC)[i]->GetDetectorPosition().z() < GS::zScintillator)
             {   
-                fHitsNumwGhosts_F++;
-                if((*THC)[i]->GetDetection())
-                {
-                    fHitsNum_F++;
-                    fT_F.push_back((*THC)[i]->GetOpticalPhotonTime());
-                    fX_F.push_back((*THC)[i]->GetDetectorPos().x());
-                    fY_F.push_back((*THC)[i]->GetDetectorPos().y());
-                    fZ_F.push_back((*THC)[i]->GetDetectorPos().z());
-                    fChannel_F.push_back((*THC)[i]->GetDetectorChannel());
-                }
+                fHitsNum_F++;
+                fT_F.push_back((*THC)[i]->GetDetectionTime());
+                fX_F.push_back((*THC)[i]->GetDetectorPosition().x());
+                fY_F.push_back((*THC)[i]->GetDetectorPosition().y());
+                fChannel_F.push_back((*THC)[i]->GetDetectorChannel());    
             }
 
-            if((*THC)[i]->GetDetectorPos()[2] > GS::zScintillator)
+            if((*THC)[i]->GetDetectorPosition().z() > GS::zScintillator)
             {
-                fHitsNumwGhosts_B++;
-                if((*THC)[i]->GetDetection()) 
-                {
-                    fHitsNum_B++;
-                    fT_B.push_back((*THC)[i]->GetOpticalPhotonTime());
-                    fX_B.push_back((*THC)[i]->GetDetectorPos().x());
-                    fY_B.push_back((*THC)[i]->GetDetectorPos().y());
-                    fZ_B.push_back((*THC)[i]->GetDetectorPos().z());
-                    fChannel_B.push_back((*THC)[i]->GetDetectorChannel());
-                }
+                fHitsNum_B++;
+                fT_B.push_back((*THC)[i]->GetDetectionTime());
+                fX_B.push_back((*THC)[i]->GetDetectorPosition().x());
+                fY_B.push_back((*THC)[i]->GetDetectorPosition().y());
+                fChannel_B.push_back((*THC)[i]->GetDetectorChannel());    
             }
     }
 
@@ -104,9 +89,6 @@ void MyEventAction::EndOfEventAction(const G4Event *event)
     man->FillNtupleIColumn(17, fHitsNum_F);
     man->FillNtupleIColumn(18, fHitsNum_B);
     man->FillNtupleIColumn(19, fHitsNum_F + fHitsNum_B);
-    man->FillNtupleIColumn(20, fHitsNumwGhosts_F);
-    man->FillNtupleIColumn(21, fHitsNumwGhosts_B);
-    man->FillNtupleIColumn(22, fHitsNumwGhosts_F + fHitsNumwGhosts_B);
     // Close the row
     man->AddNtupleRow(0);
 }

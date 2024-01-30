@@ -33,18 +33,13 @@ MyRunAction::MyRunAction(MyEventAction *eventAction) : fEventAction(eventAction)
     man->CreateNtupleIColumn("HitsNum_F");
     man->CreateNtupleIColumn("HitsNum_B");
     man->CreateNtupleIColumn("HitsNum_Tot");
-    man->CreateNtupleIColumn("HitsNumwGhosts_F"); // entry 20
-    man->CreateNtupleIColumn("HitsNumwGhosts_B");
-    man->CreateNtupleIColumn("HitsNumwGhosts_Tot");
-    man->CreateNtupleDColumn("T_F", fEventAction->fT_F);
+    man->CreateNtupleDColumn("T_F", fEventAction->fT_F); // entry 20
     man->CreateNtupleDColumn("X_F", fEventAction->fX_F);
-    man->CreateNtupleDColumn("Y_F", fEventAction->fY_F); // entry 25
-    man->CreateNtupleDColumn("Z_F", fEventAction->fZ_F);
+    man->CreateNtupleDColumn("Y_F", fEventAction->fY_F);
     man->CreateNtupleIColumn("Channel_F", fEventAction->fChannel_F);
     man->CreateNtupleDColumn("T_B", fEventAction->fT_B);
-    man->CreateNtupleDColumn("X_B", fEventAction->fX_B);
-    man->CreateNtupleDColumn("Y_B", fEventAction->fY_B); // entry 30
-    man->CreateNtupleDColumn("Z_B", fEventAction->fZ_B);
+    man->CreateNtupleDColumn("X_B", fEventAction->fX_B); // entry 25
+    man->CreateNtupleDColumn("Y_B", fEventAction->fY_B);
     man->CreateNtupleIColumn("Channel_B", fEventAction->fChannel_B);
 
     man->FinishNtuple(0);

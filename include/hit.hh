@@ -31,24 +31,18 @@ public:
     inline void operator delete(void*); /**< @brief Overloaded delete operator for memory deallocation: it uses the @ref MyHitAllocator for fast memory handling.*/
 
     // Set methods
-    inline void SetDetection(G4bool detected) { fIsDetected = detected; } /**< @brief Set the detection status of the optical photon.*/
-    inline void SetOpticalPhotonTime(G4double t) { fOpticalPhotonTime = t; } /**< @brief Set the detection time of the optical photon.*/
-    inline void SetOpticalPhotonPos(G4ThreeVector xyz) { fOpticalPhotonPos = xyz; } /**< @brief Set the position of the detected optical photon.*/
-    inline void SetDetectorPos(G4ThreeVector xyz) { fDetectorPos = xyz; } /**< @brief Set the position (center) of the SiPM hit by the optical photon.*/
+    inline void SetDetectionTime(G4double t) { fDetectionTime = t; } /**< @brief Set the detection time of the optical photon.*/
+    inline void SetDetectorPosition(G4ThreeVector xyz) { fDetectorPosition = xyz; } /**< @brief Set the position (center) of the SiPM hit by the optical photon.*/
     inline void SetDetectorChannel(G4int ch) { fCh = ch; } /**< @brief Set the channel of the SiPM hit by the optical photon.*/
 
     // Get methods
-    inline G4bool GetDetection() const { return fIsDetected; } /**< @brief Get the detection status of the optical photon.*/
-    inline G4double GetOpticalPhotonTime() const { return fOpticalPhotonTime; } /**< @brief Get the detection time of the optical photon.*/
-    inline G4ThreeVector GetOpticalPhotonPos() const { return fOpticalPhotonPos; } /**< @brief Get the position of the detected optical photon.*/
-    inline G4ThreeVector GetDetectorPos() const { return fDetectorPos; } /**< @brief Get the position (center) of the SiPM hit by the optical photon.*/
+    inline G4double GetDetectionTime() const { return fDetectionTime; } /**< @brief Get the detection time of the optical photon.*/
+    inline G4ThreeVector GetDetectorPosition() const { return fDetectorPosition; } /**< @brief Get the position (center) of the SiPM hit by the optical photon.*/
     inline G4int GetDetectorChannel() const { return fCh; } /**< @brief Get the channel of the SiPM hit by the optical photon.*/
 
 private:
-    G4bool fIsDetected; /**< @brief Flag indicating whether the optical photon, due to the @ref GS::PDE_SiPM, will be considered as detected or not.*/
-    G4double fOpticalPhotonTime; /**< @brief Time of detection of the optical photon.*/
-    G4ThreeVector fOpticalPhotonPos; /**< @brief Position of the optical photon detected.*/
-    G4ThreeVector fDetectorPos; /**< @brief Position (center) of the SiPM hit by the optical photon.*/
+    G4double fDetectionTime; /**< @brief Time of detection of the optical photon.*/
+    G4ThreeVector fDetectorPosition; /**< @brief Position (center) of the SiPM hit by the optical photon.*/
     G4int fCh; /**< @brief Channel of the SiPM hit by the optical photon.*/
 };
 

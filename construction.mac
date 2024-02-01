@@ -1,4 +1,4 @@
-/my_construction/isLightGuide false
-/my_construction/MaterialOfLightGuide 1
-/my_construction/isPCB true
-/my_construction/isEndcap true
+/MC_LYSO/my_construction/isLightGuide false
+/MC_LYSO/my_construction/MaterialOfLightGuide 1
+/MC_LYSO/my_construction/isPCB true
+/MC_LYSO/my_construction/isEndcap true

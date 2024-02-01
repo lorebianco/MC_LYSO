@@ -124,7 +124,7 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent)
 void MyPrimaryGenerator::DefineCommands()
 {
     // Define my UD-messenger for primary gamma
-    fMessenger_Gun = new G4GenericMessenger(this, "/my_gun/", "Cinematical settings for initial gamma");
+    fMessenger_Gun = new G4GenericMessenger(this, "/MC_LYSO/my_gun/", "Cinematical settings for initial gamma");
     fMessenger_Gun->DeclarePropertyWithUnit("meanEnergy", "MeV", fMeanEnergy, "Mean of the gaussian distribution of initial gamma energy");
     fMessenger_Gun->DeclarePropertyWithUnit("sigmaEnergy", "MeV", fSigmaEnergy, "Sigma of the gaussian distribution of initial gamma energy");
 
@@ -132,7 +132,7 @@ void MyPrimaryGenerator::DefineCommands()
     fMessenger_Gun->DeclarePropertyWithUnit("radiusSpread", "mm", fRadiusSpread, "Set radius of the spread on the front face of scintillator");
 
     // Define my UD-messenger for calibration run
-    fMessenger_Calib = new G4GenericMessenger(this, "/my_gun/calibration/", "Settings for calibration");
+    fMessenger_Calib = new G4GenericMessenger(this, "/MC_LYSO/my_gun/calibration/", "Settings for calibration");
     fMessenger_Calib->DeclareProperty("enable", fIsCalibrationEnabled, "If true activate the calibration system; then must decide front or back and wich LED switch ON");
     fMessenger_Calib->DeclareProperty("FrontOrBack", fChooseFrontorBack, "Choose side of detector you want to calibrate: F(ront) or B(ack)");
     fMessenger_Calib->DeclareProperty("switchOnLED", fSwitchOnLED, "Choose which LED turn ON: u(p), d(own), r(ight), l(eft)");

@@ -102,7 +102,7 @@ void MyDetectorConstruction::DefineMaterials()
     fFR4->AddMaterial(nist->FindOrBuildMaterial("G4_SILICON_DIOXIDE"), 52.8*perCent);
     fFR4->AddMaterial(fEpoxy, 47.2*perCent);
 
-    // CARBBON FIBER
+    // CARBON FIBER
     fCarbonFiber = new G4Material("Carbon Fiber", 1.5*g/cm3, 1);
     fCarbonFiber->AddElement(nist->FindOrBuildElement("C"), 1);
 
@@ -388,7 +388,7 @@ void MyDetectorConstruction::DefineVisAttributes()
 void MyDetectorConstruction::DefineCommands()
 {
     // Define my UD-messenger for the detector construction
-    fMessenger = new G4GenericMessenger(this, "/my_construction/", "Construction settings");
+    fMessenger = new G4GenericMessenger(this, "/MC_LYSO/my_construction/", "Construction settings");
     fMessenger->DeclareProperty("isLightGuide", fIsLightGuide, "Set if the two light guides are present");
     fMessenger->DeclareProperty("isPCB", fIsPCB, "Set if the two PCBs are present");
     fMessenger->DeclareProperty("isEndcap", fIsEndcap, "Set if the two endcaps are present");

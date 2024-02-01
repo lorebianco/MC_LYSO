@@ -9,7 +9,7 @@ MyRunAction::MyRunAction(MyEventAction *eventAction) : fEventAction(eventAction)
     G4AnalysisManager *man = G4AnalysisManager::Instance();
 
     // Create the TTree
-    man->CreateNtuple("T", "Primary Gamma, energy deposition inside the crystal and detectors output");
+    man->CreateNtuple("lyso", "Primary Gamma, energy deposition inside the crystal and detectors output");
     // Data of primary gamma
     man->CreateNtupleIColumn("Event"); // entry 0
     man->CreateNtupleDColumn("E_gun");
@@ -30,17 +30,17 @@ MyRunAction::MyRunAction(MyEventAction *eventAction) : fEventAction(eventAction)
     man->CreateNtupleDColumn("MaxEdepPosY"); // entry 15
     man->CreateNtupleDColumn("MaxEdepPosZ");
     // Data of detectors
-    man->CreateNtupleIColumn("HitsNum_F");
-    man->CreateNtupleIColumn("HitsNum_B");
-    man->CreateNtupleIColumn("HitsNum_Tot");
+    man->CreateNtupleIColumn("NHits_F");
+    man->CreateNtupleIColumn("NHits_B");
+    man->CreateNtupleIColumn("NHits_Tot");
     man->CreateNtupleDColumn("T_F", fEventAction->fT_F); // entry 20
     man->CreateNtupleDColumn("X_F", fEventAction->fX_F);
     man->CreateNtupleDColumn("Y_F", fEventAction->fY_F);
-    man->CreateNtupleIColumn("Channel_F", fEventAction->fChannel_F);
+    man->CreateNtupleIColumn("Ch_F", fEventAction->fChannel_F);
     man->CreateNtupleDColumn("T_B", fEventAction->fT_B);
     man->CreateNtupleDColumn("X_B", fEventAction->fX_B); // entry 25
     man->CreateNtupleDColumn("Y_B", fEventAction->fY_B);
-    man->CreateNtupleIColumn("Channel_B", fEventAction->fChannel_B);
+    man->CreateNtupleIColumn("Ch_B", fEventAction->fChannel_B);
 
     man->FinishNtuple(0);
 }

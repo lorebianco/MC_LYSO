@@ -41,7 +41,7 @@ void MC_summary(G4String macrofile, G4int seed, G4double duration, const G4Strin
     std::tm* current_time = std::localtime(&now);
     outfile << "Date: " << std::asctime(current_time);
     outfile << "User Name: " << getlogin() << G4endl;
-    outfile << "Duration of the simulation: " << duration << G4endl;
+    outfile << "Duration of the simulation: " << duration << " s" << G4endl;
     outfile << G4endl;
 
     // Open the run macro file in read mode

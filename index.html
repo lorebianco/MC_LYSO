@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Monte Carlo LYSO: Main Page</title>
+<title>Monte Carlo LYSO: MC_LYSO Documentation</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -14,6 +14,13 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -71,10 +78,228 @@ $(function() {
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">Monte Carlo LYSO Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">MC_LYSO Documentation </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><div class="image">
+<img src="lysogif.gif" alt="" width="500"/>
+</div>
+<h1><a class="anchor" id="intro"></a>
+Introduction</h1>
+<p>The <em>MC_LYSO</em> project is a Geant4 simulation of an electromagnetic calorimeter prototype, consisting of a large cylindrical LYSO scintillator crystal coupled to MPPCs (SiPMs) on both faces for signal readout. The ultimate goal is to develop an auxiliary detector for the MEG-II calorimeter calibration and investigate its potential as a prototype for future calorimeters designed for gamma particles with energies on the order of 50 MeV, offering ultra-precise time and energy resolution.</p>
+<p>It is important to note that the output data from this application do not directly represent the final physical observables, due to the absence of the "digitization" process in the Monte Carlo. Thus, the generated data serves as input for the SiPM-response simulation: an early version of that can be found at <a href="https://github.com/lorebianco/Bartender_LYSO">https://github.com/lorebianco/Bartender_LYSO</a> .</p>
+<p>The <em>MC_LYSO</em> application will undergo continuous updates to assess various aspects.</p>
+<h1><a class="anchor" id="construction"></a>
+Geometry Definition</h1>
+<div class="image">
+<img src="geometry.png" alt=""/>
+</div>
+<p>The default setup consists of a cylindrical scintillating crystal made of LYSO - \( \text{Lu}_{1.9}\text{Y}_{0.1}\text{SiO}_{5}(\text{Ce content: 0.5mol%}) \) - with 115x2 MPPCs attached to its Front and Back faces, in accordance with the scheme shown in the figure.</p>
+<p>Each MPPC is constructed as depicted in the central image, comprising a silicon layer (representing the sensitive area of the detector) placed inside an epoxy resin window, which is further enclosed in the FR4 package.</p>
+<p>The correct placement of each SiPM is implemented in the <a class="el" href="classMyDetectorConstruction.html#ac9ef5a036a6ef0c2090cbddd414c8c86" title="Construct the detector geometry.">MyDetectorConstruction::Construct()</a> function using nested <em>for</em> loops and <em>if</em> conditions based on the panel row to determine the number of detectors to insert. Additionally, by default, two PCBs (made of FR4) and two carbon fiber endcaps are constructed, but they can be removed using interactive commands:</p>
+<blockquote class="doxtable">
+<p>&zwj;/MC_LYSO/my_construction/isPCB false </p>
+</blockquote>
+<blockquote class="doxtable">
+<p>&zwj;/MC_LYSO/my_construction/isEndcap false </p>
+</blockquote>
+<p>Light guides can be inserted between the crystal and SiPMs using the following command:</p>
+<blockquote class="doxtable">
+<p>&zwj;/MC_LYSO/my_construction/isLightGuide true </p>
+</blockquote>
+<p>The material, in the current version, can be chosen between plexiglass (default) and sapphire:</p>
+<ul>
+<li>Plexiglass:</li>
+</ul>
+<blockquote class="doxtable">
+<p>&zwj;/MC_LYSO/my_construction/MaterialOfLightGuide 1 </p>
+</blockquote>
+<ul>
+<li>Sapphire:</li>
+</ul>
+<blockquote class="doxtable">
+<p>&zwj;/MC_LYSO/my_construction/MaterialOfLightGuide 2 </p>
+</blockquote>
+<p>Finally, a cylindrical coating (not in contact with the crystal) has been added solely to absorb optical photons for better graphical representation.</p>
+<h1><a class="anchor" id="physlist"></a>
+Physics List</h1>
+<p>The essential processes for this Monte Carlo simulation are electromagnetic and optical. The physics list has been implemented in <a class="el" href="classMyPhysicsList.html" title="Mandatory user initialization concrete class of G4VModularPhysicsList. It defines physical processes ...">MyPhysicsList</a> through the RegisterPhysics() method, allowing the inclusion of pre-packaged modules from Geant4. The following modules have been loaded:</p><ul>
+<li>G4EmStandardPhysics()</li>
+<li>G4OpticalPhysics()</li>
+</ul>
+<p>The decay line for lutetium will likely be included in a future upgrade, requiring the addition of -possibly- G4DecayPhysics() and G4RadioactiveDecayPhysics().</p>
+<h1><a class="anchor" id="action"></a>
+Action Inizialization</h1>
+<p>To instantiate and register various user action classes on the G4 kernel, <a class="el" href="classMyActionInitialization.html" title="Mandatory user initialization concrete class of G4VUserActionInitialization. It configures all the ne...">MyActionInitialization()</a> has been implemented.</p>
+<p>The user actions configured, in addition to the mandatory <a class="el" href="classMyPrimaryGenerator.html" title="Mandatory user action concrete class of G4VUserPrimaryGeneratorAction. It defines the settings for th...">MyPrimaryGenerator</a>, include <a class="el" href="classMyRunAction.html" title="User action concrete class of G4UserRunAction. It defines procedures to be executed at the start and ...">MyRunAction</a>, <a class="el" href="classMyEventAction.html" title="User action concrete class of G4UserEventAction. In addition to defining procedures executed at the s...">MyEventAction</a> and <a class="el" href="classMySteppingAction.html" title="User action concrete class of G4UserSteppingAction. It defines procedures to be executed for every st...">MySteppingAction</a>.</p>
+<p>In sequential mode, the action classes are instantiated once by invoking the <a class="el" href="classMyActionInitialization.html#a7eada42d8cd0a37d58911461d26615ac" title="Configures user action classes for worker threads.">MyActionInitialization::Build()</a> method. However, in multi-threading mode, the same method is called for each thread worker, resulting in the definition of all user action classes as thread-local instances.</p>
+<p>The run action class is instantiated both thread-local and globally, this is why its instance is created in the <a class="el" href="classMyActionInitialization.html#af0ece8a96f20710b3f5e0df6f2197ff0" title="Configures the MyRunAction class for the master thread (in multithreading mode).">MyActionInitialization::BuildForMaster()</a> method, which is specifically invoked only in multi-threading mode.</p>
+<h1><a class="anchor" id="generator"></a>
+Primary Generator</h1>
+<p>The primary generator action class employs the G4ParticleGun. In this case as well, a customizable class has been implemented with new user-defined commands. The default configuration involves generating a gamma at the origin of the world volume, directed along the positive z-axis, thus entering the cylinder perpendicularly through the Front face.</p>
+<p>The photon's energy is sampled from a Gaussian distribution, with the mean and sigma customizable using the commands: </p><blockquote class="doxtable">
+<p>&zwj;/MC_LYSO/my_gun/meanEnergy [value] [unit] </p>
+</blockquote>
+<blockquote class="doxtable">
+<p>&zwj;/MC_LYSO/my_gun/sigmaEnergy [value] [unit] </p>
+</blockquote>
+<p>By default, the values are set to 1 MeV and 0.01 MeV. Please note that at significantly higher energies, the graphical viewer may not be able to represent all scintillation photon traces, potentially causing a crash.</p>
+<p>Using the command </p><blockquote class="doxtable">
+<p>&zwj;/MC_LYSO/my_gun/enableSpread true </p>
+</blockquote>
+<p>it's possible to uniformly emit the gamma, still at the origin, with angles such that it enters the front face of the scintillator within a circle. The radius of this circle can be set with: </p><blockquote class="doxtable">
+<p>&zwj;/MC_LYSO/my_gun/radiusSpread [value] [unit] </p>
+</blockquote>
+<h2><a class="anchor" id="calibration"></a>
+Calibration mode</h2>
+<p>To be written...</p>
+<h1><a class="anchor" id="runsevents"></a>
+Runs and Events</h1>
+<p>A run consists of a set of events. Through user action classes, operations have been configured at various stages:</p><ul>
+<li>at the beginning and end of each run (class <a class="el" href="classMyRunAction.html" title="User action concrete class of G4UserRunAction. It defines procedures to be executed at the start and ...">MyRunAction</a>)</li>
+<li>at the beginning and end of each event (class <a class="el" href="classMyEventAction.html" title="User action concrete class of G4UserEventAction. In addition to defining procedures executed at the s...">MyEventAction</a>)</li>
+<li>at the end of each step (class <a class="el" href="classMySteppingAction.html" title="User action concrete class of G4UserSteppingAction. It defines procedures to be executed for every st...">MySteppingAction</a>)</li>
+</ul>
+<p>The last one is discussed further in <a class="el" href="#steps">Energy Deposition</a>.</p>
+<p>At the start of a run, a TTree with its TBranches is created. At the conclusion, a root file named "output_MCID_run[runID].root" is created and opened (here, runID represents the ID number of the run). The TTree, filled with Monte Carlo data, is then written to this root file.</p>
+<p>In the method <a class="el" href="classMyEventAction.html#a7fe5a86f5e6668038163cbf6f9f65b3f" title="Resets every data containers at the beginning of a new event.">MyEventAction::BeginOfEventAction()</a>, all event-data containers are reset. In <a class="el" href="classMyEventAction.html#a416818d947a6feec0071b72c598a787a" title="Fills the TTree with the data of the event.">MyEventAction::EndOfEventAction()</a>, the data packaged in the containers are copied into a new row of the TTree along with other directly extracted information.</p>
+<p>A detailed description of the collected data and the structure of the TTree is provided below in <a class="el" href="#output">Data Flow and Output File</a>.</p>
+<h1><a class="anchor" id="detector"></a>
+Detector Response</h1>
+<p>The detector response is implemented through the commonly used sensitive detector + hit scheme. In this application, the silicon layers of the MPPCs are considered the detector. Therefore, the logic volume associated with them is declared as a "sensitive detector" (SD) in <a class="el" href="classMyDetectorConstruction.html#ac7e3c9f91dfc451510c23b31752c5a40" title="It sets all the SiPMs&#39; silicon layers as sensitive detectors.">MyDetectorConstruction::ConstructSDandField()</a>, and they are associated with an instance of the <a class="el" href="classMySensitiveDetector.html" title="Concrete class of G4VSensitiveDetector, representing the detector (i.e. the SiPM).">MySensitiveDetector()</a> class.</p>
+<p>This class contains a hit collection tasked with containing all hits from scintillation optical photons. A hit is represented by an instance of the <a class="el" href="classMyHit.html" title="Concrete class of G4VHit, representing a hit in the MySensitiveDetector.">MyHit</a> class created in <a class="el" href="classMySensitiveDetector.html#a18a6d76cdeffc12f261cdac80efd0505" title="For every optical photon that hits the SD this method instantiates a MyHit object,...">MySensitiveDetector::ProcessHits()</a> when an optical photon undergoes a step in the SD and is detected. Indeed, in this version the photon detection efficiency of the MPPC (24%) is also implemented, which could potentially be moved to the SiPM-response simulation in the future.</p>
+<p>A hit is defined as a set of the following info related to the detection of the scintillation photon:</p><ul>
+<li>Detection time</li>
+<li>Detector position (note that the package's position is stored, not the layer's)</li>
+<li>Detector channel</li>
+</ul>
+<h2><a class="anchor" id="steps"></a>
+Energy Deposition</h2>
+<p>We are also interested in extracting the energy deposited inside the crystal. However, since it is not associated with a sensitive detector, the method described above is not applicable. To extract the information, in <a class="el" href="classMyDetectorConstruction.html" title="Mandatory user initialization concrete class of G4VUserDetectorConstruction. It represents the whole ...">MyDetectorConstruction</a>, a G4LogicalVolume is defined and associated with the logical volume of the scintillator, representing the scoring volume. This volume is utilized in <a class="el" href="classMySteppingAction.html#a1d28426adf2987fafac3292bfd639ac8" title="For every step updates and stores quantities about the physics inside the crystal by calling the meth...">MySteppingAction::UserSteppingAction()</a> to extract, after each step localized within the crystal, the deposited energy and the position of the maximum \( \frac{dE}{dx} \), identified as the midpoint between the pre and post step points where the maximum \( \frac{dE_{dep}}{step lenght}\) occurred.</p>
+<p>Additionally, the entry position and time of the primary gamma into the scintillator are extracted.</p>
+<h1><a class="anchor" id="output"></a>
+Data Flow and Output File</h1>
+<p>In G4, there are various methods for extracting and transmitting data between different classes and stages of the simulation. Here is a summary of the implemented data flow and the description of the output ROOT file.</p>
+<p>As described, in the constructor of <a class="el" href="classMyRunAction.html" title="User action concrete class of G4UserRunAction. It defines procedures to be executed at the start and ...">MyRunAction</a>, a TTree <em>lyso</em> is created using G4AnalysisManager, and its branches are defined. The structure is shown in the table.</p>
+<center> <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Branch   </th><th class="markdownTableHeadCenter">Type   </th><th class="markdownTableHeadCenter">Unit   </th><th class="markdownTableHeadNone">Description    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">event   </td><td class="markdownTableBodyCenter">int   </td><td class="markdownTableBodyCenter">-   </td><td class="markdownTableBodyNone">Event identifier    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">E_gun   </td><td class="markdownTableBodyCenter">double   </td><td class="markdownTableBodyCenter">MeV   </td><td class="markdownTableBodyNone">Energy of the primary gamma    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">X_gun   </td><td class="markdownTableBodyCenter">double   </td><td class="markdownTableBodyCenter">mm   </td><td class="markdownTableBodyNone">Initial x position of the primary gamma    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Y_gun   </td><td class="markdownTableBodyCenter">double   </td><td class="markdownTableBodyCenter">mm   </td><td class="markdownTableBodyNone">Initial y position of the primary gamma    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Z_gun   </td><td class="markdownTableBodyCenter">double   </td><td class="markdownTableBodyCenter">mm   </td><td class="markdownTableBodyNone">Initial z position of the primary gamma    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">MomX_gun   </td><td class="markdownTableBodyCenter">double   </td><td class="markdownTableBodyCenter">-   </td><td class="markdownTableBodyNone">X component of the momentum direction of the primary gamma    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">MomY_gun   </td><td class="markdownTableBodyCenter">double   </td><td class="markdownTableBodyCenter">-   </td><td class="markdownTableBodyNone">Y component of the momentum direction of the primary gamma    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">MomZ_gun   </td><td class="markdownTableBodyCenter">double   </td><td class="markdownTableBodyCenter">-   </td><td class="markdownTableBodyNone">Z component of the momentum direction of the primary gamma    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">ToA   </td><td class="markdownTableBodyCenter">double   </td><td class="markdownTableBodyCenter">ns   </td><td class="markdownTableBodyNone">Time of arrival of the primary gamma in the scintillator    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">XoA   </td><td class="markdownTableBodyCenter">double   </td><td class="markdownTableBodyCenter">mm   </td><td class="markdownTableBodyNone">X position of arrival of the primary gamma in the scintillator    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">YoA   </td><td class="markdownTableBodyCenter">double   </td><td class="markdownTableBodyCenter">mm   </td><td class="markdownTableBodyNone">Y position of arrival of the primary gamma in the scintillator    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">ZoA   </td><td class="markdownTableBodyCenter">double   </td><td class="markdownTableBodyCenter">mm   </td><td class="markdownTableBodyNone">Z position of arrival of the primary gamma in the scintillator    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Edep   </td><td class="markdownTableBodyCenter">double   </td><td class="markdownTableBodyCenter">MeV   </td><td class="markdownTableBodyNone">Energy deposited within the scintillator    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">MaxEdep   </td><td class="markdownTableBodyCenter">double   </td><td class="markdownTableBodyCenter">MeV/mm   </td><td class="markdownTableBodyNone">Maximum dE/dx within the scintillator    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">MaxEdepPosX   </td><td class="markdownTableBodyCenter">double   </td><td class="markdownTableBodyCenter">mm   </td><td class="markdownTableBodyNone">X position of the maximum dE/dx within the scintillator    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">MaxEdepPosY   </td><td class="markdownTableBodyCenter">double   </td><td class="markdownTableBodyCenter">mm   </td><td class="markdownTableBodyNone">Y position of the maximum dE/dx within the scintillator    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">MaxEdepPosZ   </td><td class="markdownTableBodyCenter">double   </td><td class="markdownTableBodyCenter">mm   </td><td class="markdownTableBodyNone">Z position of the maximum dE/dx within the scintillator    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">NHits_F   </td><td class="markdownTableBodyCenter">int   </td><td class="markdownTableBodyCenter">-   </td><td class="markdownTableBodyNone">Number of SiPM hits on the Front face    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">NHits_B   </td><td class="markdownTableBodyCenter">int   </td><td class="markdownTableBodyCenter">-   </td><td class="markdownTableBodyNone">Number of SiPM hits on the Back face    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">NHits_Tot   </td><td class="markdownTableBodyCenter">int   </td><td class="markdownTableBodyCenter">-   </td><td class="markdownTableBodyNone">Total number of SiPM hits    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">T_F   </td><td class="markdownTableBodyCenter">vector&lt;double&gt;   </td><td class="markdownTableBodyCenter">ns   </td><td class="markdownTableBodyNone">Time of detection of SiPMs on the Front face    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">X_F   </td><td class="markdownTableBodyCenter">vector&lt;double&gt;   </td><td class="markdownTableBodyCenter">mm   </td><td class="markdownTableBodyNone">X position of SiPMs on the Front face    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Y_F   </td><td class="markdownTableBodyCenter">vector&lt;double&gt;   </td><td class="markdownTableBodyCenter">mm   </td><td class="markdownTableBodyNone">Y position of SiPMs on the Front face    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Ch_F   </td><td class="markdownTableBodyCenter">vector&lt;int&gt;   </td><td class="markdownTableBodyCenter">-   </td><td class="markdownTableBodyNone">Channel of SiPMs on the Front face    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">T_B   </td><td class="markdownTableBodyCenter">vector&lt;double&gt;   </td><td class="markdownTableBodyCenter">ns   </td><td class="markdownTableBodyNone">Time of detection of SiPMs on the Back face    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">X_B   </td><td class="markdownTableBodyCenter">vector&lt;double&gt;   </td><td class="markdownTableBodyCenter">mm   </td><td class="markdownTableBodyNone">X position of SiPMs on the Back face    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Y_B   </td><td class="markdownTableBodyCenter">vector&lt;double&gt;   </td><td class="markdownTableBodyCenter">mm   </td><td class="markdownTableBodyNone">Y position of SiPMs on the Back face    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Ch_B   </td><td class="markdownTableBodyCenter">vector&lt;int&gt;   </td><td class="markdownTableBodyCenter">-   </td><td class="markdownTableBodyNone">Channel of SiPMs on the Back face   </td></tr>
+</table>
+</center><p>Many of these quantities are simulated at different times within an event: the strategy used then was to include, as class members of <a class="el" href="classMyEventAction.html" title="User action concrete class of G4UserEventAction. In addition to defining procedures executed at the s...">MyEventAction</a>, all the variables and structures (referred to as data containers) necessary to store the data. The instance of <a class="el" href="classMyEventAction.html" title="User action concrete class of G4UserEventAction. In addition to defining procedures executed at the s...">MyEventAction</a> is then provided as a parameter to the constructors of <a class="el" href="classMyRunAction.html" title="User action concrete class of G4UserRunAction. It defines procedures to be executed at the start and ...">MyRunAction</a> and <a class="el" href="classMySteppingAction.html" title="User action concrete class of G4UserSteppingAction. It defines procedures to be executed for every st...">MySteppingAction</a>, enabling the sharing of information between user action classes.</p>
+<p>At the beginning of the event, the primary gamma is generated, and its characteristics are saved by default by Geant4, thus accessible without data containers. When the particle enters the scintillator, the data related to the physics occurring in the crystal is processed through <a class="el" href="classMySteppingAction.html#a1d28426adf2987fafac3292bfd639ac8" title="For every step updates and stores quantities about the physics inside the crystal by calling the meth...">MySteppingAction::UserSteppingAction()</a>, which extracts various quantities and writes them into the containers.</p>
+<p>The scintillation photons are then detected by the sensitive detector, which, through <a class="el" href="classMySensitiveDetector.html#a18a6d76cdeffc12f261cdac80efd0505" title="For every optical photon that hits the SD this method instantiates a MyHit object,...">MySensitiveDetector::ProcessHits()</a>, saves the hits in the hit collection.</p>
+<p>At the end of the event, the <a class="el" href="classMyEventAction.html#a416818d947a6feec0071b72c598a787a" title="Fills the TTree with the data of the event.">MyEventAction::EndOfEventAction()</a> method is called. Here, access is made to the hit collection, and all information encapsulated in the hits is written into the vector data containers of the class.</p>
+<p>With all event data available, the information is saved in a new row of the TTree, and at the beginning of the next event the containers are reset.</p>
+<p>To conclude, in <a class="el" href="classMyRunAction.html#af71a0ea4ac6e1b23bdfed7c1b1403363" title="Writes the TTree to the output root file and closes it at the end of the run.">MyRunAction::EndOfRunAction()</a>, the TTree <em>lyso</em> is written to the ROOT file <em>output_MCID_run[runID].root</em>.</p>
+<h1><a class="anchor" id="summary"></a>
+Summary of the Monte Carlo run</h1>
+<p>In multithreading mode only, the function <a class="el" href="summary_8cc.html#a0cb8fb967a32529f00f84186fa67612d" title="Writes the summary of the Monte Carlo to a text file, updating it at the end of every simulation.">MC_summary()</a> is invoked at the very end of the application. It creates (or updates) a file named <em>MC_summaries.txt</em> where a summary of the simulation is written. The recap is extracted from the macro files used (see the next paragraph) and includes various settings. Additionally, it records the date, user name, duration, and the randomly generated Monte Carlo seed at the executable launch.</p>
+<p>An example output is displayed:</p>
+<div class="fragment"><div class="line"><span class="comment">// MC_summaries file snippet</span></div>
+<div class="line"> </div>
+<div class="line">MonteCarlo serial number (Seed): 1706568810</div>
+<div class="line"> </div>
+<div class="line">Date: Mon Jan 29 23:53:44 2024</div>
+<div class="line">User Name: lorenzo</div>
+<div class="line">Duration of the simulation: 13.4236 s</div>
+<div class="line"> </div>
+<div class="line">Spread: OFF</div>
+<div class="line">Energy:  55. MeV</div>
+<div class="line">SigmaEnergy:  0.5 MeV</div>
+<div class="line">Number of events:  16</div>
+<div class="line">Light Guide: OFF</div>
+<div class="line">PCB: ON</div>
+<div class="line">Endcap: ON</div>
+<div class="line"> </div>
+<div class="line">########################################################</div>
+</div><!-- fragment --><h1><a class="anchor" id="howtorun"></a>
+How to run</h1>
+<p>This simulation, as often used for Geant4 applications, supports both interactive mode (with visualization) and batch mode.</p>
+<p>To run in interactive mode, simply execute the following shell command:</p>
+<blockquote class="doxtable">
+<p>&zwj;$ ./mc_lyso </p>
+</blockquote>
+<p>Then, the <em>init_vis.mac</em> macro initializes the kernel with the essential command:</p>
+<blockquote class="doxtable">
+<p>&zwj;/run/initialize </p>
+</blockquote>
+<p>Subsequently, the <em>vis.mac</em> macro is executed, opening the graphical viewer and configuring its settings.</p>
+<p>For batch mode, simply provide a macro file:</p>
+<blockquote class="doxtable">
+<p>&zwj;$ ./mc_lyso run.mac </p>
+</blockquote>
+<p>In the <em>run.mac</em> file, when in multithreading mode, execute the crucial command:</p>
+<blockquote class="doxtable">
+<p>&zwj;/run/numberOfThreads [value] </p>
+</blockquote>
+<p>in order to set the number of threads to instantiate.</p>
+<p>Before initializing the kernel, set the command to execute the construction.mac macro, defining the geometry using UI-commands (see <a class="el" href="#construction">Geometry Definition</a>):</p>
+<blockquote class="doxtable">
+<p>&zwj;/control/execute construction.mac </p>
+</blockquote>
+<p>At the end, initiate the run with the command:</p>
+<blockquote class="doxtable">
+<p>&zwj;/run/beamOn [nOfEvents] </p>
+</blockquote>
+<p>Note that the provided macro files should be considered as valid templates to modify command values according to specific needs, without the necessity of adding new ones. </p>
+</div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"/>
 </div><!-- contents -->
 <!-- start footer part -->

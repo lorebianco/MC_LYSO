@@ -14,6 +14,13 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -126,7 +133,7 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    std::tm* current_time = std::localtime(&amp;now);</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    outfile &lt;&lt; <span class="stringliteral">&quot;Date: &quot;</span> &lt;&lt; std::asctime(current_time);</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    outfile &lt;&lt; <span class="stringliteral">&quot;User Name: &quot;</span> &lt;&lt; getlogin() &lt;&lt; G4endl;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    outfile &lt;&lt; <span class="stringliteral">&quot;Duration of the simulation: &quot;</span> &lt;&lt; duration &lt;&lt; G4endl;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    outfile &lt;&lt; <span class="stringliteral">&quot;Duration of the simulation: &quot;</span> &lt;&lt; duration &lt;&lt; <span class="stringliteral">&quot; s&quot;</span> &lt;&lt; G4endl;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    outfile &lt;&lt; G4endl;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="comment">// Open the run macro file in read mode</span></div>

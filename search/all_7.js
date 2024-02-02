@@ -17,5 +17,6 @@ var searchData=
   ['halfzsidewindowsipm_14',['halfZsideWindowSiPM',['../namespaceGS.html#a260879fd7eefc12f60a58265c3368696',1,'GS']]],
   ['halfzsideworld_15',['halfZsideWorld',['../namespaceGS.html#ab7cf8b62ed789ab67bac083680d6022a',1,'GS']]],
   ['hit_2ecc_16',['hit.cc',['../hit_8cc.html',1,'']]],
-  ['hit_2ehh_17',['hit.hh',['../hit_8hh.html',1,'']]]
+  ['hit_2ehh_17',['hit.hh',['../hit_8hh.html',1,'']]],
+  ['how_20to_20run_18',['How to run',['../index.html#howtorun',1,'']]]
 ];

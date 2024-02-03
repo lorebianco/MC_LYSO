@@ -1,16 +1,14 @@
-# Macro file for the initialization in interactive session
-# Set some default verbose
+# Macro file for the initialization of MC_LYSO in interactive mode
+#
+# Set some default verbose:
 /control/verbose 0
 /run/verbose 0
-#/control/saveHistory
 #
-# Change the default number of threads (in multi-threaded mode)
+# Change the default number of threads (in multi-threaded mode):
 #/run/numberOfThreads 4
 #
-# Initialize kernel
+# Initialize kernel:
 /run/initialize
 #
-#/process/inactivate Scintillation
-#
-# Visualization setting
+# Visualization setting:
 /control/execute vis.mac

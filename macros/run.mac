@@ -1,9 +1,23 @@
+# Macro file for MC_LYSO in batch mode
+#
+# Change the default number of workers (in multi-threading mode):
 /run/numberOfThreads 16
+#
+# Geometry setting:
+# (remember this command must stay before kernel initialization)
 /control/execute construction.mac
+#
+# Initialize kernel:
 /run/initialize
+#
+# Set spread:
 /MC_LYSO/my_gun/enableSpread false
 /MC_LYSO/my_gun/radiusSpread 3 cm
+#
+# Set primary gamma energy:
 /MC_LYSO/my_gun/meanEnergy 55. MeV
 /MC_LYSO/my_gun/sigmaEnergy 0.5 MeV
+#
+# Finally:
 /run/printProgress 4
 /run/beamOn 16

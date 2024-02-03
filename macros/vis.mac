@@ -1,11 +1,34 @@
+# Macro file for the visualization setting in the initialization phase 
+# of MC_LYSO when running in interactive mode
+#
+# Specify a viewer:
 /vis/open OGL
+#
+# Disable auto refresh and quieten vis messages whilst scene and
+# trajectories are established:
+/vis/viewer/set/autoRefresh false
+/vis/verbose errors
+#
+# Draw geometry:
 /vis/drawVolume
+#
+# Specify view angle:
 /vis/viewer/set/viewpointVector 1 1 1
+#
+# Specify style (surface, wireframe, auxiliary edges,...):
 /vis/viewer/set/style surface
-#/vis/viewer/set/hiddenEdge
-/vis/viewer/set/autoRefresh true
+/vis/viewer/set/lineSegmentsPerCircle 220
+#
+# Draw smooth trajectories at end of event:
 /vis/scene/add/trajectories smooth
-#/vis/scene/add/scale 10 cm
-/vis/scene/add/axes
-#/vis/scene/add/eventID
 #/vis/scene/endOfEventAction accumulate
+# (if too many tracks cause core dump => /tracking/storeTrajectory 0)
+#
+# Axes, scale, etc.:
+/vis/scene/add/axes
+#/vis/scene/add/scale 5 cm
+#/vis/scene/add/date
+#
+# Re-establish auto refreshing and verbosity:
+/vis/viewer/set/autoRefresh true
+/vis/verbose warnings

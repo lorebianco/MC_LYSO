@@ -1,22 +1,24 @@
+# Macro file for calibration run of MC_LYSO
+#
 /run/numberOfThreads 16
 /control/execute construction.mac
 /run/initialize
-/my_gun/calibration/enable true
-/my_gun/calibration/FrontOrBack "F"
-/my_gun/calibration/switchOnLED "u"
+/MC_LYSO/my_gun/calibration/enable true
+/MC_LYSO/my_gun/calibration/FrontOrBack "F"
+/MC_LYSO/my_gun/calibration/switchOnLED "u"
 /run/beamOn 1000000
-/my_gun/calibration/switchOnLED "d"
+/MC_LYSO/my_gun/calibration/switchOnLED "d"
 /run/beamOn 1000000
-/my_gun/calibration/switchOnLED "r"
+/MC_LYSO/my_gun/calibration/switchOnLED "r"
 /run/beamOn 1000000
-/my_gun/calibration/switchOnLED "l"
+/MC_LYSO/my_gun/calibration/switchOnLED "l"
 /run/beamOn 1000000
-/my_gun/calibration/FrontOrBack "B"
-/my_gun/calibration/switchOnLED "u"
+/MC_LYSO/my_gun/calibration/FrontOrBack "B"
+/MC_LYSO/my_gun/calibration/switchOnLED "u"
 /run/beamOn 1000000
-/my_gun/calibration/switchOnLED "d"
+/MC_LYSO/my_gun/calibration/switchOnLED "d"
 /run/beamOn 1000000
-/my_gun/calibration/switchOnLED "r"
+/MC_LYSO/my_gun/calibration/switchOnLED "r"
 /run/beamOn 1000000
-/my_gun/calibration/switchOnLED "l"
+/MC_LYSO/my_gun/calibration/switchOnLED "l"
 /run/beamOn 1000000

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['mc_5flyso_20documentation_0',['MC_LYSO Documentation',['../index.html',1,'']]]
+  ['calibration_20mode_0',['Calibration mode',['../calibrationpage.html',1,'']]],
+  ['commands_1',['Output examples and useful ROOT commands',['../outputpage.html',1,'']]]
 ];

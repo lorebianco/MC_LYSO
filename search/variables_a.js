@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['radiusendcap_0',['radiusEndcap',['../namespaceGS.html#af8319f13858e30bb70a523f2abdf2fad',1,'GS']]],
-  ['radiushole_1',['radiusHole',['../namespaceGS.html#ae83bc455ac594cbdc5f2a703c9472ab1',1,'GS']]],
-  ['radiuslightguide_2',['radiusLightGuide',['../namespaceGS.html#a5641898f070040e3fdec3b9a1bbdb734',1,'GS']]],
-  ['radiuspcb_3',['radiusPCB',['../namespaceGS.html#ac9c343efcb0e19f9d7ecf23ce6ad246a',1,'GS']]],
-  ['radiusscintillator_4',['radiusScintillator',['../namespaceGS.html#a28f67edd1619ebeafef61e691281b857',1,'GS']]]
+  ['xdetector_0',['xDetector',['../namespaceGS.html#a98342c9418bf91e63f76e8989795f1f8',1,'GS']]],
+  ['xscintillator_1',['xScintillator',['../namespaceGS.html#a55206c901ce65ac7347f297d4ae251e4',1,'GS']]],
+  ['xwindowsipm_2',['xWindowSiPM',['../namespaceGS.html#a857617f2ad909c6b0645c373c1b96d05',1,'GS']]]
 ];

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['nlightguidemat_0',['nLightGuideMat',['../classMyDetectorConstruction.html#a3094c77e904dee181282672e7f479a97',1,'MyDetectorConstruction']]],
-  ['nofsipms_1',['nOfSiPMs',['../namespaceGS.html#aafb3a9ae3043e5d5c0b5d50544174464',1,'GS']]]
+  ['pde_5fsipm_0',['PDE_SiPM',['../namespaceGS.html#ab44fe1cdd2ef7e8bb136823398966494',1,'GS']]]
 ];

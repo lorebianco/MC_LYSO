@@ -8,8 +8,9 @@ var searchData=
   ['deposition_5',['Energy Deposition',['../index.html#steps',1,'']]],
   ['depthhole_6',['depthHole',['../namespaceGS.html#a130107aee9f9f1bede62531215171c17',1,'GS']]],
   ['depthled_7',['depthLED',['../namespaceGS.html#ad56edddbe2344d08a95ced84268283d3',1,'GS']]],
-  ['detector_20response_8',['Detector Response',['../index.html#detector',1,'']]],
-  ['detector_2ecc_9',['detector.cc',['../detector_8cc.html',1,'']]],
-  ['detector_2ehh_10',['detector.hh',['../detector_8hh.html',1,'']]],
-  ['documentation_11',['MC_LYSO Documentation',['../index.html',1,'']]]
+  ['details_8',['Construction and Primary Generator details',['../calibrationpage.html#details',1,'']]],
+  ['detector_20response_9',['Detector Response',['../index.html#detector',1,'']]],
+  ['detector_2ecc_10',['detector.cc',['../detector_8cc.html',1,'']]],
+  ['detector_2ehh_11',['detector.hh',['../detector_8hh.html',1,'']]],
+  ['documentation_12',['MC_LYSO Documentation',['../index.html',1,'']]]
 ];

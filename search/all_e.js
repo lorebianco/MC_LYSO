@@ -6,8 +6,9 @@ var searchData=
   ['radiuspcb_3',['radiusPCB',['../namespaceGS.html#ac9c343efcb0e19f9d7ecf23ce6ad246a',1,'GS']]],
   ['radiusscintillator_4',['radiusScintillator',['../namespaceGS.html#a28f67edd1619ebeafef61e691281b857',1,'GS']]],
   ['response_5',['Detector Response',['../index.html#detector',1,'']]],
-  ['run_6',['Run',['../index.html#howtorun',1,'How to run'],['../index.html#summary',1,'Summary of the Monte Carlo run']]],
-  ['run_2ecc_7',['run.cc',['../run_8cc.html',1,'']]],
-  ['run_2ehh_8',['run.hh',['../run_8hh.html',1,'']]],
-  ['runs_20and_20events_9',['Runs and Events',['../index.html#runsevents',1,'']]]
+  ['root_20commands_6',['Output examples and useful ROOT commands',['../outputpage.html',1,'']]],
+  ['run_7',['Run',['../index.html#howtorun',1,'How to run'],['../index.html#summary',1,'Summary of the Monte Carlo run']]],
+  ['run_2ecc_8',['run.cc',['../run_8cc.html',1,'']]],
+  ['run_2ehh_9',['run.hh',['../run_8hh.html',1,'']]],
+  ['runs_20and_20events_10',['Runs and Events',['../index.html#runsevents',1,'']]]
 ];

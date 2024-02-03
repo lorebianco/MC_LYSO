@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['boollightguide_0',['boolLightGuide',['../summary_8cc.html#abed36926abf10477bd3087c653aedb1d',1,'summary.cc']]],
-  ['boolspread_1',['boolSpread',['../summary_8cc.html#a8ae54fb53d8b21ede1ff8bdc14585cb7',1,'summary.cc']]]
+  ['coating_5fspace_0',['coating_space',['../namespaceGS.html#a7285451c7ea2982d0aaea12a5e1691b8',1,'GS']]],
+  ['coating_5fthickness_1',['coating_thickness',['../namespaceGS.html#a9f4d84e78520ddfdda62d717ea38f34b',1,'GS']]]
 ];

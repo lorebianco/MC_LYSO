@@ -1,19 +1,12 @@
 var searchData=
 [
-  ['halfheightendcap_0',['halfheightEndcap',['../namespaceGS.html#a730a477eb84c3793f691c271d2f8bba5',1,'GS']]],
-  ['halfheightlightguide_1',['halfheightLightGuide',['../namespaceGS.html#a5480529f323848cc588f9601e592da0b',1,'GS']]],
-  ['halfheightpcb_2',['halfheightPCB',['../namespaceGS.html#a1f5d879aa4252e9b902a1a8286f4eb10',1,'GS']]],
-  ['halfheightscintillator_3',['halfheightScintillator',['../namespaceGS.html#a5fccc5fa1452bdbcaaeb882ea82395f4',1,'GS']]],
-  ['halfxsidedetector_4',['halfXsideDetector',['../namespaceGS.html#a22cc65aa3bc30889951959ff686a6cbb',1,'GS']]],
-  ['halfxsidepackagesipm_5',['halfXsidePackageSiPM',['../namespaceGS.html#a1da882a2ea62cd4ba2c813362a8b4007',1,'GS']]],
-  ['halfxsidewindowsipm_6',['halfXsideWindowSiPM',['../namespaceGS.html#a150b65d3a8442892d042423fedc08045',1,'GS']]],
-  ['halfxsideworld_7',['halfXsideWorld',['../namespaceGS.html#ae2d7aec90d69b87b08205c373e189fd7',1,'GS']]],
-  ['halfysidedetector_8',['halfYsideDetector',['../namespaceGS.html#a0bd29a16a5021b87e8c9587d819525dd',1,'GS']]],
-  ['halfysidepackagesipm_9',['halfYsidePackageSiPM',['../namespaceGS.html#a6144f30892d4c4f2b82d68818b62b335',1,'GS']]],
-  ['halfysidewindowsipm_10',['halfYsideWindowSiPM',['../namespaceGS.html#a70d8de9946940e89da3cb18ecd121cdd',1,'GS']]],
-  ['halfysideworld_11',['halfYsideWorld',['../namespaceGS.html#a61a7dabea30a7665d7db6ce239918837',1,'GS']]],
-  ['halfzsidedetector_12',['halfZsideDetector',['../namespaceGS.html#ac41945293464eaa682f075851d3ab4bc',1,'GS']]],
-  ['halfzsidepackagesipm_13',['halfZsidePackageSiPM',['../namespaceGS.html#a41cfcd51f144c729d61529f6def9e45b',1,'GS']]],
-  ['halfzsidewindowsipm_14',['halfZsideWindowSiPM',['../namespaceGS.html#a260879fd7eefc12f60a58265c3368696',1,'GS']]],
-  ['halfzsideworld_15',['halfZsideWorld',['../namespaceGS.html#ab7cf8b62ed789ab67bac083680d6022a',1,'GS']]]
+  ['logiccoating_0',['logicCoating',['../classMyDetectorConstruction.html#a4a184ff9bb5407e3d68095796fb3ab3e',1,'MyDetectorConstruction']]],
+  ['logicdetector_1',['logicDetector',['../classMyDetectorConstruction.html#a45966aa58477884e334ec973568bddd0',1,'MyDetectorConstruction']]],
+  ['logicendcap_2',['logicEndcap',['../classMyDetectorConstruction.html#a83962e0351984bacee77021315f8165b',1,'MyDetectorConstruction']]],
+  ['logiclightguide_3',['logicLightGuide',['../classMyDetectorConstruction.html#ab2d58931823c4ed0c4d1b157efaed4eb',1,'MyDetectorConstruction']]],
+  ['logicpackagesipm_4',['logicPackageSiPM',['../classMyDetectorConstruction.html#a5dca26057e2d531e18007678bb580ff0',1,'MyDetectorConstruction']]],
+  ['logicpcb_5',['logicPCB',['../classMyDetectorConstruction.html#a1d3a7753f0140fe08dddd6b0d0739522',1,'MyDetectorConstruction']]],
+  ['logicscintillator_6',['logicScintillator',['../classMyDetectorConstruction.html#a454acbdbad6b8017523ac2993ebfff2e',1,'MyDetectorConstruction']]],
+  ['logicwindowsipm_7',['logicWindowSiPM',['../classMyDetectorConstruction.html#a7df5786d7d77d04c56b4a0bb2bc54b9c',1,'MyDetectorConstruction']]],
+  ['logicworld_8',['logicWorld',['../classMyDetectorConstruction.html#a43fc867cbed18c61d944b4df334d6004',1,'MyDetectorConstruction']]]
 ];

@@ -94,8 +94,8 @@ $(function() { codefold.init(0); });
 <a href="summary_8cc.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="summary_8hh.html">summary.hh</a>&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="summary_8cc.html#a8ae54fb53d8b21ede1ff8bdc14585cb7">    8</a></span>G4bool <a class="code hl_variable" href="summary_8cc.html#a8ae54fb53d8b21ede1ff8bdc14585cb7">boolSpread</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="summary_8cc.html#abed36926abf10477bd3087c653aedb1d">    9</a></span>G4bool <a class="code hl_variable" href="summary_8cc.html#abed36926abf10477bd3087c653aedb1d">boolLightGuide</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>G4bool boolSpread = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>G4bool boolLightGuide = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
@@ -172,14 +172,14 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(line.find(<span class="stringliteral">&quot;/MC_LYSO/my_gun/enableSpread true&quot;</span>) != G4String::npos)</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        {</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            outfile &lt;&lt; <span class="stringliteral">&quot;Spread: ON&quot;</span> &lt;&lt; G4endl;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <a class="code hl_variable" href="summary_8cc.html#a8ae54fb53d8b21ede1ff8bdc14585cb7">boolSpread</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            boolSpread = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        }</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(line.find(<span class="stringliteral">&quot;/MC_LYSO/my_gun/enableSpread false&quot;</span>) != G4String::npos)</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        {</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            outfile &lt;&lt; <span class="stringliteral">&quot;Spread: OFF&quot;</span> &lt;&lt; G4endl;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            <a class="code hl_variable" href="summary_8cc.html#a8ae54fb53d8b21ede1ff8bdc14585cb7">boolSpread</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            boolSpread = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        }</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code hl_variable" href="summary_8cc.html#a8ae54fb53d8b21ede1ff8bdc14585cb7">boolSpread</a> &amp;&amp; line.find(<span class="stringliteral">&quot;/MC_LYSO/my_gun/radiusSpread&quot;</span>) != G4String::npos)</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(boolSpread &amp;&amp; line.find(<span class="stringliteral">&quot;/MC_LYSO/my_gun/radiusSpread&quot;</span>) != G4String::npos)</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        {</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            G4String radius_value = <a class="code hl_function" href="summary_8cc.html#a3298b50b7379f6d0bfc87e29e8cc049e">extract_value</a>(line, <span class="stringliteral">&quot;/MC_LYSO/my_gun/radiusSpread&quot;</span>);</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            <span class="keywordflow">if</span>(!radius_value.empty())</div>
@@ -215,14 +215,14 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="keywordflow">if</span>(line.find(<span class="stringliteral">&quot;/MC_LYSO/my_construction/isLightGuide true&quot;</span>) != G4String::npos)</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        {</div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            outfile &lt;&lt; <span class="stringliteral">&quot;Light Guide: ON&quot;</span> &lt;&lt; G4endl;</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            <a class="code hl_variable" href="summary_8cc.html#abed36926abf10477bd3087c653aedb1d">boolLightGuide</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            boolLightGuide = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        }</div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(line.find(<span class="stringliteral">&quot;/MC_LYSO/my_construction/isLightGuide false&quot;</span>) != G4String::npos)</div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        {</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            outfile &lt;&lt; <span class="stringliteral">&quot;Light Guide: OFF&quot;</span> &lt;&lt; G4endl;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            <a class="code hl_variable" href="summary_8cc.html#abed36926abf10477bd3087c653aedb1d">boolLightGuide</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            boolLightGuide = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        }</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code hl_variable" href="summary_8cc.html#abed36926abf10477bd3087c653aedb1d">boolLightGuide</a> &amp;&amp; line.find(<span class="stringliteral">&quot;/MC_LYSO/my_construction/MaterialOfLightGuide&quot;</span>) != G4String::npos)</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(boolLightGuide &amp;&amp; line.find(<span class="stringliteral">&quot;/MC_LYSO/my_construction/MaterialOfLightGuide&quot;</span>) != G4String::npos)</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        {</div>
 <div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            G4String material_value = <a class="code hl_function" href="summary_8cc.html#a3298b50b7379f6d0bfc87e29e8cc049e">extract_value</a>(line, <span class="stringliteral">&quot;/MC_LYSO/my_construction/MaterialOfLightGuide&quot;</span>);</div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            <span class="keywordflow">if</span>(!material_value.empty())</div>
@@ -257,8 +257,6 @@ $(function() { codefold.init(0); });
 </div>
 <div class="ttc" id="asummary_8cc_html_a0cb8fb967a32529f00f84186fa67612d"><div class="ttname"><a href="summary_8cc.html#a0cb8fb967a32529f00f84186fa67612d">MC_summary</a></div><div class="ttdeci">void MC_summary(G4String macrofile, G4int seed, G4double duration, const G4String &amp;output_filename)</div><div class="ttdoc">Writes the summary of the Monte Carlo to a text file, updating it at the end of every simulation.</div><div class="ttdef"><b>Definition</b> <a href="#l00032">summary.cc:32</a></div></div>
 <div class="ttc" id="asummary_8cc_html_a3298b50b7379f6d0bfc87e29e8cc049e"><div class="ttname"><a href="summary_8cc.html#a3298b50b7379f6d0bfc87e29e8cc049e">extract_value</a></div><div class="ttdeci">G4String extract_value(const G4String &amp;line, const G4String &amp;keyword)</div><div class="ttdoc">Auxiliary function called by MC_summary() to extract settings from the macro files used for the Monte...</div><div class="ttdef"><b>Definition</b> <a href="#l00013">summary.cc:13</a></div></div>
-<div class="ttc" id="asummary_8cc_html_a8ae54fb53d8b21ede1ff8bdc14585cb7"><div class="ttname"><a href="summary_8cc.html#a8ae54fb53d8b21ede1ff8bdc14585cb7">boolSpread</a></div><div class="ttdeci">G4bool boolSpread</div><div class="ttdef"><b>Definition</b> <a href="#l00008">summary.cc:8</a></div></div>
-<div class="ttc" id="asummary_8cc_html_abed36926abf10477bd3087c653aedb1d"><div class="ttname"><a href="summary_8cc.html#abed36926abf10477bd3087c653aedb1d">boolLightGuide</a></div><div class="ttdeci">G4bool boolLightGuide</div><div class="ttdef"><b>Definition</b> <a href="#l00009">summary.cc:9</a></div></div>
 <div class="ttc" id="asummary_8hh_html"><div class="ttname"><a href="summary_8hh.html">summary.hh</a></div><div class="ttdoc">Declaration of the function MC_summary() (and the auxiliary function extract_value())</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

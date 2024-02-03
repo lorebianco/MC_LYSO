@@ -1,11 +1,11 @@
 var searchData=
 [
   ['main_0',['main',['../mc__lyso_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'mc_lyso.cc']]],
-  ['mainpage_2edox_1',['mainpage.dox',['../mainpage_8dox.html',1,'']]],
-  ['mc_5flyso_20documentation_2',['MC_LYSO Documentation',['../index.html',1,'']]],
-  ['mc_5flyso_2ecc_3',['mc_lyso.cc',['../mc__lyso_8cc.html',1,'']]],
-  ['mc_5fsummary_4',['MC_summary',['../summary_8cc.html#a0cb8fb967a32529f00f84186fa67612d',1,'MC_summary(G4String macrofile, G4int seed, G4double duration, const G4String &amp;output_filename):&#160;summary.cc'],['../summary_8hh.html#a0cb8fb967a32529f00f84186fa67612d',1,'MC_summary(G4String macrofile, G4int seed, G4double duration, const G4String &amp;output_filename):&#160;summary.cc']]],
-  ['mode_5',['Calibration mode',['../index.html#calibration',1,'']]],
+  ['mc_5flyso_20documentation_1',['MC_LYSO Documentation',['../index.html',1,'']]],
+  ['mc_5flyso_2ecc_2',['mc_lyso.cc',['../mc__lyso_8cc.html',1,'']]],
+  ['mc_5fsummary_3',['MC_summary',['../summary_8cc.html#a0cb8fb967a32529f00f84186fa67612d',1,'MC_summary(G4String macrofile, G4int seed, G4double duration, const G4String &amp;output_filename):&#160;summary.cc'],['../summary_8hh.html#a0cb8fb967a32529f00f84186fa67612d',1,'MC_summary(G4String macrofile, G4int seed, G4double duration, const G4String &amp;output_filename):&#160;summary.cc']]],
+  ['mode_4',['Calibration mode',['../calibrationpage.html',1,'']]],
+  ['mode_3a_20output_20example_5',['Mode: output example',['../outputpage.html#output_calibration',1,'Calibration mode: output example'],['../outputpage.html#output_standard',1,'Standard mode: output example']]],
   ['monte_20carlo_20run_6',['Summary of the Monte Carlo run',['../index.html#summary',1,'']]],
   ['myactioninitialization_7',['MyActionInitialization',['../classMyActionInitialization.html',1,'MyActionInitialization'],['../classMyActionInitialization.html#abfe04c4d2ca15eb0085e823cf9076053',1,'MyActionInitialization::MyActionInitialization()']]],
   ['mydetectorconstruction_8',['MyDetectorConstruction',['../classMyDetectorConstruction.html',1,'MyDetectorConstruction'],['../classMyDetectorConstruction.html#a01ab5593d40d2ede193b80f0b0bfb53a',1,'MyDetectorConstruction::MyDetectorConstruction()']]],

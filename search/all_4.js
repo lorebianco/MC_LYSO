@@ -7,5 +7,7 @@ var searchData=
   ['event_2ecc_4',['event.cc',['../event_8cc.html',1,'']]],
   ['event_2ehh_5',['event.hh',['../event_8hh.html',1,'']]],
   ['events_6',['Runs and Events',['../index.html#runsevents',1,'']]],
-  ['extract_5fvalue_7',['extract_value',['../summary_8cc.html#a3298b50b7379f6d0bfc87e29e8cc049e',1,'extract_value(const G4String &amp;line, const G4String &amp;keyword):&#160;summary.cc'],['../summary_8hh.html#a3298b50b7379f6d0bfc87e29e8cc049e',1,'extract_value(const G4String &amp;line, const G4String &amp;keyword):&#160;summary.cc']]]
+  ['example_7',['Example',['../outputpage.html#output_calibration',1,'Calibration mode: output example'],['../outputpage.html#output_standard',1,'Standard mode: output example']]],
+  ['examples_20and_20useful_20root_20commands_8',['Output examples and useful ROOT commands',['../outputpage.html',1,'']]],
+  ['extract_5fvalue_9',['extract_value',['../summary_8cc.html#a3298b50b7379f6d0bfc87e29e8cc049e',1,'extract_value(const G4String &amp;line, const G4String &amp;keyword):&#160;summary.cc'],['../summary_8hh.html#a3298b50b7379f6d0bfc87e29e8cc049e',1,'extract_value(const G4String &amp;line, const G4String &amp;keyword):&#160;summary.cc']]]
 ];

@@ -14,7 +14,7 @@ The *MC_LYSO* application will undergo continuous updates to assess various aspe
 @section construction Geometry Definition
 @image html geometry.png
 
-The default setup consists of a cylindrical scintillating crystal made of LYSO - \f$ \text{Lu}_{1.9}\text{Y}_{0.1}\text{SiO}_{5}(\text{Ce content: 0.5mol%}) \f$ - with 115x2 MPPCs attached to its Front and Back faces, in accordance with the scheme shown in the figure.
+The default setup consists of a cylindrical scintillating crystal (left image) made of LYSO - \f$ \text{Lu}_{1.9}\text{Y}_{0.1}\text{SiO}_{5}(\text{Ce content: 0.5mol%}) \f$ - with 115x2 MPPCs (Hamamatsu S13360-6025PE) attached to its Front and Back faces, in accordance with the scheme shown in the right figure.
 
 Each MPPC is constructed as depicted in the central image, comprising a silicon layer (representing the sensitive area of the detector) placed inside an epoxy resin window, which is further enclosed in the FR4 package.
 

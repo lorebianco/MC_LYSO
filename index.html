@@ -96,7 +96,7 @@ Geometry Definition</h1>
 <div class="image">
 <img src="geometry.png" alt=""/>
 </div>
-<p>The default setup consists of a cylindrical scintillating crystal made of LYSO - \( \text{Lu}_{1.9}\text{Y}_{0.1}\text{SiO}_{5}(\text{Ce content: 0.5mol%}) \) - with 115x2 MPPCs attached to its Front and Back faces, in accordance with the scheme shown in the figure.</p>
+<p>The default setup consists of a cylindrical scintillating crystal (left image) made of LYSO - \( \text{Lu}_{1.9}\text{Y}_{0.1}\text{SiO}_{5}(\text{Ce content: 0.5mol%}) \) - with 115x2 MPPCs (Hamamatsu S13360-6025PE) attached to its Front and Back faces, in accordance with the scheme shown in the right figure.</p>
 <p>Each MPPC is constructed as depicted in the central image, comprising a silicon layer (representing the sensitive area of the detector) placed inside an epoxy resin window, which is further enclosed in the FR4 package.</p>
 <p>The correct placement of each SiPM is implemented in the <a class="el" href="classMyDetectorConstruction.html#ac9ef5a036a6ef0c2090cbddd414c8c86" title="Construct the detector geometry.">MyDetectorConstruction::Construct()</a> function using nested <em>for</em> loops and <em>if</em> conditions based on the panel row to determine the number of detectors to insert. Additionally, by default, two PCBs (made of FR4) and two carbon fiber endcaps are constructed, but they can be removed using interactive commands:</p>
 <blockquote class="doxtable">

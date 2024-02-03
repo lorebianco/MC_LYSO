@@ -1,10 +1,12 @@
 /** @mainpage MC_LYSO Documentation
-@image html lysogif.gif width=500
+@image html lysogif.gif width=550
 
 @section intro Introduction
 The *MC_LYSO* project is a Geant4 simulation of an electromagnetic calorimeter prototype, consisting of a large cylindrical LYSO scintillator crystal coupled to MPPCs (SiPMs) on both faces for signal readout. The ultimate goal is to develop an auxiliary detector for the MEG-II calorimeter calibration and investigate its potential as a prototype for future calorimeters designed for gamma particles with energies on the order of 50 MeV, offering ultra-precise time and energy resolution.
 
 It is important to note that the output data from this application do not directly represent the final physical observables, due to the absence of the "digitization" process in the Monte Carlo. Thus, the generated data serves as input for the SiPM-response simulation: an early version of that can be found at https://github.com/lorebianco/Bartender_LYSO .
+
+A preliminary version of a possible calibration system for the detector itself has also been implemented, aiming to assess its feasibility and performance. Please refer to the related page @ref calibrationpage.
 
 The *MC_LYSO* application will undergo continuous updates to assess various aspects.
 
@@ -74,9 +76,6 @@ it's possible to uniformly emit the gamma, still at the origin, with angles such
 > /MC_LYSO/my_gun/radiusSpread [value] [unit]
 
 
-@subsection calibration Calibration mode
-To be written...
-
 @section runsevents Runs and Events
 A run consists of a set of events. Through user action classes, operations have been configured at various stages:
 - at the beginning and end of each run (class MyRunAction)
@@ -85,7 +84,7 @@ A run consists of a set of events. Through user action classes, operations have 
 
 The last one is discussed further in @ref steps.
 
-At the start of a run, a TTree with its TBranches is created. At the conclusion, a root file named "output_MCID_run[runID].root" is created and opened (here, runID represents the ID number of the run). The TTree, filled with Monte Carlo data, is then written to this root file.
+At the start of a run, a TTree with its TBranches is created. At the conclusion, the output root file is created and opened so the TTree, filled with Monte Carlo data, is then written to it.
 
 In the method MyEventAction::BeginOfEventAction(), all event-data containers are reset. In MyEventAction::EndOfEventAction(), the data packaged in the containers are copied into a new row of the TTree along with other directly extracted information.
 
@@ -103,7 +102,7 @@ A hit is defined as a set of the following info related to the detection of the 
 - Detector channel
 
 @subsection steps Energy Deposition
-We are also interested in extracting the energy deposited inside the crystal. However, since it is not associated with a sensitive detector, the method described above is not applicable. To extract the information, in MyDetectorConstruction, a G4LogicalVolume is defined and associated with the logical volume of the scintillator, representing the scoring volume. This volume is utilized in MySteppingAction::UserSteppingAction() to extract, after each step localized within the crystal, the deposited energy and the position of the maximum \f$ \frac{dE}{dx} \f$, identified as the midpoint between the pre and post step points where the maximum \f$ \frac{dE_{dep}}{step lenght}\f$ occurred.
+We are also interested in extracting the energy deposited inside the crystal. However, since it is not associated with a sensitive detector, the method described above is not applicable. To extract the information, in MyDetectorConstruction, a G4LogicalVolume is defined and associated with the logical volume of the scintillator, representing the scoring volume. This volume is utilized in MySteppingAction::UserSteppingAction() to extract, after each step localized within the crystal, the deposited energy and the position of the maximum \f$ \frac{dE}{dx} \f$, identified as the midpoint between the pre and post step points where the maximum \f$ \frac{dE_{dep}}{step length}\f$ occurred.
 
 Additionally, the entry position and time of the primary gamma into the scintillator are extracted.
 
@@ -116,7 +115,7 @@ As described, in the constructor of MyRunAction, a TTree *lyso* is created using
 <CENTER>
 | Branch         | Type              | Unit | Description                                      |
 |----------------|:-----------------:|:----:|--------------------------------------------------|
-| event          | int               | -    | Event identifier                                |
+| Event          | int               | -    | Event identifier                                |
 | E_gun          | double            | MeV  | Energy of the primary gamma                      |
 | X_gun          | double            | mm   | Initial x position of the primary gamma          |
 | Y_gun          | double            | mm   | Initial y position of the primary gamma          |
@@ -156,8 +155,7 @@ At the end of the event, the MyEventAction::EndOfEventAction() method is called.
 
 With all event data available, the information is saved in a new row of the TTree, and at the beginning of the next event the containers are reset.
 
-To conclude, in MyRunAction::EndOfRunAction(), the TTree *lyso* is written to the ROOT file *output_MCID_run[runID].root*.
-
+To conclude, in MyRunAction::EndOfRunAction(), the TTree *lyso* is written to the ROOT file *output_MCID_run [runID] _t [threadNumber].root*.
 
 @section summary Summary of the Monte Carlo run
 In multithreading mode only, the function MC_summary() is invoked at the very end of the application. It creates (or updates) a file named *MC_summaries.txt* where a summary of the simulation is written. The recap is extracted from the macro files used (see the next paragraph) and includes various settings. Additionally, it records the date, user name, duration, and the randomly generated Monte Carlo seed at the executable launch.
@@ -187,6 +185,9 @@ Endcap: ON
 @section howtorun How to run
 This simulation, as often used for Geant4 applications, supports both interactive mode (with visualization) and batch mode.
 
+Note that the provided macro files, that you can find in the <a href="https://github.com/lorebianco/MC_LYSO/tree/main/macros">macros</a> directory of the repository, should be considered as valid templates to modify command values according to specific needs, without the necessity of adding new ones.
+
+
 To run in interactive mode, simply execute the following shell command:
 
 > $ ./mc_lyso
@@ -208,17 +209,16 @@ In the *run.mac* file, when in multithreading mode, execute the crucial command:
 
 in order to set the number of threads to instantiate.
 
-Before initializing the kernel, set the command to execute the construction.mac macro, defining the geometry using UI-commands (see @ref construction):
+Before initializing the kernel, set the command to execute the *construction.mac* macro, defining the geometry using UI-commands (see @ref construction):
 
 > /control/execute construction.mac
 
 
 At the end, initiate the run with the command:
 
+
 > /run/beamOn [nOfEvents]
 
-
-Note that the provided macro files should be considered as valid templates to modify command values according to specific needs, without the necessity of adding new ones.
-
+An example of the output can be found in @ref output_standard, in the related page.
 
 */

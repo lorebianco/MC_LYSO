@@ -1,0 +1,33 @@
+/** @page calibrationpage Calibration mode
+@brief Description of the simulation of a LED-based calibration system for the LYSO calorimeter.
+
+@image html led.png width=400
+
+@section calibration_intro Introduction
+A preliminary version of calibration mode has been implemented. The idea is to investigate the feasibility of utilizing an LED system to provide a controlled signal for the calibration of the LYSO calorimeter and how, however, the presence of light guides can influence the resolution of the measured energy.
+
+Several upgrades could be implemented in the future.
+
+
+@section details Construction and Primary Generator details
+In the current version, the light guides, defined in the method MyDetectorConstruction::ConstructLightGuide(), feature 4 holes to allow the insertion of LEDs. During calibration mode, it is essential to remember to insert the light guides using the command:
+
+> /MC_LYSO/my_construction/isLightGuide true
+
+Once the 8 spots are created, the LED simulation takes place within the MyPrimaryGenerator class. It is possible to set the isotropic emission of a blue optical photon (for emission according to Lambert's cosine law, the use of G4GeneralParticleSource instead of G4ParticleGun would be necessary) from inside one of the holes in the light guides.
+
+Firstly, it is necessary to enable the calibration mode:
+
+> /MC_LYSO/my_gun/calibration/enable true
+
+Following this, you should choose in which light guide and in which hole to turn on the LED:
+
+> /MC_LYSO/my_gun/calibration/FrontOrBack ["F"ront or "B"ack]
+
+> /MC_LYSO/my_gun/calibration/switchOnLED ["u"p or "d"own or "r"ight or "l"eft]
+
+Finally, the run can be initiated through /run/beamOn .
+
+An example of the output can be found in @ref output_calibration, in the related page.
+
+ */

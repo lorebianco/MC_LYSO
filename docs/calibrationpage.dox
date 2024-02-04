@@ -4,7 +4,7 @@
 @image html led.png width=400
 
 @section calibration_intro Introduction
-A preliminary version of calibration mode has been implemented. The idea is to investigate the feasibility of utilizing an LED system to provide a controlled signal for the calibration of the LYSO calorimeter and how, however, the presence of light guides can influence the resolution of the measured energy.
+A preliminary version of calibration mode has been implemented. The idea is to investigate the feasibility of utilizing a LED system to provide a controlled signal for the calibration of the LYSO calorimeter and how, however, the presence of light guides can influence the resolution of the measured energy.
 
 Several upgrades could be implemented in the future.
 

@@ -1,6 +1,6 @@
 # Macro file for construction settings of MC_LYSO
 #
-/MC_LYSO/my_construction/isLightGuide true
+/MC_LYSO/my_construction/isLightGuide false
 /MC_LYSO/my_construction/MaterialOfLightGuide 1
 /MC_LYSO/my_construction/isPCB true
 /MC_LYSO/my_construction/isEndcap true

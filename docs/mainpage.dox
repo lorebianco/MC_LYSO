@@ -2,7 +2,7 @@
 @image html lysogif.gif width=550
 
 @section intro Introduction
-The *MC_LYSO* project is a Geant4 simulation of an electromagnetic calorimeter prototype, consisting of a large cylindrical LYSO scintillator crystal coupled to MPPCs (SiPMs) on both faces for signal readout. The ultimate goal is to develop an auxiliary detector for the MEG-II calorimeter calibration and investigate its potential as a prototype for future calorimeters designed for gamma particles with energies on the order of 50 MeV, offering ultra-precise time and energy resolution.
+The *MC_LYSO* project is a Geant4 simulation of an electromagnetic calorimeter prototype, consisting of a large cylindrical LYSO scintillator crystal coupled to MPPCs (SiPMs) on both faces for signal readout. The ultimate goal is to develop an auxiliary detector for the calibration of MEG-II calorimeter and investigate its potential as a prototype for future calorimeters designed for gamma particles with energies on the order of 50 MeV, offering ultra-precise time and energy resolution.
 
 It is important to note that the output data from this application do not directly represent the final physical observables, due to the absence of the "digitization" process in the Monte Carlo. Thus, the generated data serves as input for the SiPM-response simulation: an early version of that can be found at https://github.com/lorebianco/Bartender_LYSO .
 
@@ -158,7 +158,7 @@ With all event data available, the information is saved in a new row of the TTre
 To conclude, in MyRunAction::EndOfRunAction(), the TTree *lyso* is written to the ROOT file *output_MCID_run [runID] _t [threadNumber].root*.
 
 @section summary Summary of the Monte Carlo run
-In multithreading mode only, the function MC_summary() is invoked at the very end of the application. It creates (or updates) a file named *MC_summaries.txt* where a summary of the simulation is written. The recap is extracted from the macro files used (see the next paragraph) and includes various settings. Additionally, it records the date, user name, duration, and the randomly generated Monte Carlo seed at the executable launch.
+In batch mode only, the function MC_summary() is invoked at the very end of the application. It creates (or updates) a file named *MC_summaries.txt* where a summary of the simulation is written. The recap is extracted from the macro files used (see the next paragraph) and includes various settings. Additionally, it records the date, user name, duration, and the randomly generated Monte Carlo seed at the executable launch.
 
 An example output is displayed:
 

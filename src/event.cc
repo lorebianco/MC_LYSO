@@ -64,7 +64,7 @@ void MyEventAction::EndOfEventAction(const G4Event *event)
 
     // Store data
     G4AnalysisManager *man = G4AnalysisManager::Instance();
-    G4int evt = G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID();
+    G4int evt = event->GetEventID();
     
     // Fill the primary gamma branches
     man->FillNtupleIColumn(0, evt);

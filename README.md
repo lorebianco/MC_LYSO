@@ -12,11 +12,11 @@ Please refer to the [documentation](https://lorebianco.github.io/MC_LYSO/) for a
 
 To compile and link and generate the executable, please ensure that the development environment for Geant4 is configured. If it's not already set up, you can do so by executing the following command:
 ```
-$ . path/to/Geant4Installation/share/Geant4/geant4make/geant4make.sh
+$ . /path/to/Geant4Installation/share/Geant4/geant4make/geant4make.sh
 ```
-Afterwards, navigate to the directory containing 'MC_LYSO', create a 'build' directory, and proceed as follows:
+Afterwards, proceed as follows:
 ```
-$ cd path_to_MC_LYSO     # go to directory which contains MC_LYSO
+$ cd /path/to/MC_LYSO     # go to directory which contains MC_LYSO
 $ mkdir build
 $ cd build
 $ cmake ..

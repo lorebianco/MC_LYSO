@@ -1,6 +1,7 @@
 <a href="https://lorebianco.github.io/MC_LYSO/">
   <img align="center" src="https://github.com/lorebianco/MC_LYSO/actions/workflows/docs.yml/badge.svg" />
 </a>
+
 # MC_LYSO
 The *MC_LYSO* project is a Geant4 simulation of an electromagnetic calorimeter prototype, consisting of a large cylindrical LYSO scintillator crystal coupled to MPPCs (SiPMs) on both faces for signal readout. The ultimate goal is to develop an auxiliary detector for the calibration of MEG-II calorimeter and investigate its potential as a prototype for future calorimeters designed for gamma particles with energies on the order of 50 MeV, offering ultra-precise time and energy resolution.
 

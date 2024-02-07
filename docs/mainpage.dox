@@ -216,12 +216,12 @@ Before initializing the kernel, set the command to execute the *construction.mac
 
 At the end, initiate the run with the command:
 
-
 > /run/beamOn [nOfEvents]
 
 An example of the output can be found in @ref output_standard, in the related page.
 
-Please note that G4, in order to ensure thread safety, generates an output file for each utilized thread. To merge these files, you can emply the *hadd* function of ROOT:
+
+Please note that G4, in order to ensure thread safety, generates an output file for each utilized thread. To merge these files, you can employ the *hadd* function of ROOT:
 
 > $ hadd MCID_[MCID].root output_MCID_run[runID]_t*
 

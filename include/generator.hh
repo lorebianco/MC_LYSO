@@ -12,8 +12,6 @@
 #include "G4ParticleDefinition.hh"
 #include "Randomize.hh"
 #include "G4GenericMessenger.hh"
-#include "G4RunManager.hh"
-#include "G4AnalysisManager.hh"
 
 #include "globalsettings.hh"
 

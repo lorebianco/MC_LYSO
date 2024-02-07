@@ -10,7 +10,6 @@
 #include "G4UserEventAction.hh"
 #include "G4Event.hh"
 #include "G4AnalysisManager.hh"
-#include "G4RunManager.hh"
 
 #include "globalsettings.hh"
 #include "hit.hh"

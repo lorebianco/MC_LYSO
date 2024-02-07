@@ -11,10 +11,7 @@
 #include "Randomize.hh"
 #include "G4HCofThisEvent.hh"
 #include "G4Step.hh"
-#include "G4ThreeVector.hh"
 #include "G4SDManager.hh"
-#include "G4ios.hh"
-#include "G4AnalysisManager.hh"
 
 #include "globalsettings.hh"
 #include "hit.hh"

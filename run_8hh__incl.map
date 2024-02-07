@@ -6,33 +6,31 @@
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="245,32,227,66,223,64,240,30"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="117,153,272,178"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="258,31,268,65,270,86,265,106,250,128,230,146,226,142,246,125,260,104,264,85,263,66,252,32"/>
-<area shape="rect" id="Node000005" href="$event_8hh.html" title="Declaration of the class MyEventAction." alt="" coords="490,79,560,105"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="296,29,476,75,474,80,295,34"/>
-<area shape="poly" id="edge8_Node000005_Node000004" title=" " alt="" coords="490,103,266,151,265,146,489,98"/>
+<area shape="rect" id="Node000005" href="$event_8hh.html" title="Declaration of the class MyEventAction." alt="" coords="418,79,488,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="284,29,405,71,403,76,283,34"/>
+<area shape="poly" id="edge8_Node000005_Node000004" title=" " alt="" coords="418,105,253,151,252,146,417,100"/>
 <area shape="rect" id="Node000006" title=" " alt="" coords="295,153,352,178"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="492,108,368,151,366,146,490,103"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="432,108,360,147,358,142,430,103"/>
 <area shape="rect" id="Node000007" title=" " alt="" coords="376,153,530,178"/>
-<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="515,107,478,143,474,140,511,103"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="456,105,456,137,450,137,450,105"/>
 <area shape="rect" id="Node000008" title=" " alt="" coords="554,153,643,178"/>
-<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="539,103,577,140,573,144,535,107"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="666,153,795,178"/>
-<area shape="poly" id="edge9_Node000005_Node000009" title=" " alt="" coords="561,103,682,145,680,150,559,108"/>
-<area shape="rect" id="Node000010" href="$globalsettings_8hh.html" title="Definition of the namespace GS." alt="" coords="819,153,938,178"/>
-<area shape="poly" id="edge10_Node000005_Node000010" title=" " alt="" coords="561,98,805,147,804,152,560,103"/>
-<area shape="rect" id="Node000012" href="$hit_8hh.html" title="Declaration of the class MyHit." alt="" coords="1119,153,1171,178"/>
-<area shape="poly" id="edge12_Node000005_Node000012" title=" " alt="" coords="561,95,1103,157,1103,162,560,100"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="649,226,793,252"/>
-<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="853,181,763,222,761,217,851,176"/>
-<area shape="rect" id="Node000013" title=" " alt="" coords="818,226,899,252"/>
-<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="1119,176,915,227,914,221,1118,171"/>
-<area shape="rect" id="Node000014" title=" " alt="" coords="924,226,1068,252"/>
-<area shape="poly" id="edge14_Node000012_Node000014" title=" " alt="" coords="1121,181,1036,222,1034,217,1119,176"/>
-<area shape="rect" id="Node000015" title=" " alt="" coords="1092,226,1198,252"/>
-<area shape="poly" id="edge15_Node000012_Node000015" title=" " alt="" coords="1148,179,1148,211,1142,211,1142,179"/>
-<area shape="rect" id="Node000016" title=" " alt="" coords="1222,226,1348,252"/>
-<area shape="poly" id="edge16_Node000012_Node000016" title=" " alt="" coords="1170,176,1249,217,1247,221,1168,181"/>
-<area shape="rect" id="Node000017" title=" " alt="" coords="1372,226,1425,252"/>
-<area shape="poly" id="edge17_Node000012_Node000017" title=" " alt="" coords="1173,172,1358,223,1357,228,1171,177"/>
-<area shape="rect" id="Node000018" title=" " alt="" coords="1449,226,1567,252"/>
-<area shape="poly" id="edge18_Node000012_Node000018" title=" " alt="" coords="1172,169,1434,221,1433,226,1171,175"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="479,103,561,143,559,148,476,108"/>
+<area shape="rect" id="Node000009" href="$globalsettings_8hh.html" title="Definition of the namespace GS." alt="" coords="667,153,786,178"/>
+<area shape="poly" id="edge9_Node000005_Node000009" title=" " alt="" coords="489,100,666,146,664,151,488,105"/>
+<area shape="rect" id="Node000011" href="$hit_8hh.html" title="Declaration of the class MyHit." alt="" coords="967,153,1019,178"/>
+<area shape="poly" id="edge11_Node000005_Node000011" title=" " alt="" coords="489,95,952,156,951,161,488,100"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="497,226,641,252"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="701,181,611,222,609,217,699,176"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="666,226,747,252"/>
+<area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="967,176,763,227,762,221,966,171"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="772,226,916,252"/>
+<area shape="poly" id="edge13_Node000011_Node000013" title=" " alt="" coords="969,181,884,222,882,217,967,176"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="940,226,1046,252"/>
+<area shape="poly" id="edge14_Node000011_Node000014" title=" " alt="" coords="996,179,996,211,990,211,990,179"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="1070,226,1196,252"/>
+<area shape="poly" id="edge15_Node000011_Node000015" title=" " alt="" coords="1018,176,1097,217,1095,221,1016,181"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="1220,226,1273,252"/>
+<area shape="poly" id="edge16_Node000011_Node000016" title=" " alt="" coords="1021,172,1206,223,1205,228,1019,177"/>
+<area shape="rect" id="Node000017" title=" " alt="" coords="1297,226,1415,252"/>
+<area shape="poly" id="edge17_Node000011_Node000017" title=" " alt="" coords="1020,169,1282,221,1281,226,1019,175"/>
 </map>

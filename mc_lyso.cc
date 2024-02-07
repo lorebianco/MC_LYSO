@@ -81,8 +81,8 @@ int main(int argc, char** argv)
         // Save a summary of the simulation
         MC_summary(fileName, fSeed, duration.count(), "MC_summaries.txt");
         G4cout << G4endl;
-        G4cout << "If you have any custom settings to annotate in the summary, please edit the MC_summaries file at the corresponding MC-SerialNumber" << G4endl;
-        G4cout << "Now you should name the hadded-rootfile as ' MCID_" << fSeed << ".root '" << G4endl;
+        G4cout << "If you have any custom settings to annotate in the summary, please edit the MC_summaries file at the corresponding MC-SerialNumber." << G4endl;
+        G4cout << "Now you should name the hadded-rootfile as \" MCID_" << fSeed << ".root \"." << G4endl;
     }
 
     // Job termination

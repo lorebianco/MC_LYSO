@@ -40,6 +40,8 @@ G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
     // Stop and kill only optical photons
     if(track->GetParticleDefinition()->GetPDGEncoding()==-22)
         track->SetTrackStatus(fStopAndKill);
+    // Detect only optical photons
+    else return false;
 
 
     // Time of the optical photon

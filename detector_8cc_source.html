@@ -135,23 +135,25 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="comment">// Stop and kill only optical photons</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">if</span>(track-&gt;GetParticleDefinition()-&gt;GetPDGEncoding()==-22)</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        track-&gt;SetTrackStatus(fStopAndKill);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="comment">// Time of the optical photon</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    newHit-&gt;<a class="code hl_function" href="classMyHit.html#ad7e0dd84fb95b7409165524e2ecd6ec8">SetDetectionTime</a>(preStepPoint-&gt;GetGlobalTime());</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="comment">// Position of detector (Note that the position of the package is taken)</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    newHit-&gt;<a class="code hl_function" href="classMyHit.html#ae18ac50070a17c12ba26885971af5599">SetDetectorPosition</a>(touchable-&gt;GetVolume(2)-&gt;GetTranslation());</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="comment">// Channel of detector</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    newHit-&gt;<a class="code hl_function" href="classMyHit.html#a861824dec988a4783d0b5c7991a3c233">SetDetectorChannel</a>(touchable-&gt;GetCopyNumber(2));</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="comment">// Insert the hit</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_variable" href="classMySensitiveDetector.html#ad4e497dda9032baafe6ebb849bf482dd">fHitsCollection</a>-&gt;insert(newHit);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="comment">// Detect only optical photons</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">else</span> <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="comment">// Time of the optical photon</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    newHit-&gt;<a class="code hl_function" href="classMyHit.html#ad7e0dd84fb95b7409165524e2ecd6ec8">SetDetectionTime</a>(preStepPoint-&gt;GetGlobalTime());</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="comment">// Position of detector (Note that the position of the package is taken)</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    newHit-&gt;<a class="code hl_function" href="classMyHit.html#ae18ac50070a17c12ba26885971af5599">SetDetectorPosition</a>(touchable-&gt;GetVolume(2)-&gt;GetTranslation());</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="comment">// Channel of detector</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    newHit-&gt;<a class="code hl_function" href="classMyHit.html#a861824dec988a4783d0b5c7991a3c233">SetDetectorChannel</a>(touchable-&gt;GetCopyNumber(2));</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="comment">// Insert the hit</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_variable" href="classMySensitiveDetector.html#ad4e497dda9032baafe6ebb849bf482dd">fHitsCollection</a>-&gt;insert(newHit);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}</div>
 </div>
 <div class="ttc" id="aclassMyHit_html"><div class="ttname"><a href="classMyHit.html">MyHit</a></div><div class="ttdoc">Concrete class of G4VHit, representing a hit in the MySensitiveDetector.</div><div class="ttdef"><b>Definition</b> <a href="hit_8hh_source.html#l00019">hit.hh:20</a></div></div>
 <div class="ttc" id="aclassMyHit_html_a861824dec988a4783d0b5c7991a3c233"><div class="ttname"><a href="classMyHit.html#a861824dec988a4783d0b5c7991a3c233">MyHit::SetDetectorChannel</a></div><div class="ttdeci">void SetDetectorChannel(G4int ch)</div><div class="ttdoc">Set the channel of the SiPM hit by the optical photon.</div><div class="ttdef"><b>Definition</b> <a href="hit_8hh_source.html#l00036">hit.hh:36</a></div></div>

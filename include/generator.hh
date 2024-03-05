@@ -9,6 +9,7 @@
 #include "G4ParticleGun.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4ParticleTable.hh"
+#include "G4IonTable.hh"
 #include "G4ParticleDefinition.hh"
 #include "Randomize.hh"
 #include "G4GenericMessenger.hh"
@@ -52,20 +53,27 @@ public:
     void GeneratePrimaries(G4Event *anEvent) override;
 
 private:
+    void PrimariesForSpreadBeam();
+    void PrimariesForCircleBeam();
+    void PrimariesForLEDMode();
+    void PrimariesForLuDecayMode();
+
     void DefineCommands(); /**< @brief Defines new user commands for primary particle generation.*/
 
     G4ParticleGun *fParticleGun; /**< @brief Pointer to the G4ParticleGun object.*/
 
     // Generic Messengers
+    G4GenericMessenger *fMessenger_Mode;
     G4GenericMessenger *fMessenger_Gun; /**< @brief Generic messenger for the standard gamma mode.*/
     G4GenericMessenger *fMessenger_Calib; /**< @brief Generic messenger for the calibration mode.*/
 
     // Define variables that want to set as UI
+    G4int fModeType,
+          fBeamType;
     G4double fMeanEnergy, /**< @brief Mean of the gaussian distribution of the energy of the primary particle.*/
              fSigmaEnergy, /**< @brief Sigma of the gaussian distribution of the energy of the primary particle.*/
-             fRadiusSpread; /**< @brief Radius of the area on the front face of the crystal that could be hit by primary gamma when spread is enabled.*/
-    G4bool fIsSpreadEnabled, /**< @brief Flag indicating whether the spread is enabled or not.*/
-           fIsCalibrationEnabled; /**< @brief Flag indicating whether the calibration mode is enabled or not.*/
+             fRadiusSpread, /**< @brief Radius of the area on the front face of the crystal that could be hit by primary gamma when spread is enabled.*/
+             fRadiusCircle;
     G4String fChooseFrontorBack, /**< @brief Flag indicating on which face of the crystal a LED has to be switched ON.*/
              fSwitchOnLED; /**< @brief Flag indicating which LED has to be switched ON.*/
 };

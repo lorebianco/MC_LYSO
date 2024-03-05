@@ -10,14 +10,20 @@
 # Initialize kernel:
 /run/initialize
 #
-# Set spread:
-/MC_LYSO/my_gun/enableSpread false
-/MC_LYSO/my_gun/radiusSpread 3 cm
+# Set mode and beam:
+/MC_LYSO/Mode 0
+/MC_LYSO/myGun/BeamType 0
+/MC_LYSO/myGun/radiusSpread 3 cm
+/MC_LYSO/myGun/radiusCircle 3 cm
 #
 # Set primary gamma energy:
-/MC_LYSO/my_gun/meanEnergy 55. MeV
-/MC_LYSO/my_gun/sigmaEnergy 0.5 MeV
+/MC_LYSO/myGun/meanEnergy 55. MeV
+/MC_LYSO/myGun/sigmaEnergy 0.5 MeV
+#
+# If in Mode = 2, set the time threshold for radioactive decays of ions
+# (above which these decays are ignored):
+/process/had/rdm/thresholdForVeryLongDecayTime 1.0e+60 year
 #
 # Finally:
-/run/printProgress 4
-/run/beamOn 16
+/run/printProgress 100
+/run/beamOn 1000

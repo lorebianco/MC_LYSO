@@ -5,7 +5,7 @@
  */
 #include "summary.hh"
 
-G4bool boolSpread = false;
+G4int beamType = 0, modeType = 0;
 G4bool boolLightGuide = false;
 
 
@@ -48,7 +48,7 @@ void MC_summary(G4String macrofile, G4int seed, G4double duration, const G4Strin
     std::ifstream run_file(macrofile);
     if(!run_file)
     {
-        G4cerr << "Can't open file 'run.mac'" << G4endl;
+        G4cerr << "Can't open run macro file!" << G4endl;
         return;
     }
 
@@ -61,39 +61,95 @@ void MC_summary(G4String macrofile, G4int seed, G4double duration, const G4Strin
         line = line.substr(line.find_first_not_of(" \t"));
 
         // Find all the settings and write them on the output file
-        if(line.find("/MC_LYSO/my_gun/meanEnergy") != G4String::npos)
+        if(line.find("/MC_LYSO/Mode") != G4String::npos)
         {
-            G4String energy_value = extract_value(line, "/MC_LYSO/my_gun/meanEnergy");
+            modeType = std::stoi(extract_value(line, "/MC_LYSO/Mode"));
+            switch(modeType)
+            {
+                case 0:
+                default:
+                    outfile << "Mode: Standard" << G4endl;
+                    break;
+                case 1:
+                    outfile << "Mode: LED system" << G4endl;
+                    break;
+                case 2:
+                    outfile << "Mode: 176Lu decay" << G4endl;
+                    break;
+            }
+        }
+        else if(modeType == 0 && line.find("/MC_LYSO/myGun/BeamType") != G4String::npos)
+        {
+            beamType = std::stoi(extract_value(line, "/MC_LYSO/myGun/BeamType"));
+            switch(beamType)
+            {
+                case 0:
+                default:
+                    outfile << "Beam type: Pointlike" << G4endl;
+                    break;
+                case 1:
+                    outfile << "Beam type: Spread" << G4endl;
+                    break;
+                case 2:
+                    outfile << "Beam type: Circle" << G4endl;
+                    break;
+            }
+        }
+        else if(modeType == 0 && beamType == 1 && line.find("/MC_LYSO/myGun/radiusSpread") != G4String::npos)
+        {
+            G4String radius_value = extract_value(line, "/MC_LYSO/myGun/radiusSpread");
+            if(!radius_value.empty())
+            {
+                outfile << "RadiusSpread: " << radius_value << G4endl;
+            }
+        }
+        else if(modeType == 0 && beamType == 2 && line.find("/MC_LYSO/myGun/radiusCircle") != G4String::npos)
+        {
+            G4String radius_value = extract_value(line, "/MC_LYSO/myGun/radiusCircle");
+            if(!radius_value.empty())
+            {
+                outfile << "RadiusCircle: " << radius_value << G4endl;
+            }
+        }
+        else if(modeType == 0 && line.find("/MC_LYSO/myGun/meanEnergy") != G4String::npos)
+        {
+            G4String energy_value = extract_value(line, "/MC_LYSO/myGun/meanEnergy");
             if(!energy_value.empty())
             {
                 outfile << "Energy: " << energy_value << G4endl;
             }
         }
-        else if(line.find("/MC_LYSO/my_gun/sigmaEnergy") != G4String::npos)
+        else if(modeType == 0 && line.find("/MC_LYSO/myGun/sigmaEnergy") != G4String::npos)
         {
-            G4String sigma_value = extract_value(line, "/MC_LYSO/my_gun/sigmaEnergy");
+            G4String sigma_value = extract_value(line, "/MC_LYSO/myGun/sigmaEnergy");
             if(!sigma_value.empty())
             {
                 outfile << "SigmaEnergy: " << sigma_value << G4endl;
             }
         }
-        else if(line.find("/MC_LYSO/my_gun/enableSpread true") != G4String::npos)
+        else if(modeType == 1 && line.find("/MC_LYSO/myGun/calibration/FrontOrBack F") != G4String::npos)
         {
-            outfile << "Spread: ON" << G4endl;
-            boolSpread = true;
+            outfile << "LED of Front detector" << G4endl;
         }
-        else if(line.find("/MC_LYSO/my_gun/enableSpread false") != G4String::npos)
+        else if(modeType == 1 && line.find("/MC_LYSO/myGun/calibration/FrontOrBack B") != G4String::npos)
         {
-            outfile << "Spread: OFF" << G4endl;
-            boolSpread = false;
+            outfile << "LED of Back detector" << G4endl;
         }
-        else if(boolSpread && line.find("/MC_LYSO/my_gun/radiusSpread") != G4String::npos)
+        else if(modeType == 1 && line.find("/MC_LYSO/myGun/calibration/switchOnLED u") != G4String::npos)
         {
-            G4String radius_value = extract_value(line, "/MC_LYSO/my_gun/radiusSpread");
-            if(!radius_value.empty())
-            {
-                outfile << "RadiusSpread: " << radius_value << G4endl;
-            }
+            outfile << "LED turned on: up" << G4endl;
+        }
+        else if(modeType == 1 && line.find("/MC_LYSO/myGun/calibration/switchOnLED d") != G4String::npos)
+        {
+            outfile << "LED turned on: down" << G4endl;
+        }
+        else if(modeType == 1 && line.find("/MC_LYSO/myGun/calibration/switchOnLED r") != G4String::npos)
+        {
+            outfile << "LED turned on: right" << G4endl;
+        }
+        else if(modeType == 1 && line.find("/MC_LYSO/myGun/calibration/switchOnLED l") != G4String::npos)
+        {
+            outfile << "LED turned on: left" << G4endl;
         }
         else if(line.find("/run/beamOn") != G4String::npos)
         {
@@ -120,37 +176,37 @@ void MC_summary(G4String macrofile, G4int seed, G4double duration, const G4Strin
     {
         line = line.substr(line.find_first_not_of(" \t"));
 
-        if(line.find("/MC_LYSO/my_construction/isLightGuide true") != G4String::npos)
+        if(line.find("/MC_LYSO/myConstruction/isLightGuide true") != G4String::npos)
         {
             outfile << "Light Guide: ON" << G4endl;
             boolLightGuide = true;
         }
-        else if(line.find("/MC_LYSO/my_construction/isLightGuide false") != G4String::npos)
+        else if(line.find("/MC_LYSO/myConstruction/isLightGuide false") != G4String::npos)
         {
             outfile << "Light Guide: OFF" << G4endl;
             boolLightGuide = false;
         }
-        else if(boolLightGuide && line.find("/MC_LYSO/my_construction/MaterialOfLightGuide") != G4String::npos)
+        else if(boolLightGuide && line.find("/MC_LYSO/myConstruction/MaterialOfLightGuide") != G4String::npos)
         {
-            G4String material_value = extract_value(line, "/MC_LYSO/my_construction/MaterialOfLightGuide");
+            G4String material_value = extract_value(line, "/MC_LYSO/myConstruction/MaterialOfLightGuide");
             if(!material_value.empty())
             {
                 outfile << "Material of Light Guide: " << material_value << G4endl;
             }
         }
-        else if(line.find("/MC_LYSO/my_construction/isPCB true") != G4String::npos)
+        else if(line.find("/MC_LYSO/myConstruction/isPCB true") != G4String::npos)
         {
             outfile << "PCB: ON" << G4endl;
         }
-        else if(line.find("/MC_LYSO/my_construction/isPCB false") != G4String::npos)
+        else if(line.find("/MC_LYSO/myConstruction/isPCB false") != G4String::npos)
         {
             outfile << "PCB: OFF" << G4endl;
         }
-        else if(line.find("/MC_LYSO/my_construction/isEndcap true") != G4String::npos)
+        else if(line.find("/MC_LYSO/myConstruction/isEndcap true") != G4String::npos)
         {
             outfile << "Endcap: ON" << G4endl;
         }
-        else if(line.find("/MC_LYSO/my_construction/isEndcap false") != G4String::npos)
+        else if(line.find("/MC_LYSO/myConstruction/isEndcap false") != G4String::npos)
         {
             outfile << "Endcap: OFF" << G4endl;
         }

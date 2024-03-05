@@ -8,6 +8,8 @@
 #include "G4VModularPhysicsList.hh"
 #include "G4EmStandardPhysics.hh"
 #include "G4OpticalPhysics.hh"
+#include "G4DecayPhysics.hh"
+#include "G4RadioactiveDecayPhysics.hh"
 
 /**
  * @brief Mandatory user initialization concrete class of G4VModularPhysicsList.

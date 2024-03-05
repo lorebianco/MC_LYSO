@@ -388,7 +388,7 @@ void MyDetectorConstruction::DefineVisAttributes()
 void MyDetectorConstruction::DefineCommands()
 {
     // Define my UD-messenger for the detector construction
-    fMessenger = new G4GenericMessenger(this, "/MC_LYSO/my_construction/", "Construction settings");
+    fMessenger = new G4GenericMessenger(this, "/MC_LYSO/myConstruction/", "Construction settings");
     fMessenger->DeclareProperty("isLightGuide", fIsLightGuide, "Set if the two light guides are present");
     fMessenger->DeclareProperty("isPCB", fIsPCB, "Set if the two PCBs are present");
     fMessenger->DeclareProperty("isEndcap", fIsEndcap, "Set if the two endcaps are present");

@@ -9,10 +9,13 @@ MyDetectorConstruction::MyDetectorConstruction()
     DefineCommands();
     
     // Default settings
+    fIsGrease = true;
+    fIsOpticalGreaseSurface = false;
     fIsLightGuide = false;
     nLightGuideMat = 1;    
     fIsPCB = true;
     fIsEndcap = true;
+    fIsASiPM = false;
 
     DefineMaterials();
 }
@@ -43,7 +46,7 @@ void MyDetectorConstruction::DefineMaterials()
     
     G4double Energies[nEntries] = {2.97*eV, 3*eV, 3.56*eV};
     G4double LYSO_RINDEX[nEntries] = {1.82, 1.82, 1.82};
-    G4double LYSO_ABSLENGTH[nEntries] = {1*m, 1*m, 1*m};
+    G4double LYSO_ABSLENGTH[nEntries] = {50.*cm, 50.*cm, 50.*cm};
     G4double LYSO_SCINTILLATIONCOMPONENT1[nEntries] = {0.1, 1, 0.1};
 
     mptLYSO->AddProperty("SCINTILLATIONCOMPONENT1", Energies, LYSO_SCINTILLATIONCOMPONENT1, nEntries);
@@ -89,8 +92,8 @@ void MyDetectorConstruction::DefineMaterials()
 
     // EPOXY
     fEpoxy = new G4Material("Epoxy", 1.2*g/cm3, 2);
-    fEpoxy->AddElement(nist->FindOrBuildElement("H"), 2);
     fEpoxy->AddElement(nist->FindOrBuildElement("C"), 2);
+    fEpoxy->AddElement(nist->FindOrBuildElement("H"), 2);
     G4MaterialPropertiesTable *mptEpoxy = new G4MaterialPropertiesTable();
     G4double EPOXY_RINDEX[nEntries] = {1.55, 1.55, 1.55};
     mptEpoxy->AddProperty("RINDEX", Energies, EPOXY_RINDEX, nEntries);
@@ -127,6 +130,28 @@ void MyDetectorConstruction::DefineMaterials()
     mptSapphire->AddProperty("RINDEX", Energies, SAPPHIRE_RINDEX, nEntries);
 
     fSapphire->SetMaterialPropertiesTable(mptSapphire);
+
+    // OPTICAL GREASE
+    fGrease = new G4Material("OpticalGrease", 1.06*g/cm3, 2);
+    fGrease->AddElement(nist->FindOrBuildElement("C"), 2);
+    fGrease->AddElement(nist->FindOrBuildElement("H"), 6);
+
+    G4MaterialPropertiesTable *mptGrease = new G4MaterialPropertiesTable();
+
+    G4double GREASE_RINDEX[nEntries] = {1.46, 1.46, 1.46};
+    mptGrease->AddProperty("RINDEX", Energies, GREASE_RINDEX, nEntries);
+    
+    fGrease->SetMaterialPropertiesTable(mptGrease);
+
+    // Optical Grease surface
+    if(fIsOpticalGreaseSurface)
+    {
+        fOpGreaseSurface = new G4OpticalSurface("GreaseSurface");
+        fOpGreaseSurface->SetType(dielectric_dielectric);
+        fOpGreaseSurface->SetModel(unified);
+        fOpGreaseSurface->SetFinish(ground);
+        fOpGreaseSurface->SetSigmaAlpha(0.1); // Dummy value indicating the roughness, will be fixed according to experimental data (I hope...)
+    }
 }
 
 
@@ -137,6 +162,13 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     G4Box *solidWorld = new G4Box("solidWorld", GS::halfXsideWorld, GS::halfYsideWorld, GS::halfZsideWorld);
     logicWorld = new G4LogicalVolume(solidWorld, fAir, "logicWorld");
     G4VPhysicalVolume *physWorld = new G4PVPlacement(0, G4ThreeVector(0., 0., 0.), logicWorld, "physWorld", 0, false, 0, true);
+
+    // Option to draw only a SiPM, for debug
+    if(fIsASiPM)
+    {
+        ConstructASiPM();
+        return physWorld;
+    }
 
     // Construct the scintillator crystal
     G4Tubs *solidScintillator = new G4Tubs("solidScintillator", 0.*cm, GS::radiusScintillator, GS::halfheightScintillator, 0.*deg, 360.*deg);
@@ -152,6 +184,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     G4VPhysicalVolume *physCoating = new G4PVPlacement(0, G4ThreeVector(GS::xScintillator, GS::yScintillator, GS::zScintillator), logicCoating, "physCoating", logicWorld, false, 0, true);
     
     // Construct lightguides, PCBs and endcaps -if setted-
+    if(fIsGrease) ConstructGrease();
     if(fIsLightGuide) ConstructLightGuide();
     if(fIsPCB) ConstructPCB();
     if(fIsEndcap) ConstructEndcap();
@@ -223,9 +256,36 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 void MyDetectorConstruction::ConstructSDandField()
 {
     // Set logic silicon layer as sensitive volume. Use G4SDManager to do it
-    MySensitiveDetector *sensDet = new MySensitiveDetector("SensitiveDetector", "HitsCollection");
-    G4SDManager::GetSDMpointer()->AddNewDetector(sensDet);
+    MySensitiveDetector *sensDet = static_cast<MySensitiveDetector*>(G4SDManager::GetSDMpointer()->FindSensitiveDetector("SensitiveDetector"));
+    
+    if(!sensDet)
+    {
+        sensDet = new MySensitiveDetector("SensitiveDetector", "HitsCollection");
+        G4SDManager::GetSDMpointer()->AddNewDetector(sensDet);
+    }
+
     SetSensitiveDetector(logicDetector, sensDet);
+}
+
+
+
+void MyDetectorConstruction::ConstructGrease()
+{
+    // Grease as cilinder
+    G4Tubs *solidGrease = new G4Tubs("solidGrease", 0, GS::radiusScintillator, GS::halfheightGrease, 0.*deg, 360.*deg);
+    logicGrease = new G4LogicalVolume(solidGrease, fGrease, "logicGrease");
+    G4VPhysicalVolume *physFrontGrease = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zFrontFaceScintillator-GS::halfheightGrease), logicGrease, "physFrontGrease", logicWorld, false, 0, true);
+    G4VPhysicalVolume *physBackGrease = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zBackFaceScintillator+GS::halfheightGrease), logicGrease, "physBackGrease", logicWorld, false, 1, true);
+    
+    if(fIsLightGuide)
+    {
+        G4VPhysicalVolume *physSecondFrontGrease = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zFrontFaceScintillator-2*GS::halfheightLightGuide-3*GS::halfheightGrease), logicGrease, "physSecondFrontGrease", logicWorld, false, 0, true);
+        G4VPhysicalVolume *physSecondBackGrease = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zBackFaceScintillator+2*GS::halfheightLightGuide+3*GS::halfheightGrease), logicGrease, "physSecondBackGrease", logicWorld, false, 1, true);
+    }
+
+    // Grease as surface
+    if(fIsOpticalGreaseSurface)
+        G4LogicalSkinSurface *logicGreaseSurface = new G4LogicalSkinSurface("GreaseSurface", logicGrease, fOpGreaseSurface);
 }
 
 
@@ -284,8 +344,8 @@ void MyDetectorConstruction::ConstructLightGuide()
 
     // Logic and phys volumes for light guides
     logicLightGuide = new G4LogicalVolume(solidDrilledLightGuide, fLightGuideMaterial, "logicLightGuide");
-    G4VPhysicalVolume *physFrontLightGuide = new G4PVPlacement(0, G4ThreeVector(0., 0., GS::zFrontFaceScintillator-GS::halfheightLightGuide), logicLightGuide, "physFrontLightGuide", logicWorld, false, 0, true);
-    G4VPhysicalVolume *physBackLightGuide = new G4PVPlacement(0, G4ThreeVector(0., 0., GS::zBackFaceScintillator+GS::halfheightLightGuide), logicLightGuide, "physBackLightGuide", logicWorld, false, 1, true);
+    G4VPhysicalVolume *physFrontLightGuide = new G4PVPlacement(0, G4ThreeVector(0., 0., GS::zFrontFaceScintillator-(2*GS::halfheightGrease*fIsGrease)-GS::halfheightLightGuide), logicLightGuide, "physFrontLightGuide", logicWorld, false, 0, true);
+    G4VPhysicalVolume *physBackLightGuide = new G4PVPlacement(0, G4ThreeVector(0., 0., GS::zBackFaceScintillator+(2*GS::halfheightGrease*fIsGrease)+GS::halfheightLightGuide), logicLightGuide, "physBackLightGuide", logicWorld, false, 1, true);
 }
 
 
@@ -295,8 +355,8 @@ void MyDetectorConstruction::ConstructPCB()
     // PCB as cilinder
     G4Tubs *solidPCB = new G4Tubs("solidPCB", 0, GS::radiusPCB, GS::halfheightPCB, 0.*deg, 360.*deg);
     logicPCB = new G4LogicalVolume(solidPCB, fFR4, "logicPCB");
-    G4VPhysicalVolume *physFrontPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zFrontFaceScintillator-2*(GS::halfheightLightGuide*fIsLightGuide)-2*GS::halfZsidePackageSiPM-GS::halfheightPCB), logicPCB, "physFrontPCB", logicWorld, false, 0, true);
-    G4VPhysicalVolume *physBackPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zBackFaceScintillator+2*(GS::halfheightLightGuide*fIsLightGuide)+2*GS::halfZsidePackageSiPM+GS::halfheightPCB), logicPCB, "physBackPCB", logicWorld, false, 1, true);
+    G4VPhysicalVolume *physFrontPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zFrontFaceScintillator-(2*GS::halfheightGrease*fIsGrease)-2*(GS::halfheightLightGuide*fIsLightGuide)-(2*GS::halfheightGrease*fIsLightGuide*fIsGrease)-2*GS::halfZsidePackageSiPM-GS::halfheightPCB), logicPCB, "physFrontPCB", logicWorld, false, 0, true);
+    G4VPhysicalVolume *physBackPCB = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zBackFaceScintillator+(2*GS::halfheightGrease*fIsGrease)+2*(GS::halfheightLightGuide*fIsLightGuide)+(2*GS::halfheightGrease*fIsLightGuide*fIsGrease)+2*GS::halfZsidePackageSiPM+GS::halfheightPCB), logicPCB, "physBackPCB", logicWorld, false, 1, true);
 }
 
 
@@ -306,8 +366,8 @@ void MyDetectorConstruction::ConstructEndcap()
     // Endcap as cilinder
     G4Tubs *solidEndcap = new G4Tubs("solidEndcap", 0, GS::radiusEndcap, GS::halfheightEndcap, 0.*deg, 360.*deg);
     logicEndcap = new G4LogicalVolume(solidEndcap, fCarbonFiber, "logicEndcap");
-    G4VPhysicalVolume *physFrontEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zFrontFaceScintillator-2*(GS::halfheightLightGuide*fIsLightGuide)-2*GS::halfZsidePackageSiPM-2*(GS::halfheightPCB*fIsPCB)-GS::halfheightEndcap), logicEndcap, "physFrontEndcap", logicWorld, false, 0, true);
-    G4VPhysicalVolume *physBackEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zBackFaceScintillator+2*(GS::halfheightLightGuide*fIsLightGuide)+2*GS::halfZsidePackageSiPM+2*(GS::halfheightPCB*fIsPCB)+GS::halfheightEndcap), logicEndcap, "physBackEndcap", logicWorld, false, 1, true);
+    G4VPhysicalVolume *physFrontEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zFrontFaceScintillator-(2*GS::halfheightGrease*fIsGrease)-2*(GS::halfheightLightGuide*fIsLightGuide)-(2*GS::halfheightGrease*fIsLightGuide*fIsGrease)-2*GS::halfZsidePackageSiPM-2*(GS::halfheightPCB*fIsPCB)-GS::halfheightEndcap), logicEndcap, "physFrontEndcap", logicWorld, false, 0, true);
+    G4VPhysicalVolume *physBackEndcap = new G4PVPlacement(0, G4ThreeVector(0, 0, GS::zBackFaceScintillator+(2*GS::halfheightGrease*fIsGrease)+2*(GS::halfheightLightGuide*fIsLightGuide)+(2*GS::halfheightGrease*fIsLightGuide*fIsGrease)+2*GS::halfZsidePackageSiPM+2*(GS::halfheightPCB*fIsPCB)+GS::halfheightEndcap), logicEndcap, "physBackEndcap", logicWorld, false, 1, true);
 }
 
 
@@ -315,10 +375,10 @@ void MyDetectorConstruction::ConstructEndcap()
 void MyDetectorConstruction::PositionSiPMs(G4VPhysicalVolume *physFrontSiPM, G4VPhysicalVolume *physBackSiPM, G4int row, G4int col, G4int halfCols, G4int index)
 {
     // Place the packages. When in back face, need to rotate them of 180°
-    physFrontSiPM = new G4PVPlacement(0,G4ThreeVector((2*GS::halfXsidePackageSiPM*(col-halfCols)), (2*GS::halfYsidePackageSiPM*(6-row)), GS::zFrontFaceScintillator-2*(GS::halfheightLightGuide*fIsLightGuide)-GS::halfZsidePackageSiPM), logicPackageSiPM, "physFrontPackageSiPM", logicWorld, false, index, true);
+    physFrontSiPM = new G4PVPlacement(0,G4ThreeVector((2*GS::halfXsidePackageSiPM*(col-halfCols)), (2*GS::halfYsidePackageSiPM*(6-row)), GS::zFrontFaceScintillator-(2*GS::halfheightGrease*fIsGrease)-2*(GS::halfheightLightGuide*fIsLightGuide)-(2*GS::halfheightGrease*fIsLightGuide*fIsGrease)-GS::halfZsidePackageSiPM), logicPackageSiPM, "physFrontPackageSiPM", logicWorld, false, index, true);
     
     G4Rotate3D rotXBackDet(180*deg, G4ThreeVector(1, 0, 0));
-    G4Translate3D transBackDet(G4ThreeVector(2*GS::halfXsidePackageSiPM*(col-halfCols), 2*GS::halfYsidePackageSiPM*(6-row), GS::zBackFaceScintillator+2*(GS::halfheightLightGuide*fIsLightGuide)+GS::halfZsidePackageSiPM));
+    G4Translate3D transBackDet(G4ThreeVector(2*GS::halfXsidePackageSiPM*(col-halfCols), 2*GS::halfYsidePackageSiPM*(6-row), GS::zBackFaceScintillator+(2*GS::halfheightGrease*fIsGrease)+2*(GS::halfheightLightGuide*fIsLightGuide)+(2*GS::halfheightGrease*fIsLightGuide*fIsGrease)+GS::halfZsidePackageSiPM));
     G4Transform3D transformBackDet = (transBackDet)*(rotXBackDet);
                 
     physBackSiPM = new G4PVPlacement(transformBackDet, logicPackageSiPM, "physBackPackageSiPM", logicWorld, false, index, true);
@@ -357,6 +417,13 @@ void MyDetectorConstruction::DefineVisAttributes()
         logicLightGuide->SetVisAttributes(visLightGuide);
     }
 
+    if(fIsGrease)
+    {
+        G4VisAttributes *visGrease = new G4VisAttributes();
+        visGrease->SetColour(1, 0.5, 0, 0.5);
+        logicGrease->SetVisAttributes(visGrease);
+    }
+
     // SiPM packages
     G4VisAttributes *visPackage = new G4VisAttributes();
     visPackage->SetColour(1, 1, 0, 0.7);
@@ -389,8 +456,53 @@ void MyDetectorConstruction::DefineCommands()
 {
     // Define my UD-messenger for the detector construction
     fMessenger = new G4GenericMessenger(this, "/MC_LYSO/myConstruction/", "Construction settings");
+    fMessenger->DeclareProperty("isOpticalGrease", fIsGrease, "Set if optical grease is present");
     fMessenger->DeclareProperty("isLightGuide", fIsLightGuide, "Set if the two light guides are present");
     fMessenger->DeclareProperty("isPCB", fIsPCB, "Set if the two PCBs are present");
     fMessenger->DeclareProperty("isEndcap", fIsEndcap, "Set if the two endcaps are present");
     fMessenger->DeclareProperty("MaterialOfLightGuide", nLightGuideMat, "Set the material of light guide: 1 = Plexiglass, 2 = Sapphire");
+    fMessenger->DeclareProperty("isASiPM", fIsASiPM, "Set if draw only a SiPM");
+}
+
+
+
+void MyDetectorConstruction::ConstructASiPM()
+{
+    // Construct the package of the SIPM
+    G4Box *solidPackageSiPM = new G4Box("solidPackageSiPM", GS::halfXsidePackageSiPM, GS::halfYsidePackageSiPM, GS::halfZsidePackageSiPM);
+    logicPackageSiPM = new G4LogicalVolume(solidPackageSiPM, fFR4, "logicPackageSiPM");
+    
+    // Construct the window of the SIPM and put it inside the package
+    G4Box *solidWindowSiPM = new G4Box("solidWindowSiPM", GS::halfXsideWindowSiPM, GS::halfYsideWindowSiPM, GS::halfZsideWindowSiPM);
+    logicWindowSiPM = new G4LogicalVolume(solidWindowSiPM, fEpoxy, "logicWindowSiPM");
+    G4VPhysicalVolume *physWindowSiPM = new G4PVPlacement(0, G4ThreeVector(GS::xWindowSiPM, GS::yWindowSiPM, GS::zWindowSiPM), logicWindowSiPM, "physWindowSiPM", logicPackageSiPM, false, 0, true);
+
+    // Construct the silicon layer and put it inside the window
+    G4Box *solidDetector = new G4Box("solidDetector", GS::halfXsideDetector, GS::halfYsideDetector, GS::halfZsideDetector);
+    logicDetector = new G4LogicalVolume(solidDetector, fSilicon, "logicDetector");
+    G4VPhysicalVolume *physDetector = new G4PVPlacement(0, G4ThreeVector(GS::xDetector, GS::yDetector, GS::zDetector), logicDetector, "physDetector", logicWindowSiPM, false, 0, true);
+
+    new G4PVPlacement(0, G4ThreeVector(0, 0, 0), logicPackageSiPM, "aSiPM", logicWorld, false, 0, true);
+
+
+    // Vis attributes
+    // World
+    G4VisAttributes *visWorld = new G4VisAttributes();
+    visWorld->SetVisibility(false);
+    logicWorld->SetVisAttributes(visWorld);
+
+    // SiPM packages
+    G4VisAttributes *visPackage = new G4VisAttributes();
+    visPackage->SetColour(1, 1, 0, 0.7);
+    logicPackageSiPM->SetVisAttributes(visPackage);
+
+    // SiPM windows
+    G4VisAttributes *visWindow = new G4VisAttributes();
+    visWindow->SetColour(1, 1, 1, 0.7);
+    logicWindowSiPM->SetVisAttributes(visWindow);
+
+    // SiPM silicon layers
+    G4VisAttributes *visDetector = new G4VisAttributes();
+    visDetector->SetColour(0.45, 0.25, 0, 0.7);
+    logicDetector->SetVisAttributes(visDetector);
 }

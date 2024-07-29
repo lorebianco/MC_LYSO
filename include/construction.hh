@@ -18,6 +18,8 @@
 #include "G4SystemOfUnits.hh"
 #include "G4VisAttributes.hh"
 #include "G4GenericMessenger.hh"
+#include "G4OpticalSurface.hh"
+#include "G4LogicalSkinSurface.hh"
 
 #include "globalsettings.hh"
 #include "detector.hh"
@@ -56,9 +58,12 @@ public:
 
 private:
     void ConstructSDandField() override; /**< @brief It sets all the SiPMs' silicon layers as sensitive detectors.*/
+    void ConstructGrease(); /**< @brief Auxiliary function called by Construct() for building the optical grease.*/
     void ConstructLightGuide(); /**< @brief Auxiliary function called by Construct() for building the lightguides.*/
     void ConstructPCB(); /**< @brief Auxiliary function called by Construct() for building the PCBs.*/
     void ConstructEndcap(); /**< @brief Auxiliary function called by Construct() for building the endcaps.*/
+    void ConstructASiPM(); /**< @brief Auxiliary function called by Construct() for building only one SiPM.*/
+
     /**
      * @brief Auxiliary function called by Construct() for putting in the right
      * position every SiPM.
@@ -86,7 +91,8 @@ private:
                     *logicCoating, /**< @brief Pointer to coating logical volume.*/
                     *logicPCB, /**< @brief Pointer to PCB logical volume.*/
                     *logicEndcap, /**< @brief Pointer to endcap logical volume.*/
-                    *logicLightGuide; /**< @brief Pointer to light guide logical volume.*/
+                    *logicLightGuide, /**< @brief Pointer to light guide logical volume.*/
+                    *logicGrease; /**< @brief Pointer to optical grease logical volume.*/
     
     // Scoring logical volume
     G4LogicalVolume *fScoringVolume; /**< @brief Pointer used to define the logical volume of the scoring volume. In the application it is assigned to @ref logicScintillator.*/
@@ -101,13 +107,20 @@ private:
                *fFR4, /**< @brief Pointer to the FR4 material.*/
                *fCarbonFiber, /**< @brief Pointer to the carbon fiber material.*/
                *fPlexiglass, /**< @brief Pointer to the plexiglass material.*/
-               *fSapphire; /**< @brief Pointer to the sapphire material.*/
+               *fSapphire, /**< @brief Pointer to the sapphire material.*/
+               *fGrease; /**< @brief Pointer to the optical grease material.*/
+    
+    // Surfaces
+    G4OpticalSurface *fOpGreaseSurface; /**< @brief Pointer to the optical grease surface.*/
 
     // Generic Messenger and settable variables 
     G4GenericMessenger *fMessenger; /**< @brief Generic messenger of the class.*/
-    G4bool fIsLightGuide, /**< @brief Flag indicating whether the light guides must be constructed.*/
+    G4bool fIsGrease, /**< @brief Flag indicating whether the optical grease must be constructed.*/
+           fIsOpticalGreaseSurface, /**< @brief Flag indicating whether the optical grease surface must be constructed.*/
+           fIsLightGuide, /**< @brief Flag indicating whether the light guides must be constructed.*/
            fIsPCB, /**< @brief Flag indicating whether the PCBs must be constructed.*/
-           fIsEndcap; /**< @brief Flag indicating whether the endcaps must be constructed.*/
+           fIsEndcap, /**< @brief Flag indicating whether the endcaps must be constructed.*/
+           fIsASiPM; /**< @brief Flag indicating whether only one SiPM must be constructed.*/
     G4int nLightGuideMat; /**< @brief Indicates which material has to be used for light guides; 1 for plexiglass, 2 for sapphire.*/
 };
 

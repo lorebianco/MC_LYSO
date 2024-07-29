@@ -53,27 +53,27 @@ public:
     void GeneratePrimaries(G4Event *anEvent) override;
 
 private:
-    void PrimariesForSpreadBeam();
-    void PrimariesForCircleBeam();
-    void PrimariesForLEDMode();
-    void PrimariesForLuDecayMode();
+    void PrimariesForSpreadBeam(); /**< @brief Generate primaries auxiliary function for spread beam.*/
+    void PrimariesForCircleBeam(); /**< @brief Generate primaries auxiliary function for circle beam.*/
+    void PrimariesForLEDMode(); /**< @brief Generate primaries auxiliary function for LED mode.*/
+    void PrimariesForLuDecayMode(); /**< @brief Generate primaries auxiliary function for Lu decay mode.*/
 
     void DefineCommands(); /**< @brief Defines new user commands for primary particle generation.*/
 
     G4ParticleGun *fParticleGun; /**< @brief Pointer to the G4ParticleGun object.*/
 
     // Generic Messengers
-    G4GenericMessenger *fMessenger_Mode;
+    G4GenericMessenger *fMessenger_Mode; /**< @brief Generic messenger for mode selection.*/
     G4GenericMessenger *fMessenger_Gun; /**< @brief Generic messenger for the standard gamma mode.*/
     G4GenericMessenger *fMessenger_Calib; /**< @brief Generic messenger for the calibration mode.*/
 
     // Define variables that want to set as UI
-    G4int fModeType,
-          fBeamType;
+    G4int fModeType, /**< @brief Flag indicating the mode type.*/
+          fBeamType; /**< @brief Flag indicating the beam type.*/
     G4double fMeanEnergy, /**< @brief Mean of the gaussian distribution of the energy of the primary particle.*/
              fSigmaEnergy, /**< @brief Sigma of the gaussian distribution of the energy of the primary particle.*/
              fRadiusSpread, /**< @brief Radius of the area on the front face of the crystal that could be hit by primary gamma when spread is enabled.*/
-             fRadiusCircle;
+             fRadiusCircle; /**< @brief Radius of the beam profile in circle type.*/
     G4String fChooseFrontorBack, /**< @brief Flag indicating on which face of the crystal a LED has to be switched ON.*/
              fSwitchOnLED; /**< @brief Flag indicating which LED has to be switched ON.*/
 };

@@ -45,18 +45,20 @@ public:
     void EndOfEventAction(const G4Event *event) override;
 
     /**
-     * @brief Stores the time of arrival to the crystal of the primary gamma.
+     * @brief Stores the time and the position of arrival to the crystal of the primary gamma.
      * 
      * @param newtimein The time of arrival to be saved.
+     * @param newposin The position of arrival to be saved.
      */
-    inline void FindEntryTime(G4double newtimein) { fTimeIn = newtimein; }
-    /**
-     * @brief Stores the position of arrival to the crystal of the primary
-     * gamma.
-     * 
-     * @param newposin The time of arrival to be saved.
-     */
-    inline void FindEntryPosition(G4ThreeVector newposin) { fPosIn = newposin; }
+    inline void SetArrival(G4double newtimein, G4ThreeVector newposin)
+    {
+        if(newtimein < fTimeIn)
+        {
+            fTimeIn = newtimein;
+            fPosXIn = newposin.x();
+            fPosYIn = newposin.y();
+        }
+    }
     /** 
      * @brief For every G4Step inside the crystal it sums the energy deposit.
      *
@@ -71,9 +73,9 @@ public:
      * length.
      * @param maxedeppos The position of the energy deposit in the step.
      */
-    inline void FindMaxEdep(G4double edepondx, G4ThreeVector maxedeppos)
+    inline void SetMaxEdep(G4double edepondx, G4ThreeVector maxedeppos)
     {
-        if(edepondx>fMaxEdep)
+        if(edepondx > fMaxEdep)
         {
             fMaxEdep = edepondx;
             fMaxEdepPos = maxedeppos;
@@ -81,8 +83,9 @@ public:
     };
 
     // Primary's data
-    G4double      fTimeIn; /**< @brief Time of arrival of primary gamma.*/
-    G4ThreeVector fPosIn; /**< @brief Position of arrival of primary gamma.*/
+    G4double fTimeIn; /**< @brief Time of arrival of primary gamma.*/
+    G4double fPosXIn; /**< @brief X position of arrival of primary gamma.*/
+    G4double fPosYIn; /**< @brief Y position of arrival of primary gamma.*/
     
     // Crystal's data
     G4double      fEdep; /**< @brief Total energy deposited inside the crystal.*/

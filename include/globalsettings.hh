@@ -24,8 +24,14 @@ namespace GS
     constexpr G4double zBackFaceScintillator = zScintillator + halfheightScintillator; /**< @brief z-position of the back face of the scintillator crystal.*/
 
 
+    // Grease
+    constexpr G4double radiusGrease = radiusScintillator; /**< @brief Radius of the optical grease layer.*/
+    constexpr G4double halfheightGrease = 0.05*mm; /**< @brief Half the height of the optical grease layer.*/
+
+
+
     // Light Guide
-    constexpr G4double radiusLightGuide = 42.5*mm; /**< @brief Radius of the light guide.*/
+    constexpr G4double radiusLightGuide = radiusScintillator; /**< @brief Radius of the light guide.*/
     constexpr G4double halfheightLightGuide = 1*mm; /**< @brief Half the height of the light guide.*/
     constexpr G4double radiusHole = 0.4*mm; /**< @brief Radius of the holes drilled in the light guide.*/
     constexpr G4double depthHole = 0.5*cm; /**< @brief Depth of the holes drilled in the light guide.*/
@@ -36,7 +42,7 @@ namespace GS
     constexpr G4double energyLED = 2.77*eV; /**< @brief Energy of the optical photons emitted by the LED.*/
 
 
-    // SiPM (will be improved more and more)
+    // SiPM
         // Package in FR4: it's the window's mother volume
     constexpr G4int nOfSiPMs = 115; /**< @brief The number of SiPMs on a detector face.*/
 

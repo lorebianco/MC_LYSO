@@ -3,6 +3,7 @@
 #
 # Specify a viewer:
 /vis/open OGL
+#/vis/open OpenGLImmediateQt
 #
 # Disable auto refresh and quieten vis messages whilst scene and
 # trajectories are established:

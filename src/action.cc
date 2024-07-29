@@ -4,12 +4,19 @@
  */
 #include "action.hh"
 
+MyActionInitialization::MyActionInitialization(G4int theMCID)
+{
+    fMCID = theMCID;
+}
+
+
+
 void MyActionInitialization::BuildForMaster() const
 {
     // Here must be initialized only Run Action
     MyEventAction *eventAction = new MyEventAction();
     
-    MyRunAction *runAction = new MyRunAction(eventAction);
+    MyRunAction *runAction = new MyRunAction(fMCID, eventAction);
     SetUserAction(runAction);
 }
 
@@ -24,7 +31,7 @@ void MyActionInitialization::Build() const
     MyEventAction *eventAction = new MyEventAction();
     SetUserAction(eventAction);
 
-    MyRunAction *runAction = new MyRunAction(eventAction);
+    MyRunAction *runAction = new MyRunAction(fMCID, eventAction);
     SetUserAction(runAction);
 
     MySteppingAction *steppingAction = new MySteppingAction(eventAction);

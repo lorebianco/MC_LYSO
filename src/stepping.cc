@@ -28,14 +28,13 @@ void MySteppingAction::UserSteppingAction(const G4Step *step)
     if(step->GetTrack()->GetParticleDefinition()->GetPDGEncoding()==-22)
         return;
 
-    // Store time and position of arrival of primary gamma
-    if(step->GetTrack()->GetTrackID()==1 && step->IsFirstStepInVolume())
+    // Store time and position of arrival of primary gamma (or daughters)
+    if(step->GetPreStepPoint()->GetStepStatus() == fGeomBoundary)
     {
         G4double newtimein = step->GetPreStepPoint()->GetGlobalTime();
-        fEventAction->FindEntryTime(newtimein);
-
         G4ThreeVector newposin = step->GetPreStepPoint()->GetPosition();
-        fEventAction->FindEntryPosition(newposin);
+        
+        fEventAction->SetArrival(newtimein, newposin);
     }
 
     // Sum the energy deposited in the step
@@ -48,5 +47,5 @@ void MySteppingAction::UserSteppingAction(const G4Step *step)
     if(dx == 0) return;
 
     G4ThreeVector maxedeppos = (step->GetPreStepPoint()->GetPosition() + step->GetPostStepPoint()->GetPosition())/2;
-    fEventAction->FindMaxEdep(edep/dx, maxedeppos);
+    fEventAction->SetMaxEdep(edep/dx, maxedeppos);
 }

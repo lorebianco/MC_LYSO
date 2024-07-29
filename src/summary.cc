@@ -176,7 +176,15 @@ void MC_summary(G4String macrofile, G4int seed, G4double duration, const G4Strin
     {
         line = line.substr(line.find_first_not_of(" \t"));
 
-        if(line.find("/MC_LYSO/myConstruction/isLightGuide true") != G4String::npos)
+        if(line.find("/MC_LYSO/myConstruction/isOpticalGrease true") != G4String::npos)
+        {
+            outfile << "Optical Grease: ON" << G4endl;
+        }
+        else if(line.find("/MC_LYSO/myConstruction/isOpticalGrease false") != G4String::npos)
+        {
+            outfile << "Optical Grease: OFF" << G4endl;
+        }
+        else if(line.find("/MC_LYSO/myConstruction/isLightGuide true") != G4String::npos)
         {
             outfile << "Light Guide: ON" << G4endl;
             boolLightGuide = true;

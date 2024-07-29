@@ -12,8 +12,7 @@
 #include <iostream>
 #include <chrono>
 
-#include "G4RunManager.hh"
-#include "G4MTRunManager.hh"
+#include "G4RunManagerFactory.hh"
 #include "G4VisManager.hh"
 #include "G4UImanager.hh"
 #include "G4VisExecutive.hh"
@@ -30,20 +29,16 @@
 int main(int argc, char** argv)
 {
     // Set randomly the seed of the simulation and store it
-    G4Random::setTheSeed(time(NULL));
+    G4Random::setTheSeed(time(NULL) + getpid());
     G4int fSeed = G4Random::getTheSeed();
 
     // Construct the run manager
-    #ifdef G4MULTITHREADED
-        G4MTRunManager *runManager = new G4MTRunManager();
-    #else
-        G4RunManager *runManager = new G4RunManager();
-    #endif
+    auto* runManager = G4RunManagerFactory::CreateRunManager(G4RunManagerType::Default);
     
     // Set mandatory initialization classes
     runManager->SetUserInitialization(new MyDetectorConstruction());
     runManager->SetUserInitialization(new MyPhysicsList());
-    runManager->SetUserInitialization(new MyActionInitialization());
+    runManager->SetUserInitialization(new MyActionInitialization(fSeed));
     
     // Detect interactive mode (if no arguments) and define UI session
     G4UIExecutive *ui = 0;
@@ -82,8 +77,9 @@ int main(int argc, char** argv)
         MC_summary(fileName, fSeed, duration.count(), "MC_summaries.txt");
         G4cout << G4endl;
         G4cout << "If you have any custom settings to annotate in the summary, please edit the MC_summaries file at the corresponding MC-SerialNumber." << G4endl;
-        G4cout << "Now you should name the hadded-rootfile as \" MCID_" << fSeed << ".root \"." << G4endl;
     }
+    
+    G4cout << "The rootfile of this Monte Carlo has serial number (MCID): " << fSeed << G4endl;
 
     // Job termination
     delete visManager;

@@ -5,6 +5,9 @@
 #ifndef DETECTOR_HH
 #define DETECTOR_HH
 
+#include <fstream>
+#include <sstream>
+
 #include "G4VSensitiveDetector.hh"
 #include "G4RunManager.hh"
 #include "G4SystemOfUnits.hh"
@@ -54,7 +57,15 @@ public:
     // void EndOfEvent(G4HCofThisEvent*) override;
 
 private:
+    void RandomizeEfficiencies(); /**< @brief Fixes random efficiencies for all MPPCs.*/
+    void GetEfficienciesFromFile(); /**< @brief Reads and sets the efficiencies from the file.*/
+
     MyHitsCollection *fHitsCollection; /**< @brief Pointer to the hits collection of the event.*/
+
+    enum SetEfficiencies {fIsNominalEfficiency, fIsRandomEfficiency, fIsAssignedEfficiency}; /**< @brief Type of PDEs.*/
+    SetEfficiencies fEfficiencySetting; /**< @brief Type of SetEfficiencies.*/
+    G4double fFrontEfficiency[GS::nOfSiPMs]; /**< @brief Array of PDEs for front MPPCs.*/
+    G4double fBackEfficiency[GS::nOfSiPMs]; /**< @brief Array of PDEs for back MPPCs.*/
 };
 
 #endif  // DETECTOR_HH

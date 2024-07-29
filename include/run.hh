@@ -27,7 +27,7 @@ public:
      * @param eventAction Pointer to a MyEventAction object, necessary for
      * associating data saved in each event with the TTree.
      */
-    MyRunAction(MyEventAction* eventAction);
+    MyRunAction(G4int theMCID, MyEventAction* eventAction);
     ~MyRunAction() override = default; /**< @brief Destructor of the class.*/
 
     /**
@@ -46,6 +46,7 @@ public:
     void EndOfRunAction(const G4Run* run) override;
 
 private:
+    G4int fMCID; /**< @brief The Monte Carlo ID.*/
     MyEventAction *fEventAction; /**< @brief Pointer to the MyEventAction object.*/
 };
 

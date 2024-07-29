@@ -7,8 +7,9 @@
 void MyEventAction::BeginOfEventAction(const G4Event *event)
 {
     // Reset all event data
-    fTimeIn = 0.;
-    fPosIn = G4ThreeVector(0., 0., 0.);
+    fTimeIn = 999999;
+    fPosXIn = 0.;
+    fPosYIn = 0.;
     fEdep = 0.;
     fMaxEdep = 0.;
     fMaxEdepPos = G4ThreeVector(0., 0., 0.);
@@ -22,6 +23,9 @@ void MyEventAction::BeginOfEventAction(const G4Event *event)
     fX_B.clear();
     fY_B.clear();
     fChannel_B.clear();
+
+    // Set at 0 ns the time of primary vertex (need this for 176Lu Decay Mode)
+    event->GetPrimaryVertex()->SetT0(0);
 }
 
 
@@ -76,19 +80,18 @@ void MyEventAction::EndOfEventAction(const G4Event *event)
     man->FillNtupleDColumn(6, primaryParticle->GetMomentumDirection().y());
     man->FillNtupleDColumn(7, primaryParticle->GetMomentumDirection().z());
     man->FillNtupleDColumn(8, fTimeIn);
-    man->FillNtupleDColumn(9, fPosIn.x());
-    man->FillNtupleDColumn(10, fPosIn.y());
-    man->FillNtupleDColumn(11, fPosIn.z());
+    man->FillNtupleDColumn(9, fPosXIn);
+    man->FillNtupleDColumn(10, fPosYIn);
     // Fill the energy deposition branches
-    man->FillNtupleDColumn(12, fEdep);
-    man->FillNtupleDColumn(13, fMaxEdep);
-    man->FillNtupleDColumn(14, fMaxEdepPos.x());
-    man->FillNtupleDColumn(15, fMaxEdepPos.y());
-    man->FillNtupleDColumn(16, fMaxEdepPos.z());
+    man->FillNtupleDColumn(11, fEdep);
+    man->FillNtupleDColumn(12, fMaxEdep);
+    man->FillNtupleDColumn(13, fMaxEdepPos.x());
+    man->FillNtupleDColumn(14, fMaxEdepPos.y());
+    man->FillNtupleDColumn(15, fMaxEdepPos.z());
     // Fill the detectors branches
-    man->FillNtupleIColumn(17, fHitsNum_F);
-    man->FillNtupleIColumn(18, fHitsNum_B);
-    man->FillNtupleIColumn(19, fHitsNum_F + fHitsNum_B);
+    man->FillNtupleIColumn(16, fHitsNum_F);
+    man->FillNtupleIColumn(17, fHitsNum_B);
+    man->FillNtupleIColumn(18, fHitsNum_F + fHitsNum_B);
     // Close the row
     man->AddNtupleRow(0);
 }

@@ -20,7 +20,7 @@
 class MyActionInitialization : public G4VUserActionInitialization
 {
 public:
-    MyActionInitialization() = default; /**< @brief Constructor of the class.*/
+    MyActionInitialization(G4int theMCID); /**< @brief Constructor of the class.*/
     ~MyActionInitialization() override = default; /**< @brief Destructor of the class.*/
     
     /** 
@@ -35,6 +35,9 @@ public:
      * (in multithreading mode).
      */
     void BuildForMaster() const override;
+
+private:
+    G4int fMCID; /**< @brief The Monte Carlo ID.*/
 };
 
 #endif  // ACTION_HH

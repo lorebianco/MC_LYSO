@@ -1,20 +1,11 @@
 <map id="include/detector.hh" name="include/detector.hh">
-<area shape="rect" id="Node000001" title="Declaration of the class MySensitiveDetector." alt="" coords="306,5,436,31"/>
-<area shape="rect" id="Node000002" href="$construction_8hh.html" title="Declaration of the class MyDetectorConstruction." alt="" coords="217,79,371,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="349,44,309,81,305,77,345,40"/>
-<area shape="rect" id="Node000009" href="$detector_8cc.html" title="Definition of the class MySensitiveDetector." alt="" coords="395,79,502,105"/>
-<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="397,40,437,77,434,81,394,44"/>
-<area shape="rect" id="Node000003" href="$stepping_8hh.html" title="Declaration of the class MySteppingAction." alt="" coords="124,153,256,178"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="265,116,209,154,206,150,262,111"/>
-<area shape="rect" id="Node000005" href="$mc__lyso_8cc.html" title="Definition of the main function of MC_LYSO." alt="" coords="193,300,280,326"/>
-<area shape="poly" id="edge7_Node000002_Node000005" title=" " alt="" coords="295,120,288,182,271,253,247,301,242,299,266,251,283,181,290,120"/>
-<area shape="rect" id="Node000008" href="$construction_8cc.html" title="Definition of the class MyDetectorConstruction." alt="" coords="331,153,462,178"/>
-<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="325,111,381,150,377,154,322,116"/>
-<area shape="rect" id="Node000004" href="$action_8hh.html" title="Declaration of the class MyActionInitialization." alt="" coords="5,226,124,252"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="157,189,87,228,85,223,154,184"/>
-<area shape="rect" id="Node000007" href="$stepping_8cc.html" title="Definition of the class MySteppingAction." alt="" coords="147,226,257,252"/>
-<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="197,193,202,225,197,226,192,194"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="109,256,208,297,206,302,107,261"/>
-<area shape="rect" id="Node000006" href="$action_8cc.html" title="Definition of the class MyActionInitialization." alt="" coords="17,300,112,326"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="67,267,67,300,62,300,62,267"/>
+<area shape="rect" id="node1" title="Declaration of the class MySensitiveDetector." alt="" coords="71,5,202,32"/>
+<area shape="rect" id="node2" href="$detector_8cc.html" title="Definition of the class MySensitiveDetector." alt="" coords="5,80,113,107"/>
+<area shape="rect" id="node3" href="$construction_8hh.html" title="Declaration of the class MyDetectorConstruction." alt="" coords="138,80,293,107"/>
+<area shape="rect" id="node4" href="$mc__lyso_8cc.html" title="Definition of the main function of MC_LYSO." alt="" coords="141,304,228,331"/>
+<area shape="rect" id="node5" href="$construction_8cc.html" title="Definition of the class MyDetectorConstruction." alt="" coords="149,155,281,181"/>
+<area shape="rect" id="node6" href="$stepping_8hh.html" title="Declaration of the class MySteppingAction." alt="" coords="306,155,439,181"/>
+<area shape="rect" id="node7" href="$stepping_8cc.html" title="Definition of the class MySteppingAction." alt="" coords="179,229,289,256"/>
+<area shape="rect" id="node8" href="$action_8hh.html" title="Declaration of the class MyActionInitialization." alt="" coords="313,229,432,256"/>
+<area shape="rect" id="node9" href="$action_8cc.html" title="Definition of the class MyActionInitialization." alt="" coords="325,304,421,331"/>
 </map>

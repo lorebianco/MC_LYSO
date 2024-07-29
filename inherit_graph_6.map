@@ -1,5 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" title=" " alt="" coords="5,5,186,31"/>
-<area shape="rect" id="Node000001" href="$classMyActionInitialization.html" title="Mandatory user initialization concrete class of G4VUserActionInitialization. It configures all the ne..." alt="" coords="234,5,377,31"/>
-<area shape="poly" id="edge7_Node000000_Node000001" title=" " alt="" coords="201,16,233,16,233,21,201,21"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,132,32"/>
+<area shape="rect" id="node2" href="$classMyRunAction.html" title="User action concrete class of G4UserRunAction. It defines procedures to be executed at the start and ..." alt="" coords="180,5,279,32"/>
 </map>

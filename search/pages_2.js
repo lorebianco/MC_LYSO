@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['documentation_0',['MC_LYSO Documentation',['../index.html',1,'']]]
+  ['output_20examples_20and_20useful_20root_20commands_406',['Output examples and useful ROOT commands',['../outputpage.html',1,'']]]
 ];

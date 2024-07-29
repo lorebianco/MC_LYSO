@@ -1,5 +1,4 @@
 <map id="MyPhysicsList" name="MyPhysicsList">
-<area shape="rect" id="Node000001" title="Mandatory user initialization concrete class of G4VModularPhysicsList. It defines physical processes ..." alt="" coords="33,79,139,105"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,167,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,46,89,79,83,79,83,46"/>
+<area shape="rect" id="node1" title="Mandatory user initialization concrete class of G4VModularPhysicsList. It defines physical processes ..." alt="" coords="33,80,140,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,168,32"/>
 </map>

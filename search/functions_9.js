@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['operator_20delete_0',['operator delete',['../classMyHit.html#a076b8d090953a8dd1bc1d9d3ca1f1e04',1,'MyHit']]],
-  ['operator_20new_1',['operator new',['../classMyHit.html#adb3bff1d0419414a3323db0ce41c21bf',1,'MyHit']]],
-  ['operator_3d_2',['operator=',['../classMyHit.html#a9a4c6bc8d5471c5e42131d4cb57e9ea8',1,'MyHit']]],
-  ['operator_3d_3d_3',['operator==',['../classMyHit.html#a1c480735bd8d364a94aaeb9de344c010',1,'MyHit']]]
+  ['positionsipms_271',['PositionSiPMs',['../classMyDetectorConstruction.html#a3de9be1f72c2c8c60f2baadf4ecd207a',1,'MyDetectorConstruction']]],
+  ['primariesforcirclebeam_272',['PrimariesForCircleBeam',['../classMyPrimaryGenerator.html#aa77468e8a25a6b32a290f1a1a252724c',1,'MyPrimaryGenerator']]],
+  ['primariesforledmode_273',['PrimariesForLEDMode',['../classMyPrimaryGenerator.html#af18d6c41bdd778d3640c4c10ec56e63a',1,'MyPrimaryGenerator']]],
+  ['primariesforludecaymode_274',['PrimariesForLuDecayMode',['../classMyPrimaryGenerator.html#a4b0e0bbefacc9fca186e4ddc8bf2bcf5',1,'MyPrimaryGenerator']]],
+  ['primariesforspreadbeam_275',['PrimariesForSpreadBeam',['../classMyPrimaryGenerator.html#a35e13f618f49120d8b6d9cabb1c85dde',1,'MyPrimaryGenerator']]],
+  ['processhits_276',['ProcessHits',['../classMySensitiveDetector.html#a18a6d76cdeffc12f261cdac80efd0505',1,'MySensitiveDetector']]]
 ];

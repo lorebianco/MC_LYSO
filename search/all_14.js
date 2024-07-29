@@ -1,8 +1,12 @@
 var searchData=
 [
-  ['zbackfacescintillator_0',['zBackFaceScintillator',['../namespaceGS.html#a30fa446464e83cae21058594d40b3467',1,'GS']]],
-  ['zdetector_1',['zDetector',['../namespaceGS.html#a26bfdb5cefd5c5be0888f9fb11bde89e',1,'GS']]],
-  ['zfrontfacescintillator_2',['zFrontFaceScintillator',['../namespaceGS.html#a40fe412e300881a4aa760936b6535062',1,'GS']]],
-  ['zscintillator_3',['zScintillator',['../namespaceGS.html#a047f9c491c7b79e2a861d2fd82865bb1',1,'GS']]],
-  ['zwindowsipm_4',['zWindowSiPM',['../namespaceGS.html#a19a46221ae01e73cae7c1218d4e3ae60',1,'GS']]]
+  ['_7emyactioninitialization_190',['~MyActionInitialization',['../classMyActionInitialization.html#ac592dd4cb179f9cccb755a994236990c',1,'MyActionInitialization']]],
+  ['_7emydetectorconstruction_191',['~MyDetectorConstruction',['../classMyDetectorConstruction.html#a8912de680dec978318cb41c1c9a450e9',1,'MyDetectorConstruction']]],
+  ['_7emyeventaction_192',['~MyEventAction',['../classMyEventAction.html#a4150070d3987f2fc5b2742e83aeed8b4',1,'MyEventAction']]],
+  ['_7emyhit_193',['~MyHit',['../classMyHit.html#af2d8161d54f4c2da888037f4d1a06296',1,'MyHit']]],
+  ['_7emyphysicslist_194',['~MyPhysicsList',['../classMyPhysicsList.html#a3daff3c4d6cc2d85b124d767b6e03f00',1,'MyPhysicsList']]],
+  ['_7emyprimarygenerator_195',['~MyPrimaryGenerator',['../classMyPrimaryGenerator.html#acf54fb69e44b70972ebd18489c68f7f6',1,'MyPrimaryGenerator']]],
+  ['_7emyrunaction_196',['~MyRunAction',['../classMyRunAction.html#a4d078bb911cef53af4bf416b2a680fa9',1,'MyRunAction']]],
+  ['_7emysensitivedetector_197',['~MySensitiveDetector',['../classMySensitiveDetector.html#a5d9ef7238b50f8ed4e20b8295021133d',1,'MySensitiveDetector']]],
+  ['_7emysteppingaction_198',['~MySteppingAction',['../classMySteppingAction.html#af13e4fa6048a252c30f56fbbf7097e07',1,'MySteppingAction']]]
 ];

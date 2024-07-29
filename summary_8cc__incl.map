@@ -1,19 +1,11 @@
 <map id="src/summary.cc" name="src/summary.cc">
-<area shape="rect" id="Node000001" title="Definition of the function MC_summary() (and the auxiliary function extract_value())" alt="" coords="240,5,354,31"/>
-<area shape="rect" id="Node000002" href="$summary_8hh.html" title="Declaration of the function MC_summary() (and the auxiliary function extract_value())" alt="" coords="251,79,343,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="300,31,300,63,294,63,294,31"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,153,77,178"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="254,108,92,153,91,148,253,103"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="100,153,166,178"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="270,108,176,149,174,144,268,103"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="190,153,244,178"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="285,107,243,144,240,140,282,103"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="267,153,327,178"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="300,105,300,137,294,137,294,105"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="350,153,404,178"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="312,103,354,140,351,144,309,107"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="428,153,494,178"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="326,103,420,144,418,149,324,108"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="519,153,598,178"/>
-<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="342,103,505,147,503,152,341,108"/>
+<area shape="rect" id="node1" title="Definition of the function MC_summary() (and the auxiliary function extract_value())" alt="" coords="244,5,359,32"/>
+<area shape="rect" id="node2" href="$summary_8hh.html" title="Declaration of the function MC_summary() (and the auxiliary function extract_value())" alt="" coords="255,80,347,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,155,77,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="101,155,168,181"/>
+<area shape="rect" id="node5" title=" " alt="" coords="193,155,247,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="271,155,331,181"/>
+<area shape="rect" id="node7" title=" " alt="" coords="355,155,410,181"/>
+<area shape="rect" id="node8" title=" " alt="" coords="435,155,501,181"/>
+<area shape="rect" id="node9" title=" " alt="" coords="525,155,605,181"/>
 </map>

@@ -1,7 +1,5 @@
 <map id="include/summary.hh" name="include/summary.hh">
-<area shape="rect" id="Node000001" title="Declaration of the function MC_summary() (and the auxiliary function extract_value())" alt="" coords="42,5,178,31"/>
-<area shape="rect" id="Node000002" href="$mc__lyso_8cc.html" title="Definition of the main function of MC_LYSO." alt="" coords="5,79,92,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,44,61,80,57,77,88,41"/>
-<area shape="rect" id="Node000003" href="$summary_8cc.html" title="Definition of the function MC_summary() (and the auxiliary function extract_value())" alt="" coords="116,79,229,105"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="132,41,164,77,160,80,128,44"/>
+<area shape="rect" id="node1" title="Declaration of the function MC_summary() (and the auxiliary function extract_value())" alt="" coords="43,5,180,32"/>
+<area shape="rect" id="node2" href="$mc__lyso_8cc.html" title="Definition of the main function of MC_LYSO." alt="" coords="5,80,92,107"/>
+<area shape="rect" id="node3" href="$summary_8cc.html" title="Definition of the function MC_summary() (and the auxiliary function extract_value())" alt="" coords="117,80,231,107"/>
 </map>

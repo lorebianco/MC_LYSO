@@ -1,31 +1,17 @@
 <map id="src/event.cc" name="src/event.cc">
-<area shape="rect" id="Node000001" title="Definition of the class MyEventAction." alt="" coords="335,5,427,31"/>
-<area shape="rect" id="Node000002" href="$event_8hh.html" title="Declaration of the class MyEventAction." alt="" coords="346,79,416,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="383,31,383,63,378,63,378,31"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,153,63,178"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="346,102,230,122,78,155,77,149,229,117,345,96"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="87,153,240,178"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="346,107,215,150,214,145,344,102"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="265,153,353,178"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="371,107,334,143,330,140,367,103"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="377,153,531,178"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="395,103,433,140,429,144,391,107"/>
-<area shape="rect" id="Node000007" href="$globalsettings_8hh.html" title="Definition of the namespace GS." alt="" coords="555,153,673,178"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="417,101,561,145,559,150,415,107"/>
-<area shape="rect" id="Node000009" href="$hit_8hh.html" title="Declaration of the class MyHit." alt="" coords="855,153,907,178"/>
-<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="417,96,840,156,839,161,416,101"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="385,226,529,252"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="588,181,498,222,496,217,586,176"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="553,226,635,252"/>
-<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="855,176,650,227,649,221,854,171"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="659,226,804,252"/>
-<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="856,181,772,222,769,217,854,176"/>
-<area shape="rect" id="Node000012" title=" " alt="" coords="828,226,934,252"/>
-<area shape="poly" id="edge11_Node000009_Node000012" title=" " alt="" coords="883,179,883,211,878,211,878,179"/>
-<area shape="rect" id="Node000013" title=" " alt="" coords="958,226,1084,252"/>
-<area shape="poly" id="edge12_Node000009_Node000013" title=" " alt="" coords="906,176,985,217,982,221,903,181"/>
-<area shape="rect" id="Node000014" title=" " alt="" coords="1108,226,1160,252"/>
-<area shape="poly" id="edge13_Node000009_Node000014" title=" " alt="" coords="908,172,1094,223,1092,228,907,177"/>
-<area shape="rect" id="Node000015" title=" " alt="" coords="1184,226,1303,252"/>
-<area shape="poly" id="edge14_Node000009_Node000015" title=" " alt="" coords="908,169,1170,221,1168,226,907,175"/>
+<area shape="rect" id="node1" title="Definition of the class MyEventAction." alt="" coords="339,5,432,32"/>
+<area shape="rect" id="node2" href="$event_8hh.html" title="Declaration of the class MyEventAction." alt="" coords="350,80,421,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,155,64,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="88,155,243,181"/>
+<area shape="rect" id="node5" title=" " alt="" coords="267,155,357,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="381,155,536,181"/>
+<area shape="rect" id="node7" href="$globalsettings_8hh.html" title="Definition of the namespace GS." alt="" coords="559,155,678,181"/>
+<area shape="rect" id="node9" href="$hit_8hh.html" title="Declaration of the class MyHit." alt="" coords="861,155,915,181"/>
+<area shape="rect" id="node8" title=" " alt="" coords="387,229,533,256"/>
+<area shape="rect" id="node10" title=" " alt="" coords="557,229,640,256"/>
+<area shape="rect" id="node11" title=" " alt="" coords="665,229,810,256"/>
+<area shape="rect" id="node12" title=" " alt="" coords="835,229,941,256"/>
+<area shape="rect" id="node13" title=" " alt="" coords="966,229,1093,256"/>
+<area shape="rect" id="node14" title=" " alt="" coords="1117,229,1171,256"/>
+<area shape="rect" id="node15" title=" " alt="" coords="1195,229,1314,256"/>
 </map>

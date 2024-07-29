@@ -1,11 +1,7 @@
 <map id="include/stepping.hh" name="include/stepping.hh">
-<area shape="rect" id="Node000001" title="Declaration of the class MySteppingAction." alt="" coords="108,5,240,31"/>
-<area shape="rect" id="Node000002" href="$action_8hh.html" title="Declaration of the class MyActionInitialization." alt="" coords="47,79,165,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,44,119,80,115,77,150,40"/>
-<area shape="rect" id="Node000005" href="$stepping_8cc.html" title="Definition of the class MySteppingAction." alt="" coords="189,79,298,105"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="198,40,233,77,230,80,194,44"/>
-<area shape="rect" id="Node000003" href="$mc__lyso_8cc.html" title="Definition of the main function of MC_LYSO." alt="" coords="5,153,92,178"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="89,118,60,154,56,151,85,115"/>
-<area shape="rect" id="Node000004" href="$action_8cc.html" title="Definition of the class MyActionInitialization." alt="" coords="116,153,211,178"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="127,115,156,151,151,154,123,118"/>
+<area shape="rect" id="node1" title="Declaration of the class MySteppingAction." alt="" coords="63,5,197,32"/>
+<area shape="rect" id="node2" href="$stepping_8cc.html" title="Definition of the class MySteppingAction." alt="" coords="5,80,116,107"/>
+<area shape="rect" id="node3" href="$action_8hh.html" title="Declaration of the class MyActionInitialization." alt="" coords="140,80,259,107"/>
+<area shape="rect" id="node4" href="$mc__lyso_8cc.html" title="Definition of the main function of MC_LYSO." alt="" coords="97,155,184,181"/>
+<area shape="rect" id="node5" href="$action_8cc.html" title="Definition of the class MyActionInitialization." alt="" coords="209,155,305,181"/>
 </map>

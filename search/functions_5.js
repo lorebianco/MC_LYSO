@@ -1,6 +1,9 @@
 var searchData=
 [
-  ['findentryposition_0',['FindEntryPosition',['../classMyEventAction.html#aadc9f36037bc5dbffbe6a76eb87366c1',1,'MyEventAction']]],
-  ['findentrytime_1',['FindEntryTime',['../classMyEventAction.html#ae114d6ab1c7ebe19439c1923b720b3da',1,'MyEventAction']]],
-  ['findmaxedep_2',['FindMaxEdep',['../classMyEventAction.html#a12060e08262acc6952c3bfa2d1812448',1,'MyEventAction']]]
+  ['generateprimaries_249',['GeneratePrimaries',['../classMyPrimaryGenerator.html#ab71cd7447df85d02673dabf0d825c20e',1,'MyPrimaryGenerator']]],
+  ['getdetectiontime_250',['GetDetectionTime',['../classMyHit.html#a86e84187216d1b679608f329b0eb37f6',1,'MyHit']]],
+  ['getdetectorchannel_251',['GetDetectorChannel',['../classMyHit.html#aa6a9e36b654d8607e5f63eb1c285b992',1,'MyHit']]],
+  ['getdetectorposition_252',['GetDetectorPosition',['../classMyHit.html#ad0a6f810e28054c4e644366deeb07996',1,'MyHit']]],
+  ['getefficienciesfromfile_253',['GetEfficienciesFromFile',['../classMySensitiveDetector.html#a7a7455e79788124305bcba3e3a8d1f32',1,'MySensitiveDetector']]],
+  ['getscoringvolume_254',['GetScoringVolume',['../classMyDetectorConstruction.html#a125e530ca34820f10397ef44dc673c3d',1,'MyDetectorConstruction']]]
 ];

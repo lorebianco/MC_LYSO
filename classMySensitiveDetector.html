@@ -122,6 +122,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-types"></a>
 Private Types</h2></td></tr>
 <tr class="memitem:a11fbda060cc29a2fca5ef2d0ec8caae6"><td class="memItemLeft" align="right" valign="top"><a id="a11fbda060cc29a2fca5ef2d0ec8caae6"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>SetEfficiencies</b> { <b>fIsNominalEfficiency</b>
+, <b>fIsFixedEfficiency</b>
 , <b>fIsRandomEfficiency</b>
 , <b>fIsAssignedEfficiency</b>
  }</td></tr>
@@ -148,6 +149,12 @@ Private Attributes</h2></td></tr>
 SetEfficiencies&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMySensitiveDetector.html#ad0a5227ab48c128678848995b60e29e0">fEfficiencySetting</a></td></tr>
 <tr class="memdesc:ad0a5227ab48c128678848995b60e29e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of SetEfficiencies. <br /></td></tr>
 <tr class="separator:ad0a5227ab48c128678848995b60e29e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa18d5a52e32cb5f121ea551173b698ae"><td class="memItemLeft" align="right" valign="top"><a id="aa18d5a52e32cb5f121ea551173b698ae"></a>
+G4PhysicsFreeVector *&#160;</td><td class="memItemRight" valign="bottom"><b>fPDE</b></td></tr>
+<tr class="separator:aa18d5a52e32cb5f121ea551173b698ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a271f33fafe2f9b5a74df883b69f24be2"><td class="memItemLeft" align="right" valign="top"><a id="a271f33fafe2f9b5a74df883b69f24be2"></a>
+G4double&#160;</td><td class="memItemRight" valign="bottom"><b>fFixedEfficiency</b></td></tr>
+<tr class="separator:a271f33fafe2f9b5a74df883b69f24be2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb954ebaee8ab22d3c6d60caae8265c7"><td class="memItemLeft" align="right" valign="top"><a id="adb954ebaee8ab22d3c6d60caae8265c7"></a>
 G4double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMySensitiveDetector.html#adb954ebaee8ab22d3c6d60caae8265c7">fFrontEfficiency</a> [<a class="el" href="namespaceGS.html#aafb3a9ae3043e5d5c0b5d50544174464">GS::nOfSiPMs</a>]</td></tr>
 <tr class="memdesc:adb954ebaee8ab22d3c6d60caae8265c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of PDEs for front MPPCs. <br /></td></tr>
@@ -160,7 +167,7 @@ G4double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Concrete class of G4VSensitiveDetector, representing the detector (i.e. the SiPM). </p>
 
-<p class="definition">Definition at line <a class="el" href="detector_8hh_source.html#l00026">26</a> of file <a class="el" href="detector_8hh_source.html">detector.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="detector_8hh_source.html#l00027">27</a> of file <a class="el" href="detector_8hh_source.html">detector.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a87a9ff971e8ef5de898598ac57f82381"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a87a9ff971e8ef5de898598ac57f82381">&#9670;&nbsp;</a></span>MySensitiveDetector()</h2>
@@ -234,7 +241,7 @@ G4double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="detector_8cc_source.html#l00022">22</a> of file <a class="el" href="detector_8cc_source.html">detector.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="detector_8cc_source.html#l00034">34</a> of file <a class="el" href="detector_8cc_source.html">detector.cc</a>.</p>
 
 </div>
 </div>
@@ -282,7 +289,7 @@ G4double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="detector_8cc_source.html#l00033">33</a> of file <a class="el" href="detector_8cc_source.html">detector.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="detector_8cc_source.html#l00045">45</a> of file <a class="el" href="detector_8cc_source.html">detector.cc</a>.</p>
 
 </div>
 </div>

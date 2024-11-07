@@ -114,9 +114,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab71cd7447df85d02673dabf0d825c20e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyPrimaryGenerator.html#ab71cd7447df85d02673dabf0d825c20e">GeneratePrimaries</a> (G4Event *anEvent) override</td></tr>
 <tr class="memdesc:ab71cd7447df85d02673dabf0d825c20e"><td class="mdescLeft">&#160;</td><td class="mdescRight">It generates the primary vertex of the event.  <a href="classMyPrimaryGenerator.html#ab71cd7447df85d02673dabf0d825c20e">More...</a><br /></td></tr>
 <tr class="separator:ab71cd7447df85d02673dabf0d825c20e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04ecfa9a162bde80f59e25ecbe587b8b"><td class="memItemLeft" align="right" valign="top"><a id="a04ecfa9a162bde80f59e25ecbe587b8b"></a>
+G4int&#160;</td><td class="memItemRight" valign="bottom"><b>GetModeType</b> () const</td></tr>
+<tr class="separator:a04ecfa9a162bde80f59e25ecbe587b8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
+<tr class="memitem:a5dd5fbfc076d9d2225237415fe294387"><td class="memItemLeft" align="right" valign="top"><a id="a5dd5fbfc076d9d2225237415fe294387"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyPrimaryGenerator.html#a5dd5fbfc076d9d2225237415fe294387">PrimariesForStandardMode</a> ()</td></tr>
+<tr class="memdesc:a5dd5fbfc076d9d2225237415fe294387"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate primaries auxiliary function for Standard mode. <br /></td></tr>
+<tr class="separator:a5dd5fbfc076d9d2225237415fe294387"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35e13f618f49120d8b6d9cabb1c85dde"><td class="memItemLeft" align="right" valign="top"><a id="a35e13f618f49120d8b6d9cabb1c85dde"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyPrimaryGenerator.html#a35e13f618f49120d8b6d9cabb1c85dde">PrimariesForSpreadBeam</a> ()</td></tr>
 <tr class="memdesc:a35e13f618f49120d8b6d9cabb1c85dde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate primaries auxiliary function for spread beam. <br /></td></tr>
@@ -125,14 +132,24 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyPrimaryGenerator.html#aa77468e8a25a6b32a290f1a1a252724c">PrimariesForCircleBeam</a> ()</td></tr>
 <tr class="memdesc:aa77468e8a25a6b32a290f1a1a252724c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate primaries auxiliary function for circle beam. <br /></td></tr>
 <tr class="separator:aa77468e8a25a6b32a290f1a1a252724c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af18d6c41bdd778d3640c4c10ec56e63a"><td class="memItemLeft" align="right" valign="top"><a id="af18d6c41bdd778d3640c4c10ec56e63a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyPrimaryGenerator.html#af18d6c41bdd778d3640c4c10ec56e63a">PrimariesForLEDMode</a> ()</td></tr>
-<tr class="memdesc:af18d6c41bdd778d3640c4c10ec56e63a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate primaries auxiliary function for LED mode. <br /></td></tr>
-<tr class="separator:af18d6c41bdd778d3640c4c10ec56e63a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b0e0bbefacc9fca186e4ddc8bf2bcf5"><td class="memItemLeft" align="right" valign="top"><a id="a4b0e0bbefacc9fca186e4ddc8bf2bcf5"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyPrimaryGenerator.html#a4b0e0bbefacc9fca186e4ddc8bf2bcf5">PrimariesForLuDecayMode</a> ()</td></tr>
 <tr class="memdesc:a4b0e0bbefacc9fca186e4ddc8bf2bcf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate primaries auxiliary function for Lu decay mode. <br /></td></tr>
 <tr class="separator:a4b0e0bbefacc9fca186e4ddc8bf2bcf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e1cefb6d971ea80fab37d0e9be23117"><td class="memItemLeft" align="right" valign="top"><a id="a3e1cefb6d971ea80fab37d0e9be23117"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyPrimaryGenerator.html#a3e1cefb6d971ea80fab37d0e9be23117">PrimariesForCosmicRaysMode</a> ()</td></tr>
+<tr class="memdesc:a3e1cefb6d971ea80fab37d0e9be23117"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate primaries auxiliary function for Cosmic rays mode. <br /></td></tr>
+<tr class="separator:a3e1cefb6d971ea80fab37d0e9be23117"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af18d6c41bdd778d3640c4c10ec56e63a"><td class="memItemLeft" align="right" valign="top"><a id="af18d6c41bdd778d3640c4c10ec56e63a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyPrimaryGenerator.html#af18d6c41bdd778d3640c4c10ec56e63a">PrimariesForLEDMode</a> ()</td></tr>
+<tr class="memdesc:af18d6c41bdd778d3640c4c10ec56e63a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate primaries auxiliary function for LED mode. <br /></td></tr>
+<tr class="separator:af18d6c41bdd778d3640c4c10ec56e63a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbbb13b46a3d545ba41b067fcdf8546b"><td class="memItemLeft" align="right" valign="top"><a id="afbbb13b46a3d545ba41b067fcdf8546b"></a>
+G4double&#160;</td><td class="memItemRight" valign="bottom"><b>PDF_E_CosmicRay</b> (G4double energy)</td></tr>
+<tr class="separator:afbbb13b46a3d545ba41b067fcdf8546b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ebd2168e4954aa8236dd529cba97ed5"><td class="memItemLeft" align="right" valign="top"><a id="a2ebd2168e4954aa8236dd529cba97ed5"></a>
+G4ThreeVector&#160;</td><td class="memItemRight" valign="bottom"><b>ProjectOnBottomDetector</b> (G4ThreeVector pos0, G4ThreeVector mom0)</td></tr>
+<tr class="separator:a2ebd2168e4954aa8236dd529cba97ed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af03d84f3645cbfa68dd732bd7831b1fa"><td class="memItemLeft" align="right" valign="top"><a id="af03d84f3645cbfa68dd732bd7831b1fa"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyPrimaryGenerator.html#af03d84f3645cbfa68dd732bd7831b1fa">DefineCommands</a> ()</td></tr>
 <tr class="memdesc:af03d84f3645cbfa68dd732bd7831b1fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines new user commands for primary particle generation. <br /></td></tr>
@@ -180,6 +197,10 @@ G4double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 G4double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyPrimaryGenerator.html#a65b22ca07e3df691c580a8febb441417">fRadiusCircle</a></td></tr>
 <tr class="memdesc:a65b22ca07e3df691c580a8febb441417"><td class="mdescLeft">&#160;</td><td class="mdescRight">Radius of the beam profile in circle type. <br /></td></tr>
 <tr class="separator:a65b22ca07e3df691c580a8febb441417"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade21b6ba73c06e82bb2ddecf1c368be6"><td class="memItemLeft" align="right" valign="top"><a id="ade21b6ba73c06e82bb2ddecf1c368be6"></a>
+G4ThreeVector&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyPrimaryGenerator.html#ade21b6ba73c06e82bb2ddecf1c368be6">fPosFixedDecay</a></td></tr>
+<tr class="memdesc:ade21b6ba73c06e82bb2ddecf1c368be6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position of 176Lu isotope for fixed-position mode. <br /></td></tr>
+<tr class="separator:ade21b6ba73c06e82bb2ddecf1c368be6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95bd62c8a0b0a1c7e75f800eaca90546"><td class="memItemLeft" align="right" valign="top"><a id="a95bd62c8a0b0a1c7e75f800eaca90546"></a>
 G4String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyPrimaryGenerator.html#a95bd62c8a0b0a1c7e75f800eaca90546">fChooseFrontorBack</a></td></tr>
 <tr class="memdesc:a95bd62c8a0b0a1c7e75f800eaca90546"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating on which face of the crystal a LED has to be switched ON. <br /></td></tr>
@@ -250,7 +271,7 @@ G4String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="generator_8cc_source.html#l00044">44</a> of file <a class="el" href="generator_8cc_source.html">generator.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="generator_8cc_source.html#l00048">48</a> of file <a class="el" href="generator_8cc_source.html">generator.cc</a>.</p>
 
 </div>
 </div>

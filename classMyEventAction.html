@@ -117,15 +117,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a416818d947a6feec0071b72c598a787a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyEventAction.html#a416818d947a6feec0071b72c598a787a">EndOfEventAction</a> (const G4Event *event) override</td></tr>
 <tr class="memdesc:a416818d947a6feec0071b72c598a787a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills the TTree with the data of the event.  <a href="classMyEventAction.html#a416818d947a6feec0071b72c598a787a">More...</a><br /></td></tr>
 <tr class="separator:a416818d947a6feec0071b72c598a787a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa046101ee73865fab5d9072782c7ee99"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyEventAction.html#aa046101ee73865fab5d9072782c7ee99">SetArrival</a> (G4double newtimein, G4ThreeVector newposin)</td></tr>
-<tr class="memdesc:aa046101ee73865fab5d9072782c7ee99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the time and the position of arrival to the crystal of the primary gamma.  <a href="classMyEventAction.html#aa046101ee73865fab5d9072782c7ee99">More...</a><br /></td></tr>
-<tr class="separator:aa046101ee73865fab5d9072782c7ee99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a726a6c821704ff8f79bbbcc3d65faa4c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyEventAction.html#a726a6c821704ff8f79bbbcc3d65faa4c">SetArrivalandFirstInteraction</a> (G4double newtimein, G4ThreeVector newposin, G4double newtimeinter, G4ThreeVector newposinter)</td></tr>
+<tr class="memdesc:a726a6c821704ff8f79bbbcc3d65faa4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the time and the position of arrival to the crystal of the primary gamma.  <a href="classMyEventAction.html#a726a6c821704ff8f79bbbcc3d65faa4c">More...</a><br /></td></tr>
+<tr class="separator:a726a6c821704ff8f79bbbcc3d65faa4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a870ae342db0191a68039daf08f8d64b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyEventAction.html#a870ae342db0191a68039daf08f8d64b3">AddEdep</a> (G4double edep)</td></tr>
 <tr class="memdesc:a870ae342db0191a68039daf08f8d64b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">For every G4Step inside the crystal it sums the energy deposit.  <a href="classMyEventAction.html#a870ae342db0191a68039daf08f8d64b3">More...</a><br /></td></tr>
 <tr class="separator:a870ae342db0191a68039daf08f8d64b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa10a30dfd5e03d8222ff1239a08c485d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyEventAction.html#aa10a30dfd5e03d8222ff1239a08c485d">SetMaxEdep</a> (G4double edepondx, G4ThreeVector maxedeppos)</td></tr>
 <tr class="memdesc:aa10a30dfd5e03d8222ff1239a08c485d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the maximum deposit of energy per unit length and its position inside the crystal.  <a href="classMyEventAction.html#aa10a30dfd5e03d8222ff1239a08c485d">More...</a><br /></td></tr>
 <tr class="separator:aa10a30dfd5e03d8222ff1239a08c485d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a61709b94ba0be90502c34cbf330fdb"><td class="memItemLeft" align="right" valign="top"><a id="a3a61709b94ba0be90502c34cbf330fdb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetDecayTriggerSi</b> (G4bool trg)</td></tr>
+<tr class="separator:a3a61709b94ba0be90502c34cbf330fdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf5d3a1052606726f802081d72604bb1"><td class="memItemLeft" align="right" valign="top"><a id="aaf5d3a1052606726f802081d72604bb1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetCosmicTriggerUp</b> (G4bool trg)</td></tr>
+<tr class="separator:aaf5d3a1052606726f802081d72604bb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada0e2314fe299b768337d43f3b169d61"><td class="memItemLeft" align="right" valign="top"><a id="ada0e2314fe299b768337d43f3b169d61"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetCosmicTriggerBottom</b> (G4bool trg)</td></tr>
+<tr class="separator:ada0e2314fe299b768337d43f3b169d61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -141,6 +150,26 @@ G4double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 G4double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyEventAction.html#ab8bba5058e7c3bce23c8d659a0956648">fPosYIn</a></td></tr>
 <tr class="memdesc:ab8bba5058e7c3bce23c8d659a0956648"><td class="mdescLeft">&#160;</td><td class="mdescRight">Y position of arrival of primary gamma. <br /></td></tr>
 <tr class="separator:ab8bba5058e7c3bce23c8d659a0956648"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace39cef01f5058a067784b58549dd445"><td class="memItemLeft" align="right" valign="top"><a id="ace39cef01f5058a067784b58549dd445"></a>
+G4double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyEventAction.html#ace39cef01f5058a067784b58549dd445">fPosZIn</a></td></tr>
+<tr class="memdesc:ace39cef01f5058a067784b58549dd445"><td class="mdescLeft">&#160;</td><td class="mdescRight">Z position of arrival of primary gamma. <br /></td></tr>
+<tr class="separator:ace39cef01f5058a067784b58549dd445"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bb0ac0893c806563912698f769c040a"><td class="memItemLeft" align="right" valign="top"><a id="a9bb0ac0893c806563912698f769c040a"></a>
+G4double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyEventAction.html#a9bb0ac0893c806563912698f769c040a">fTimeFirstInter</a></td></tr>
+<tr class="memdesc:a9bb0ac0893c806563912698f769c040a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time of first interaction of primary gamma. <br /></td></tr>
+<tr class="separator:a9bb0ac0893c806563912698f769c040a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d2ddc4fd615d39930e3c95ae1389709"><td class="memItemLeft" align="right" valign="top"><a id="a5d2ddc4fd615d39930e3c95ae1389709"></a>
+G4double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyEventAction.html#a5d2ddc4fd615d39930e3c95ae1389709">fPosXFirstInter</a></td></tr>
+<tr class="memdesc:a5d2ddc4fd615d39930e3c95ae1389709"><td class="mdescLeft">&#160;</td><td class="mdescRight">X position of first interaction of primary gamma. <br /></td></tr>
+<tr class="separator:a5d2ddc4fd615d39930e3c95ae1389709"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1703004ef964b780972ae906c3427701"><td class="memItemLeft" align="right" valign="top"><a id="a1703004ef964b780972ae906c3427701"></a>
+G4double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyEventAction.html#a1703004ef964b780972ae906c3427701">fPosYFirstInter</a></td></tr>
+<tr class="memdesc:a1703004ef964b780972ae906c3427701"><td class="mdescLeft">&#160;</td><td class="mdescRight">Y position of first interaction of primary gamma. <br /></td></tr>
+<tr class="separator:a1703004ef964b780972ae906c3427701"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf824df0292c4d05c62323d48bbc44dc"><td class="memItemLeft" align="right" valign="top"><a id="acf824df0292c4d05c62323d48bbc44dc"></a>
+G4double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyEventAction.html#acf824df0292c4d05c62323d48bbc44dc">fPosZFirstInter</a></td></tr>
+<tr class="memdesc:acf824df0292c4d05c62323d48bbc44dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Z position of first interaction of primary gamma. <br /></td></tr>
+<tr class="separator:acf824df0292c4d05c62323d48bbc44dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c651c277fc0ee82467635b025d5875a"><td class="memItemLeft" align="right" valign="top"><a id="a6c651c277fc0ee82467635b025d5875a"></a>
 G4double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyEventAction.html#a6c651c277fc0ee82467635b025d5875a">fEdep</a></td></tr>
 <tr class="memdesc:a6c651c277fc0ee82467635b025d5875a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total energy deposited inside the crystal. <br /></td></tr>
@@ -185,19 +214,37 @@ std::vector&lt; G4double &gt;&#160;</td><td class="memItemRight" valign="bottom"
 std::vector&lt; G4double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyEventAction.html#af1490f7c02bbde77d7c569e6f732d593">fY_B</a></td></tr>
 <tr class="memdesc:af1490f7c02bbde77d7c569e6f732d593"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector containing y-positions of detection of optical photons on the back face. <br /></td></tr>
 <tr class="separator:af1490f7c02bbde77d7c569e6f732d593"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b2518d9b7bc876fdb88ba444cca6e79"><td class="memItemLeft" align="right" valign="top"><a id="a4b2518d9b7bc876fdb88ba444cca6e79"></a>
+std::vector&lt; G4int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>fHitsNum_F_Ch</b></td></tr>
+<tr class="separator:a4b2518d9b7bc876fdb88ba444cca6e79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af693e2a5d0c8bf8f26b21c33839ca29a"><td class="memItemLeft" align="right" valign="top"><a id="af693e2a5d0c8bf8f26b21c33839ca29a"></a>
 std::vector&lt; G4int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyEventAction.html#af693e2a5d0c8bf8f26b21c33839ca29a">fChannel_F</a></td></tr>
 <tr class="memdesc:af693e2a5d0c8bf8f26b21c33839ca29a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector containing SiPM channels of detection of optical photons on the front face. <br /></td></tr>
 <tr class="separator:af693e2a5d0c8bf8f26b21c33839ca29a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace80b45011f9e4b6e77542ebdaf40239"><td class="memItemLeft" align="right" valign="top"><a id="ace80b45011f9e4b6e77542ebdaf40239"></a>
+std::vector&lt; G4int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>fHitsNum_B_Ch</b></td></tr>
+<tr class="separator:ace80b45011f9e4b6e77542ebdaf40239"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c092b2b40da450c399160b084559c16"><td class="memItemLeft" align="right" valign="top"><a id="a9c092b2b40da450c399160b084559c16"></a>
 std::vector&lt; G4int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyEventAction.html#a9c092b2b40da450c399160b084559c16">fChannel_B</a></td></tr>
 <tr class="memdesc:a9c092b2b40da450c399160b084559c16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector containing SiPM channels of detection of optical photons on the back face. <br /></td></tr>
 <tr class="separator:a9c092b2b40da450c399160b084559c16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a8098e09a7449ffd9f7fca2fcf0b09d"><td class="memItemLeft" align="right" valign="top"><a id="a5a8098e09a7449ffd9f7fca2fcf0b09d"></a>
+G4double&#160;</td><td class="memItemRight" valign="bottom"><b>fTimeOfDecay</b></td></tr>
+<tr class="separator:a5a8098e09a7449ffd9f7fca2fcf0b09d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed613a806687706ec0c59cf62006577b"><td class="memItemLeft" align="right" valign="top"><a id="aed613a806687706ec0c59cf62006577b"></a>
+G4bool&#160;</td><td class="memItemRight" valign="bottom"><b>fDecayTriggerSi</b></td></tr>
+<tr class="separator:aed613a806687706ec0c59cf62006577b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3c29ec3830502103e721430cdec45b9"><td class="memItemLeft" align="right" valign="top"><a id="ab3c29ec3830502103e721430cdec45b9"></a>
+G4bool&#160;</td><td class="memItemRight" valign="bottom"><b>fCosmicTriggerUp</b></td></tr>
+<tr class="separator:ab3c29ec3830502103e721430cdec45b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0c6afbf3abc0cd6f99a05044ea6d126"><td class="memItemLeft" align="right" valign="top"><a id="ad0c6afbf3abc0cd6f99a05044ea6d126"></a>
+G4bool&#160;</td><td class="memItemRight" valign="bottom"><b>fCosmicTriggerBottom</b></td></tr>
+<tr class="separator:ad0c6afbf3abc0cd6f99a05044ea6d126"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>User action concrete class of G4UserEventAction. In addition to defining procedures executed at the start and end of the event, this class also implements all the cointers for data to be saved in the output root file, along with some methods for extracting them during the event. </p>
 
-<p class="definition">Definition at line <a class="el" href="event_8hh_source.html#l00023">23</a> of file <a class="el" href="event_8hh_source.html">event.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event_8hh_source.html#l00025">25</a> of file <a class="el" href="event_8hh_source.html">event.hh</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a870ae342db0191a68039daf08f8d64b3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a870ae342db0191a68039daf08f8d64b3">&#9670;&nbsp;</a></span>AddEdep()</h2>
@@ -231,7 +278,7 @@ std::vector&lt; G4int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="event_8hh_source.html#l00067">67</a> of file <a class="el" href="event_8hh_source.html">event.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event_8hh_source.html#l00075">75</a> of file <a class="el" href="event_8hh_source.html">event.hh</a>.</p>
 
 </div>
 </div>
@@ -304,12 +351,12 @@ std::vector&lt; G4int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="event_8cc_source.html#l00033">33</a> of file <a class="el" href="event_8cc_source.html">event.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event_8cc_source.html#l00042">42</a> of file <a class="el" href="event_8cc_source.html">event.cc</a>.</p>
 
 </div>
 </div>
-<a id="aa046101ee73865fab5d9072782c7ee99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa046101ee73865fab5d9072782c7ee99">&#9670;&nbsp;</a></span>SetArrival()</h2>
+<a id="a726a6c821704ff8f79bbbcc3d65faa4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a726a6c821704ff8f79bbbcc3d65faa4c">&#9670;&nbsp;</a></span>SetArrivalandFirstInteraction()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -318,7 +365,7 @@ std::vector&lt; G4int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void MyEventAction::SetArrival </td>
+          <td class="memname">void MyEventAction::SetArrivalandFirstInteraction </td>
           <td>(</td>
           <td class="paramtype">G4double&#160;</td>
           <td class="paramname"><em>newtimein</em>, </td>
@@ -327,7 +374,19 @@ std::vector&lt; G4int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">G4ThreeVector&#160;</td>
-          <td class="paramname"><em>newposin</em>&#160;</td>
+          <td class="paramname"><em>newposin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">G4double&#160;</td>
+          <td class="paramname"><em>newtimeinter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">G4ThreeVector&#160;</td>
+          <td class="paramname"><em>newposinter</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -351,7 +410,7 @@ std::vector&lt; G4int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="event_8hh_source.html#l00053">53</a> of file <a class="el" href="event_8hh_source.html">event.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event_8hh_source.html#l00055">55</a> of file <a class="el" href="event_8hh_source.html">event.hh</a>.</p>
 
 </div>
 </div>
@@ -398,7 +457,7 @@ std::vector&lt; G4int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="event_8hh_source.html#l00076">76</a> of file <a class="el" href="event_8hh_source.html">event.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event_8hh_source.html#l00084">84</a> of file <a class="el" href="event_8hh_source.html">event.hh</a>.</p>
 
 </div>
 </div>

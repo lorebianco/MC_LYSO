@@ -71,6 +71,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classMySteppingAction-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -115,6 +116,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1d28426adf2987fafac3292bfd639ac8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMySteppingAction.html#a1d28426adf2987fafac3292bfd639ac8">UserSteppingAction</a> (const G4Step *step) override</td></tr>
 <tr class="memdesc:a1d28426adf2987fafac3292bfd639ac8"><td class="mdescLeft">&#160;</td><td class="mdescRight">For every step updates and stores quantities about the physics inside the crystal by calling the methods of <a class="el" href="classMyEventAction.html" title="User action concrete class of G4UserEventAction. In addition to defining procedures executed at the s...">MyEventAction</a>.  <a href="classMySteppingAction.html#a1d28426adf2987fafac3292bfd639ac8">More...</a><br /></td></tr>
 <tr class="separator:a1d28426adf2987fafac3292bfd639ac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:aab0bc303e95b53d5e892e31748492907"><td class="memItemLeft" align="right" valign="top"><a id="aab0bc303e95b53d5e892e31748492907"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SteppingForLuDecayBulkSignature</b> (const G4Step *step, G4LogicalVolume *volume, const <a class="el" href="classMyDetectorConstruction.html">MyDetectorConstruction</a> *detectorConstruction)</td></tr>
+<tr class="separator:aab0bc303e95b53d5e892e31748492907"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9edb5debd177a9012701c7607ff011cf"><td class="memItemLeft" align="right" valign="top"><a id="a9edb5debd177a9012701c7607ff011cf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SteppingForCosmicRaysDetectors</b> (const G4Step *step, G4LogicalVolume *volume, const <a class="el" href="classMyDetectorConstruction.html">MyDetectorConstruction</a> *detectorConstruction)</td></tr>
+<tr class="separator:a9edb5debd177a9012701c7607ff011cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19ec7ec399afd3e238d071dce6cb2d5d"><td class="memItemLeft" align="right" valign="top"><a id="a19ec7ec399afd3e238d071dce6cb2d5d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetTimeOfDecay</b> (const G4Step *step)</td></tr>
+<tr class="separator:a19ec7ec399afd3e238d071dce6cb2d5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>

@@ -1,9 +1,9 @@
 <map id="include/globalsettings.hh" name="include/globalsettings.hh">
-<area shape="rect" id="node1" title="Definition of the namespace GS." alt="" coords="275,5,439,32"/>
+<area shape="rect" id="node1" title="Definition of the namespace GS." alt="" coords="288,5,452,32"/>
 <area shape="rect" id="node2" href="$construction_8hh.html" title="Declaration of the class MyDetectorConstruction." alt="" coords="58,155,213,181"/>
-<area shape="rect" id="node9" href="$detector_8hh.html" title="Declaration of the class MySensitiveDetector." alt="" coords="213,80,343,107"/>
+<area shape="rect" id="node9" href="$detector_8hh.html" title="Declaration of the class MySensitiveDetector." alt="" coords="226,80,357,107"/>
 <area shape="rect" id="node11" href="$event_8hh.html" title="Declaration of the class MyEventAction." alt="" coords="560,155,676,181"/>
-<area shape="rect" id="node15" href="$generator_8hh.html" title="Declaration of the class MyPrimaryGenerator." alt="" coords="367,80,506,107"/>
+<area shape="rect" id="node15" href="$generator_8hh.html" title="Declaration of the class MyPrimaryGenerator." alt="" coords="394,80,533,107"/>
 <area shape="rect" id="node3" href="$mc__lyso_8cc.html" title="Definition of the main function of MC_LYSO." alt="" coords="193,379,280,405"/>
 <area shape="rect" id="node4" href="$construction_8cc.html" title="Definition of the class MyDetectorConstruction." alt="" coords="5,229,137,256"/>
 <area shape="rect" id="node5" href="$stepping_8hh.html" title="Declaration of the class MySteppingAction." alt="" coords="213,229,346,256"/>

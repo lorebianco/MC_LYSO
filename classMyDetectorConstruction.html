@@ -115,6 +115,12 @@ Public Member Functions</h2></td></tr>
 G4LogicalVolume *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyDetectorConstruction.html#a125e530ca34820f10397ef44dc673c3d">GetScoringVolume</a> () const</td></tr>
 <tr class="memdesc:a125e530ca34820f10397ef44dc673c3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the scoring volume. It will be used by <a class="el" href="classMySteppingAction.html#a1d28426adf2987fafac3292bfd639ac8" title="For every step updates and stores quantities about the physics inside the crystal by calling the meth...">MySteppingAction::UserSteppingAction()</a>. <br /></td></tr>
 <tr class="separator:a125e530ca34820f10397ef44dc673c3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e81594d2747eb389d342ee8f9ecb2da"><td class="memItemLeft" align="right" valign="top"><a id="a5e81594d2747eb389d342ee8f9ecb2da"></a>
+G4LogicalVolume *&#160;</td><td class="memItemRight" valign="bottom"><b>GetCosmicTriggerVolume</b> () const</td></tr>
+<tr class="separator:a5e81594d2747eb389d342ee8f9ecb2da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b989b2fed21020131a4fb39f6aed1ad"><td class="memItemLeft" align="right" valign="top"><a id="a0b989b2fed21020131a4fb39f6aed1ad"></a>
+G4LogicalVolume *&#160;</td><td class="memItemRight" valign="bottom"><b>GetDecayTriggerVolume</b> () const</td></tr>
+<tr class="separator:a0b989b2fed21020131a4fb39f6aed1ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9ef5a036a6ef0c2090cbddd414c8c86"><td class="memItemLeft" align="right" valign="top">G4VPhysicalVolume *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyDetectorConstruction.html#ac9ef5a036a6ef0c2090cbddd414c8c86">Construct</a> () override</td></tr>
 <tr class="memdesc:ac9ef5a036a6ef0c2090cbddd414c8c86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct the detector geometry.  <a href="classMyDetectorConstruction.html#ac9ef5a036a6ef0c2090cbddd414c8c86">More...</a><br /></td></tr>
 <tr class="separator:ac9ef5a036a6ef0c2090cbddd414c8c86"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,9 +151,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyDetectorConstruction.html#a0234f7923929adedff5196e545bffd57">ConstructASiPM</a> ()</td></tr>
 <tr class="memdesc:a0234f7923929adedff5196e545bffd57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auxiliary function called by <a class="el" href="classMyDetectorConstruction.html#ac9ef5a036a6ef0c2090cbddd414c8c86" title="Construct the detector geometry.">Construct()</a> for building only one SiPM. <br /></td></tr>
 <tr class="separator:a0234f7923929adedff5196e545bffd57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3de9be1f72c2c8c60f2baadf4ecd207a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyDetectorConstruction.html#a3de9be1f72c2c8c60f2baadf4ecd207a">PositionSiPMs</a> (G4VPhysicalVolume *physFrontSiPM, G4VPhysicalVolume *physBackSiPM, G4int row, G4int col, G4int halfCols, G4int index)</td></tr>
-<tr class="memdesc:a3de9be1f72c2c8c60f2baadf4ecd207a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auxiliary function called by <a class="el" href="classMyDetectorConstruction.html#ac9ef5a036a6ef0c2090cbddd414c8c86" title="Construct the detector geometry.">Construct()</a> for putting in the right position every SiPM.  <a href="classMyDetectorConstruction.html#a3de9be1f72c2c8c60f2baadf4ecd207a">More...</a><br /></td></tr>
-<tr class="separator:a3de9be1f72c2c8c60f2baadf4ecd207a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab19ab9824484ea130fd65c84d72a889f"><td class="memItemLeft" align="right" valign="top"><a id="ab19ab9824484ea130fd65c84d72a889f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ConstructCosmicRaysDetectors</b> ()</td></tr>
+<tr class="separator:ab19ab9824484ea130fd65c84d72a889f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab486087ac83c88b5b7d1fdd4a8c07251"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyDetectorConstruction.html#ab486087ac83c88b5b7d1fdd4a8c07251">PositionSiPMs</a> (G4VPhysicalVolume *physFrontSiPM, G4VPhysicalVolume *physBackSiPM, G4int row, G4int col, G4int index)</td></tr>
+<tr class="memdesc:ab486087ac83c88b5b7d1fdd4a8c07251"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auxiliary function called by <a class="el" href="classMyDetectorConstruction.html#ac9ef5a036a6ef0c2090cbddd414c8c86" title="Construct the detector geometry.">Construct()</a> for putting in the right position every SiPM.  <a href="classMyDetectorConstruction.html#ab486087ac83c88b5b7d1fdd4a8c07251">More...</a><br /></td></tr>
+<tr class="separator:ab486087ac83c88b5b7d1fdd4a8c07251"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afeed30b7a91229fc6d6e9c962c3de76e"><td class="memItemLeft" align="right" valign="top"><a id="afeed30b7a91229fc6d6e9c962c3de76e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyDetectorConstruction.html#afeed30b7a91229fc6d6e9c962c3de76e">DefineMaterials</a> ()</td></tr>
 <tr class="memdesc:afeed30b7a91229fc6d6e9c962c3de76e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines all materials. <br /></td></tr>
@@ -203,10 +212,19 @@ G4LogicalVolume *&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 G4LogicalVolume *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyDetectorConstruction.html#a1c4b9709667dd399acd2b33531e8e9ae">logicGrease</a></td></tr>
 <tr class="memdesc:a1c4b9709667dd399acd2b33531e8e9ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to optical grease logical volume. <br /></td></tr>
 <tr class="separator:a1c4b9709667dd399acd2b33531e8e9ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33df19425f0e0afa72804f6bd4242d3d"><td class="memItemLeft" align="right" valign="top"><a id="a33df19425f0e0afa72804f6bd4242d3d"></a>
+G4LogicalVolume *&#160;</td><td class="memItemRight" valign="bottom"><b>logicCosmicRaysDetector</b></td></tr>
+<tr class="separator:a33df19425f0e0afa72804f6bd4242d3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f46b951aa903eb5bbc868c4093e8b5c"><td class="memItemLeft" align="right" valign="top"><a id="a0f46b951aa903eb5bbc868c4093e8b5c"></a>
 G4LogicalVolume *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyDetectorConstruction.html#a0f46b951aa903eb5bbc868c4093e8b5c">fScoringVolume</a></td></tr>
 <tr class="memdesc:a0f46b951aa903eb5bbc868c4093e8b5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer used to define the logical volume of the scoring volume. In the application it is assigned to <a class="el" href="classMyDetectorConstruction.html#a454acbdbad6b8017523ac2993ebfff2e">logicScintillator</a>. <br /></td></tr>
 <tr class="separator:a0f46b951aa903eb5bbc868c4093e8b5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b2e31e2e4f92722f410b9ce6e8bccfc"><td class="memItemLeft" align="right" valign="top"><a id="a5b2e31e2e4f92722f410b9ce6e8bccfc"></a>
+G4LogicalVolume *&#160;</td><td class="memItemRight" valign="bottom"><b>fDecayTriggerVolume</b></td></tr>
+<tr class="separator:a5b2e31e2e4f92722f410b9ce6e8bccfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a716ed2f51e730131a868584de74cab1f"><td class="memItemLeft" align="right" valign="top"><a id="a716ed2f51e730131a868584de74cab1f"></a>
+G4LogicalVolume *&#160;</td><td class="memItemRight" valign="bottom"><b>fCosmicTriggerVolume</b></td></tr>
+<tr class="separator:a716ed2f51e730131a868584de74cab1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ffcca9ad32b1d6e3d11e8ee8e5264c7"><td class="memItemLeft" align="right" valign="top"><a id="a2ffcca9ad32b1d6e3d11e8ee8e5264c7"></a>
 G4Material *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyDetectorConstruction.html#a2ffcca9ad32b1d6e3d11e8ee8e5264c7">fLYSO</a></td></tr>
 <tr class="memdesc:a2ffcca9ad32b1d6e3d11e8ee8e5264c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the LYSO material. <br /></td></tr>
@@ -219,10 +237,6 @@ G4Material *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 G4Material *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyDetectorConstruction.html#a799f6c592028183c3f9947e64706b610">fVacuum</a></td></tr>
 <tr class="memdesc:a799f6c592028183c3f9947e64706b610"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the vacuum material. <br /></td></tr>
 <tr class="separator:a799f6c592028183c3f9947e64706b610"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1f23a2e5df31f9813b33d6836e97fe8"><td class="memItemLeft" align="right" valign="top"><a id="aa1f23a2e5df31f9813b33d6836e97fe8"></a>
-G4Material *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyDetectorConstruction.html#aa1f23a2e5df31f9813b33d6836e97fe8">fAluminium</a></td></tr>
-<tr class="memdesc:aa1f23a2e5df31f9813b33d6836e97fe8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the aluminium material. <br /></td></tr>
-<tr class="separator:aa1f23a2e5df31f9813b33d6836e97fe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac083250bf0489c8e9f0a12fadd4601e8"><td class="memItemLeft" align="right" valign="top"><a id="ac083250bf0489c8e9f0a12fadd4601e8"></a>
 G4Material *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyDetectorConstruction.html#ac083250bf0489c8e9f0a12fadd4601e8">fSilicon</a></td></tr>
 <tr class="memdesc:ac083250bf0489c8e9f0a12fadd4601e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the silicon material. <br /></td></tr>
@@ -283,6 +297,9 @@ G4bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 G4bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyDetectorConstruction.html#af43415f80d1d5630c08698e5df9713ff">fIsASiPM</a></td></tr>
 <tr class="memdesc:af43415f80d1d5630c08698e5df9713ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating whether only one SiPM must be constructed. <br /></td></tr>
 <tr class="separator:af43415f80d1d5630c08698e5df9713ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cd8020cb7f2cb267f25996f6b9408c5"><td class="memItemLeft" align="right" valign="top"><a id="a9cd8020cb7f2cb267f25996f6b9408c5"></a>
+G4bool&#160;</td><td class="memItemRight" valign="bottom"><b>fIsCosmicRaysDetectors</b></td></tr>
+<tr class="separator:a9cd8020cb7f2cb267f25996f6b9408c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3094c77e904dee181282672e7f479a97"><td class="memItemLeft" align="right" valign="top"><a id="a3094c77e904dee181282672e7f479a97"></a>
 G4int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMyDetectorConstruction.html#a3094c77e904dee181282672e7f479a97">nLightGuideMat</a></td></tr>
 <tr class="memdesc:a3094c77e904dee181282672e7f479a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates which material has to be used for light guides; 1 for plexiglass, 2 for sapphire. <br /></td></tr>
@@ -340,15 +357,15 @@ G4int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 </div><div class="memdoc">
 
 <p>Construct the detector geometry. </p>
-<p>Depending on settings, it could call <a class="el" href="classMyDetectorConstruction.html#aacfee0d62aa4c17ff7b1501d71281443" title="Auxiliary function called by Construct() for building the lightguides.">ConstructLightGuide()</a>, <a class="el" href="classMyDetectorConstruction.html#aadaefe3a48125cec4408d956822db206" title="Auxiliary function called by Construct() for building the PCBs.">ConstructPCB()</a> and <a class="el" href="classMyDetectorConstruction.html#a9b53b70afd68df3a407b228f28cf86ed" title="Auxiliary function called by Construct() for building the endcaps.">ConstructEndcap()</a>. It uses the auxiliary function <a class="el" href="classMyDetectorConstruction.html#a3de9be1f72c2c8c60f2baadf4ecd207a" title="Auxiliary function called by Construct() for putting in the right position every SiPM.">PositionSiPMs()</a> for placing the SiPMs volumes and, at the end, it calls <a class="el" href="classMyDetectorConstruction.html#a04d3ada300cd25e1ac490561cdbc96e9" title="Defines the visualization attributes for every component of the apparatus.">DefineVisAttributes()</a>.</p>
+<p>Depending on settings, it could call <a class="el" href="classMyDetectorConstruction.html#aacfee0d62aa4c17ff7b1501d71281443" title="Auxiliary function called by Construct() for building the lightguides.">ConstructLightGuide()</a>, <a class="el" href="classMyDetectorConstruction.html#aadaefe3a48125cec4408d956822db206" title="Auxiliary function called by Construct() for building the PCBs.">ConstructPCB()</a> and <a class="el" href="classMyDetectorConstruction.html#a9b53b70afd68df3a407b228f28cf86ed" title="Auxiliary function called by Construct() for building the endcaps.">ConstructEndcap()</a>. It uses the auxiliary function <a class="el" href="classMyDetectorConstruction.html#ab486087ac83c88b5b7d1fdd4a8c07251" title="Auxiliary function called by Construct() for putting in the right position every SiPM.">PositionSiPMs()</a> for placing the SiPMs volumes and, at the end, it calls <a class="el" href="classMyDetectorConstruction.html#a04d3ada300cd25e1ac490561cdbc96e9" title="Defines the visualization attributes for every component of the apparatus.">DefineVisAttributes()</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>The world physical volume physWorld. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00159">159</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00178">178</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
 
 </div>
 </div>
-<a id="a3de9be1f72c2c8c60f2baadf4ecd207a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3de9be1f72c2c8c60f2baadf4ecd207a">&#9670;&nbsp;</a></span>PositionSiPMs()</h2>
+<a id="ab486087ac83c88b5b7d1fdd4a8c07251"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab486087ac83c88b5b7d1fdd4a8c07251">&#9670;&nbsp;</a></span>PositionSiPMs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -384,12 +401,6 @@ G4int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">G4int&#160;</td>
-          <td class="paramname"><em>halfCols</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">G4int&#160;</td>
           <td class="paramname"><em>index</em>&#160;</td>
         </tr>
         <tr>
@@ -418,7 +429,7 @@ G4int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00375">375</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
+<p class="definition">Definition at line <a class="el" href="construction_8cc_source.html#l00377">377</a> of file <a class="el" href="construction_8cc_source.html">construction.cc</a>.</p>
 
 </div>
 </div>

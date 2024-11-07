@@ -16,6 +16,7 @@ MyDetectorConstruction::MyDetectorConstruction()
     fIsPCB = true;
     fIsEndcap = true;
     fIsASiPM = false;
+    fIsCosmicRaysDetectors = true;
 
     DefineMaterials();
 }
@@ -24,15 +25,7 @@ MyDetectorConstruction::MyDetectorConstruction()
 
 void MyDetectorConstruction::DefineMaterials()
 {
-    //Entries for LYSO properties
-    const int nEntries = 3;
-
     G4NistManager *nist = G4NistManager::Instance();
-
-
-    //*******************************************************************//
-    //**********************       MATERIALS       **********************//
-    //*******************************************************************//
     
     // LYSO
     fLYSO = new G4Material("LYSO", 7.25*g/cm3, 5, kStateSolid);
@@ -44,14 +37,43 @@ void MyDetectorConstruction::DefineMaterials()
 
     G4MaterialPropertiesTable *mptLYSO = new G4MaterialPropertiesTable();
     
-    G4double Energies[nEntries] = {2.97*eV, 3*eV, 3.56*eV};
-    G4double LYSO_RINDEX[nEntries] = {1.82, 1.82, 1.82};
-    G4double LYSO_ABSLENGTH[nEntries] = {50.*cm, 50.*cm, 50.*cm};
-    G4double LYSO_SCINTILLATIONCOMPONENT1[nEntries] = {0.1, 1, 0.1};
+    std::vector<G4double> Energies = {2.14*eV, 2.95*eV, 3.69*eV};
+    const G4int nEntries = Energies.size();
+    std::vector<G4double> emissionEnergies =
+    {
+        2.14*eV, 2.16*eV, 2.19*eV, 2.22*eV, 2.26*eV, 
+        2.29*eV, 2.33*eV, 2.37*eV, 2.41*eV, 2.45*eV, 
+        2.49*eV, 2.53*eV, 2.57*eV, 2.6*eV, 2.64*eV, 
+        2.67*eV, 2.7*eV, 2.72*eV, 2.74*eV, 2.76*eV, 
+        2.78*eV, 2.81*eV, 2.84*eV, 2.86*eV, 2.9*eV, 
+        2.95*eV, 3.0*eV, 3.05*eV, 3.07*eV, 3.09*eV, 
+        3.12*eV, 3.14*eV, 3.15*eV, 3.18*eV, 3.2*eV, 
+        3.21*eV, 3.22*eV, 3.24*eV, 3.25*eV, 3.28*eV, 
+        3.3*eV, 3.32*eV, 3.37*eV, 3.43*eV, 3.52*eV, 
+        3.6*eV, 3.69*eV
+    };
+    
+    std::vector<G4double> LYSO_RINDEX(nEntries, 1.82);
+    std::vector<G4double> LYSO_ABSLENGTH(nEntries, 50.*cm);
+    std::vector<G4double> LYSO_SCINTILLATIONCOMPONENT1 =
+    {
+        0.0, 0.0231, 0.153, 0.867, 
+        1.44, 2.13, 2.99, 4.07, 
+        5.17, 7.27, 10.3, 14.3, 
+        19.0, 23.2, 28.0, 32.6, 
+        36.9, 41.6, 46.4, 51.0, 
+        55.5, 60.1, 65.0, 69.5, 
+        73.8, 77.7, 78.1, 73.2, 
+        68.1, 63.4, 58.9, 54.3, 
+        49.6, 45.2, 40.5, 35.8, 
+        31.3, 26.5, 21.5, 17.0, 
+        12.2, 7.48, 3.39, 0.726, 
+        0.705, 0.314, 0.0
+    };
 
-    mptLYSO->AddProperty("SCINTILLATIONCOMPONENT1", Energies, LYSO_SCINTILLATIONCOMPONENT1, nEntries);
-    mptLYSO->AddProperty("RINDEX", Energies, LYSO_RINDEX, nEntries);
-    mptLYSO->AddProperty("ABSLENGTH", Energies, LYSO_ABSLENGTH, nEntries);
+    mptLYSO->AddProperty("SCINTILLATIONCOMPONENT1", emissionEnergies, LYSO_SCINTILLATIONCOMPONENT1);
+    mptLYSO->AddProperty("RINDEX", Energies, LYSO_RINDEX);
+    mptLYSO->AddProperty("ABSLENGTH", Energies, LYSO_ABSLENGTH);
     mptLYSO->AddConstProperty("SCINTILLATIONYIELD", 29000./MeV);
     mptLYSO->AddConstProperty("RESOLUTIONSCALE", 1.0);
     mptLYSO->AddConstProperty("SCINTILLATIONTIMECONSTANT1", 42.*ns);
@@ -64,8 +86,8 @@ void MyDetectorConstruction::DefineMaterials()
     
     G4MaterialPropertiesTable *mptAir = new G4MaterialPropertiesTable();
     
-    G4double AIR_RINDEX[nEntries] = {1.000293, 1.000293, 1.000293};
-    mptAir->AddProperty("RINDEX", Energies, AIR_RINDEX, nEntries);
+    std::vector<G4double> AIR_RINDEX(nEntries, 1.000293);
+    mptAir->AddProperty("RINDEX", Energies, AIR_RINDEX);
 
     fAir->SetMaterialPropertiesTable(mptAir);
 
@@ -74,19 +96,16 @@ void MyDetectorConstruction::DefineMaterials()
 
     G4MaterialPropertiesTable *mptVacuum = new G4MaterialPropertiesTable();
     
-    G4double VACUUM_RINDEX[nEntries] = {1., 1., 1.};
-    mptVacuum->AddProperty("RINDEX", Energies, VACUUM_RINDEX, nEntries);
+    std::vector<G4double> VACUUM_RINDEX(nEntries, 1.);
+    mptVacuum->AddProperty("RINDEX", Energies, VACUUM_RINDEX);
 
     fVacuum->SetMaterialPropertiesTable(mptVacuum);
-
-    // ALUMINIUM
-    fAluminium = nist->FindOrBuildMaterial("G4_Al");
 
     // SILICON
     fSilicon = nist->FindOrBuildMaterial("G4_Si");
     G4MaterialPropertiesTable *mptDetector = new G4MaterialPropertiesTable();
-    G4double DETECTOR_RINDEX[nEntries] = {1.55, 1.55, 1.55}; //should be 3.88, but it is included in the PDE, so it's fixed at the same value of the window (Total transmission)
-    mptDetector->AddProperty("RINDEX", Energies, DETECTOR_RINDEX, nEntries);
+    std::vector<G4double> DETECTOR_RINDEX(nEntries, 1.55); //should be 3.88, but it is included in the PDE, so it's fixed at the same value of the window (Total transmission)
+    mptDetector->AddProperty("RINDEX", Energies, DETECTOR_RINDEX);
 
     fSilicon->SetMaterialPropertiesTable(mptDetector);
 
@@ -95,8 +114,8 @@ void MyDetectorConstruction::DefineMaterials()
     fEpoxy->AddElement(nist->FindOrBuildElement("C"), 2);
     fEpoxy->AddElement(nist->FindOrBuildElement("H"), 2);
     G4MaterialPropertiesTable *mptEpoxy = new G4MaterialPropertiesTable();
-    G4double EPOXY_RINDEX[nEntries] = {1.55, 1.55, 1.55};
-    mptEpoxy->AddProperty("RINDEX", Energies, EPOXY_RINDEX, nEntries);
+    std::vector<G4double> EPOXY_RINDEX(nEntries, 1.55);
+    mptEpoxy->AddProperty("RINDEX", Energies, EPOXY_RINDEX);
 
     fEpoxy->SetMaterialPropertiesTable(mptEpoxy);
 
@@ -114,8 +133,8 @@ void MyDetectorConstruction::DefineMaterials()
     
     G4MaterialPropertiesTable *mptPlexiglass = new G4MaterialPropertiesTable();
     
-    G4double PLEXIGLASS_RINDEX[nEntries] = {1.49, 1.49, 1.49};
-    mptPlexiglass->AddProperty("RINDEX", Energies, PLEXIGLASS_RINDEX, nEntries);
+    std::vector<G4double> PLEXIGLASS_RINDEX(nEntries, 1.49);
+    mptPlexiglass->AddProperty("RINDEX", Energies, PLEXIGLASS_RINDEX);
     
     fPlexiglass->SetMaterialPropertiesTable(mptPlexiglass);
     
@@ -126,8 +145,8 @@ void MyDetectorConstruction::DefineMaterials()
 
     G4MaterialPropertiesTable *mptSapphire = new G4MaterialPropertiesTable();
 
-    G4double SAPPHIRE_RINDEX[nEntries] = {1.77, 1.77, 1.77};
-    mptSapphire->AddProperty("RINDEX", Energies, SAPPHIRE_RINDEX, nEntries);
+    std::vector<G4double> SAPPHIRE_RINDEX(nEntries, 1.77);
+    mptSapphire->AddProperty("RINDEX", Energies, SAPPHIRE_RINDEX);
 
     fSapphire->SetMaterialPropertiesTable(mptSapphire);
 
@@ -138,8 +157,8 @@ void MyDetectorConstruction::DefineMaterials()
 
     G4MaterialPropertiesTable *mptGrease = new G4MaterialPropertiesTable();
 
-    G4double GREASE_RINDEX[nEntries] = {1.46, 1.46, 1.46};
-    mptGrease->AddProperty("RINDEX", Energies, GREASE_RINDEX, nEntries);
+    std::vector<G4double> GREASE_RINDEX(nEntries, 1.46);
+    mptGrease->AddProperty("RINDEX", Energies, GREASE_RINDEX);
     
     fGrease->SetMaterialPropertiesTable(mptGrease);
 
@@ -180,7 +199,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     
     // Construct a coating for the crystal and the lightguide (if present)
     G4Tubs *solidCoating = new G4Tubs("solidCoating", (GS::radiusScintillator + GS::coating_space), (GS::radiusScintillator + GS::coating_space + GS::coating_thickness), GS::halfheightScintillator+2*(GS::halfheightLightGuide*fIsLightGuide), 0.*deg, 360.*deg);
-    logicCoating = new G4LogicalVolume(solidCoating, fAluminium, "logicCoating");
+    logicCoating = new G4LogicalVolume(solidCoating, fCarbonFiber, "logicCoating");
     G4VPhysicalVolume *physCoating = new G4PVPlacement(0, G4ThreeVector(GS::xScintillator, GS::yScintillator, GS::zScintillator), logicCoating, "physCoating", logicWorld, false, 0, true);
     
     // Construct lightguides, PCBs and endcaps -if setted-
@@ -208,41 +227,24 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     G4VPhysicalVolume *physBackPackageSiPM[GS::nOfSiPMs];
 
     G4int indexDetector = 0;
-    for(G4int i = 0; i<13; i++)
+    for(G4int i = 0; i < GS::nRowsSiPMs; i++)
     {
-        if(i==0 || i==12)
+        for(G4int j = 0; j < GS::nColsSiPMs; j++)
         {
-            for(G4int j = 0; j<3; j++)
+            if(GS::panelSiPMs[i][j])
             {
-                PositionSiPMs(physFrontPackageSiPM[indexDetector], physBackPackageSiPM[indexDetector], i, j, 1, indexDetector);
-                indexDetector++;
-            }
-        }
-        if(i==1 || i==11)
-        {
-            for(G4int j = 0; j<7; j++)
-            {
-                PositionSiPMs(physFrontPackageSiPM[indexDetector], physBackPackageSiPM[indexDetector], i, j, 3, indexDetector);
-                indexDetector++;
-            }
-        }
-        if(i==2 || i==10)
-        {
-            for(G4int j = 0; j<9; j++)
-            {
-                PositionSiPMs(physFrontPackageSiPM[indexDetector], physBackPackageSiPM[indexDetector], i, j, 4, indexDetector);
-                indexDetector++;
-            }
-        }
-        if(i>=3 && i<=9)
-        {
-            for(G4int j = 0; j<11; j++)
-            {
-                PositionSiPMs(physFrontPackageSiPM[indexDetector], physBackPackageSiPM[indexDetector], i, j, 5, indexDetector);
+                PositionSiPMs(physFrontPackageSiPM[indexDetector], physBackPackageSiPM[indexDetector], i, j, indexDetector);
                 indexDetector++;
             }
         }
     }
+
+    // Assign the logic trigger volume to the Si layer
+    fDecayTriggerVolume = logicDetector;
+
+    // Construct dummy cosmic rays detectors
+    if(fIsCosmicRaysDetectors)
+        ConstructCosmicRaysDetectors();
 
     // Add visualization attributes
     DefineVisAttributes();
@@ -372,13 +374,16 @@ void MyDetectorConstruction::ConstructEndcap()
 
 
 
-void MyDetectorConstruction::PositionSiPMs(G4VPhysicalVolume *physFrontSiPM, G4VPhysicalVolume *physBackSiPM, G4int row, G4int col, G4int halfCols, G4int index)
+void MyDetectorConstruction::PositionSiPMs(G4VPhysicalVolume *physFrontSiPM, G4VPhysicalVolume *physBackSiPM, G4int row, G4int col, G4int index)
 {
+    G4double startX = -GS::halfXsidePackageSiPM*(GS::nColsSiPMs -1);
+    G4double startY = GS::halfYsidePackageSiPM*(GS::nRowsSiPMs - 1);
+
     // Place the packages. When in back face, need to rotate them of 180°
-    physFrontSiPM = new G4PVPlacement(0,G4ThreeVector((2*GS::halfXsidePackageSiPM*(col-halfCols)), (2*GS::halfYsidePackageSiPM*(6-row)), GS::zFrontFaceScintillator-(2*GS::halfheightGrease*fIsGrease)-2*(GS::halfheightLightGuide*fIsLightGuide)-(2*GS::halfheightGrease*fIsLightGuide*fIsGrease)-GS::halfZsidePackageSiPM), logicPackageSiPM, "physFrontPackageSiPM", logicWorld, false, index, true);
+    physFrontSiPM = new G4PVPlacement(0, G4ThreeVector(startX + col*2*GS::halfXsidePackageSiPM, startY - row*2*GS::halfYsidePackageSiPM, GS::zFrontFaceScintillator-(2*GS::halfheightGrease*fIsGrease)-2*(GS::halfheightLightGuide*fIsLightGuide)-(2*GS::halfheightGrease*fIsLightGuide*fIsGrease)-GS::halfZsidePackageSiPM), logicPackageSiPM, "physFrontPackageSiPM", logicWorld, false, index, true);
     
     G4Rotate3D rotXBackDet(180*deg, G4ThreeVector(1, 0, 0));
-    G4Translate3D transBackDet(G4ThreeVector(2*GS::halfXsidePackageSiPM*(col-halfCols), 2*GS::halfYsidePackageSiPM*(6-row), GS::zBackFaceScintillator+(2*GS::halfheightGrease*fIsGrease)+2*(GS::halfheightLightGuide*fIsLightGuide)+(2*GS::halfheightGrease*fIsLightGuide*fIsGrease)+GS::halfZsidePackageSiPM));
+    G4Translate3D transBackDet(G4ThreeVector(startX + col*2*GS::halfXsidePackageSiPM, startY - row*2*GS::halfYsidePackageSiPM, GS::zBackFaceScintillator+(2*GS::halfheightGrease*fIsGrease)+2*(GS::halfheightLightGuide*fIsLightGuide)+(2*GS::halfheightGrease*fIsLightGuide*fIsGrease)+GS::halfZsidePackageSiPM));
     G4Transform3D transformBackDet = (transBackDet)*(rotXBackDet);
                 
     physBackSiPM = new G4PVPlacement(transformBackDet, logicPackageSiPM, "physBackPackageSiPM", logicWorld, false, index, true);
@@ -388,7 +393,7 @@ void MyDetectorConstruction::PositionSiPMs(G4VPhysicalVolume *physFrontSiPM, G4V
 
 void MyDetectorConstruction::DefineVisAttributes()
 {
-    // Worlds
+    // World
     G4VisAttributes *visWorld = new G4VisAttributes();
     visWorld->SetVisibility(false);
     logicWorld->SetVisAttributes(visWorld);    
@@ -448,6 +453,14 @@ void MyDetectorConstruction::DefineVisAttributes()
     G4VisAttributes *visCoating = new G4VisAttributes();
     visCoating->SetVisibility(false);
     logicCoating->SetVisAttributes(visCoating);
+
+    // Cosmic rays detectors
+    if(fIsCosmicRaysDetectors)
+    {
+        G4VisAttributes *visCosmicDet = new G4VisAttributes();
+        visCosmicDet->SetColour(0, 0.5, 0.6, 0.7);
+        logicCosmicRaysDetector->SetVisAttributes(visCosmicDet);
+    }
 }
 
 
@@ -461,7 +474,8 @@ void MyDetectorConstruction::DefineCommands()
     fMessenger->DeclareProperty("isPCB", fIsPCB, "Set if the two PCBs are present");
     fMessenger->DeclareProperty("isEndcap", fIsEndcap, "Set if the two endcaps are present");
     fMessenger->DeclareProperty("MaterialOfLightGuide", nLightGuideMat, "Set the material of light guide: 1 = Plexiglass, 2 = Sapphire");
-    fMessenger->DeclareProperty("isASiPM", fIsASiPM, "Set if draw only a SiPM");
+    fMessenger->DeclareProperty("isASiPM", fIsASiPM, "Set if construct only a SiPM");
+    fMessenger->DeclareProperty("isCosmicRaysDetectors", fIsCosmicRaysDetectors, "Set if the two cosmic rays detector are present");
 }
 
 
@@ -505,4 +519,16 @@ void MyDetectorConstruction::ConstructASiPM()
     G4VisAttributes *visDetector = new G4VisAttributes();
     visDetector->SetColour(0.45, 0.25, 0, 0.7);
     logicDetector->SetVisAttributes(visDetector);
+}
+
+
+
+void MyDetectorConstruction::ConstructCosmicRaysDetectors()
+{
+    G4Box *solidCosmicRaysDetector = new G4Box("solidCosmicRaysDetector", GS::halfZXsideCosmicRayDetector, GS::halfYsideCosmicRayDetector, GS::halfZXsideCosmicRayDetector);
+    logicCosmicRaysDetector = new G4LogicalVolume(solidCosmicRaysDetector, fAir, "logicCosmicRaysDetector");
+    G4VPhysicalVolume *physUpCosmicRaysDetector = new G4PVPlacement(0, G4ThreeVector(GS::xCosmicRayDetector, GS::yCosmicRayDetector, GS::zCosmicRayDetector), logicCosmicRaysDetector, "physUpCosmicRaysDetector", logicWorld, false, 0, true);
+    G4VPhysicalVolume *physBottomCosmicRaysDetector = new G4PVPlacement(0, G4ThreeVector(GS::xCosmicRayDetector, -GS::yCosmicRayDetector, GS::zCosmicRayDetector), logicCosmicRaysDetector, "physBottomCosmicRaysDetector", logicWorld, false, 1, true);
+
+    fCosmicTriggerVolume = logicCosmicRaysDetector;
 }

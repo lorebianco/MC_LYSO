@@ -11,10 +11,22 @@ MySensitiveDetector::MySensitiveDetector(G4String name, G4String hitsCollectionN
     // Add the collection name to collectionName vector
     collectionName.insert(hitsCollectionName);
 
-    if(fEfficiencySetting == fIsRandomEfficiency)
-        RandomizeEfficiencies();
-    else if(fEfficiencySetting == fIsAssignedEfficiency)
-        GetEfficienciesFromFile();
+    switch(fEfficiencySetting)
+    {
+        case fIsNominalEfficiency:
+        default:
+            fPDE = new G4PhysicsFreeVector(GS::pdeEnergies, GS::pdeValues);
+            break;
+        case fIsFixedEfficiency:
+            fFixedEfficiency = GS::meanPDE;
+            break;
+        case fIsRandomEfficiency:
+            RandomizeEfficiencies();
+            break;
+        case fIsAssignedEfficiency:
+            GetEfficienciesFromFile();
+            break;
+    }
 }
 
 
@@ -36,12 +48,16 @@ G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
     G4Track *track = aStep->GetTrack();
     G4StepPoint *preStepPoint = aStep->GetPreStepPoint();
     const G4VTouchable *touchable = preStepPoint->GetTouchable();
+    G4double phEnergy = preStepPoint->GetTotalEnergy();
 
     // Here's implemented the PDE
     switch(fEfficiencySetting)
     {
         case fIsNominalEfficiency:
-            if(G4UniformRand() > GS::PDE_SiPM) return false;
+            if(G4UniformRand() > fPDE->Value(phEnergy)) return false;
+            break;
+        case fIsFixedEfficiency:
+            if(G4UniformRand() > fFixedEfficiency) return false;
             break;
         case fIsRandomEfficiency:
         case fIsAssignedEfficiency:
@@ -58,17 +74,17 @@ G4bool MySensitiveDetector::ProcessHits(G4Step *aStep, G4TouchableHistory *ROhis
             break;
     }
 
-    // Create a new MyHit object
-    MyHit *newHit = new MyHit();
-
-    // Stop and kill only optical photons
+    // Save, stop and kill only optical photons
     if(track->GetParticleDefinition()->GetPDGEncoding()==-22)
         track->SetTrackStatus(fStopAndKill);
-    // Detect only optical photons
-    else return false;
-
-
-    // Time of the optical photon
+    else
+        return false;
+    
+    
+    // Create a new MyHit object
+    MyHit *newHit = new MyHit();
+    
+    // Time of detection
     newHit->SetDetectionTime(preStepPoint->GetGlobalTime());
     
     // Position of detector (Note that the position of the package is taken)
@@ -105,8 +121,8 @@ void MySensitiveDetector::RandomizeEfficiencies()
     // Generate and save efficiencies
     for(G4int ch = 0; ch < GS::nOfSiPMs; ch++)
     {
-        fFrontEfficiency[ch] = (GS::PDE_SiPM/2)*(1 + G4UniformRand());
-        fBackEfficiency[ch] = (GS::PDE_SiPM/2)*(1 + G4UniformRand());
+        fFrontEfficiency[ch] = (fPDE->GetMaxValue()/2)*(1 + G4UniformRand());
+        fBackEfficiency[ch] = (fPDE->GetMaxValue()/2)*(1 + G4UniformRand());
 
         file << ch << "\t" << fFrontEfficiency[ch] << "\t" << fBackEfficiency[ch] << G4endl;
     }

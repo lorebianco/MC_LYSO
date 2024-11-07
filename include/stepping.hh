@@ -36,6 +36,10 @@ public:
     void UserSteppingAction(const G4Step *step) override;
 
 private:
+    void SteppingForLuDecayBulkSignature(const G4Step *step, G4LogicalVolume *volume, const MyDetectorConstruction *detectorConstruction);
+    void SteppingForCosmicRaysDetectors(const G4Step *step, G4LogicalVolume *volume, const MyDetectorConstruction *detectorConstruction);
+    void SetTimeOfDecay(const G4Step *step);
+
     MyEventAction *fEventAction; /**< @brief Pointer to the MyEventAction object.*/
 };
 

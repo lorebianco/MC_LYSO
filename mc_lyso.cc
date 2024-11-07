@@ -11,6 +11,8 @@
  */
 #include <iostream>
 #include <chrono>
+#include <cstdlib> 
+#include <sstream>
 
 #include "G4RunManagerFactory.hh"
 #include "G4VisManager.hh"
@@ -76,10 +78,48 @@ int main(int argc, char** argv)
         // Save a summary of the simulation
         MC_summary(fileName, fSeed, duration.count(), "MC_summaries.txt");
         G4cout << G4endl;
-        G4cout << "If you have any custom settings to annotate in the summary, please edit the MC_summaries file at the corresponding MC-SerialNumber." << G4endl;
+
+        // Execute hadd shell command for MT Run Manager
+        if(runManager->GetRunManagerType() == 1)
+        {
+            G4int nOfRuns = runManager->GetCurrentRun()->GetRunID();
+            std::ostringstream shell_command;
+            std::stringstream strMCID;
+            strMCID << fSeed;
+            std::stringstream strRunID;
+
+            // First run hadd
+            shell_command << "hadd -v 0 MCID_" + strMCID.str() + ".root MCID_" + strMCID.str() + "_t*";
+            system(shell_command.str().c_str());
+
+            // Loop for next runs
+            for(G4int i = 1; i <= nOfRuns; i++)
+            {
+                shell_command.str("");
+                shell_command.clear();
+                strRunID.str("");
+                strRunID.clear();
+
+                if(i == 1)
+                {
+                    std::ostringstream shell_command_0;
+                    shell_command_0 << "mv MCID_" + strMCID.str() + ".root MCID_" + strMCID.str() + "_RunID_0.root";
+                    system(shell_command_0.str().c_str());
+                }
+
+                strRunID << i;
+
+                shell_command << "hadd -v 0 MCID_" + strMCID.str() + "_RunID_" + strRunID.str() + ".root MCID_" + strMCID.str() + "_RunID_" + strRunID.str() + "_t*";
+                system(shell_command.str().c_str());
+            }
+        }
     }
-    
-    G4cout << "The rootfile of this Monte Carlo has serial number (MCID): " << fSeed << G4endl;
+
+    // Finally print some useful messages
+    G4cout << G4endl;
+    G4cout << "If you have any custom settings to annotate in the summary, please edit the MC_summaries file at the corresponding MC-SerialNumber." << G4endl;
+    G4cout << "The rootfiles of this Monte Carlo have serial number (MCID): " << fSeed << G4endl;
+    G4cout << G4endl;    
 
     // Job termination
     delete visManager;

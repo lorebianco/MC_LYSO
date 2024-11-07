@@ -11,8 +11,7 @@
 /run/initialize
 #
 # Set mode and beam:
-/MC_LYSO/Mode 0
-/MC_LYSO/myGun/BeamType 0
+/MC_LYSO/Mode 10
 /MC_LYSO/myGun/radiusSpread 3 cm
 /MC_LYSO/myGun/radiusCircle 3 cm
 #
@@ -20,10 +19,19 @@
 /MC_LYSO/myGun/meanEnergy 55. MeV
 /MC_LYSO/myGun/sigmaEnergy 0.5 MeV
 #
-# If in Mode = 2, set the time threshold for radioactive decays of ions
+# If in Mode = 21, set the 176Lu isotope position
+/MC_LYSO/myGun/posLuDecay 0 0 151 mm
+#
+# If in Mode = 20, 21, 22, set the time threshold for radioactive decays of ions
 # (above which these decays are ignored):
 /process/had/rdm/thresholdForVeryLongDecayTime 1.0e+60 year
+#
+# Sometimes it is worth to inactivate scintillation
+#/process/inactivate Scintillation
 #
 # Finally:
 /run/printProgress 100
 /run/beamOn 1000
+#
+# If want to loop on a variable (edit the loop.mac file)
+#/control/loop loop.mac posZdecay 151 175 2

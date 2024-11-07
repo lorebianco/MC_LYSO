@@ -7,12 +7,14 @@
 
 #include <vector>
 
+#include "G4RunManager.hh"
 #include "G4UserEventAction.hh"
 #include "G4Event.hh"
 #include "G4AnalysisManager.hh"
 
 #include "globalsettings.hh"
 #include "hit.hh"
+#include "generator.hh"
 
 /** 
  * @brief User action concrete class of G4UserEventAction. In addition to
@@ -50,13 +52,19 @@ public:
      * @param newtimein The time of arrival to be saved.
      * @param newposin The position of arrival to be saved.
      */
-    inline void SetArrival(G4double newtimein, G4ThreeVector newposin)
+    inline void SetArrivalandFirstInteraction(G4double newtimein, G4ThreeVector newposin, G4double newtimeinter, G4ThreeVector newposinter)
     {
         if(newtimein < fTimeIn)
         {
             fTimeIn = newtimein;
             fPosXIn = newposin.x();
             fPosYIn = newposin.y();
+            fPosZIn = newposin.z();
+
+            fTimeFirstInter = newtimeinter;
+            fPosXFirstInter = newposinter.x();
+            fPosYFirstInter = newposinter.y();
+            fPosZFirstInter = newposinter.z();
         }
     }
     /** 
@@ -82,10 +90,21 @@ public:
         }
     };
 
+
+    inline void SetDecayTriggerSi(G4bool trg) { fDecayTriggerSi = trg; }
+    inline void SetCosmicTriggerUp(G4bool trg) { fCosmicTriggerUp = trg; }
+    inline void SetCosmicTriggerBottom(G4bool trg) { fCosmicTriggerBottom = trg; }
+
+
     // Primary's data
-    G4double fTimeIn; /**< @brief Time of arrival of primary gamma.*/
-    G4double fPosXIn; /**< @brief X position of arrival of primary gamma.*/
-    G4double fPosYIn; /**< @brief Y position of arrival of primary gamma.*/
+    G4double fTimeIn, /**< @brief Time of arrival of primary gamma.*/
+             fPosXIn, /**< @brief X position of arrival of primary gamma.*/
+             fPosYIn, /**< @brief Y position of arrival of primary gamma.*/
+             fPosZIn, /**< @brief Z position of arrival of primary gamma.*/
+             fTimeFirstInter, /**< @brief Time of first interaction of primary gamma.*/
+             fPosXFirstInter, /**< @brief X position of first interaction of primary gamma.*/
+             fPosYFirstInter, /**< @brief Y position of first interaction of primary gamma.*/
+             fPosZFirstInter; /**< @brief Z position of first interaction of primary gamma.*/
     
     // Crystal's data
     G4double      fEdep; /**< @brief Total energy deposited inside the crystal.*/
@@ -101,8 +120,16 @@ public:
                           fT_B, /**< @brief Vector containing times of detection of optical photons on the back face.*/
                           fX_B, /**< @brief Vector containing x-positions of detection of optical photons on the back face.*/
                           fY_B; /**< @brief Vector containing y-positions of detection of optical photons on the back face.*/
-    std::vector<G4int>    fChannel_F, /**< @brief Vector containing SiPM channels of detection of optical photons on the front face.*/
+    std::vector<G4int>    fHitsNum_F_Ch,
+                          fChannel_F, /**< @brief Vector containing SiPM channels of detection of optical photons on the front face.*/
+                          fHitsNum_B_Ch,
                           fChannel_B; /**< @brief Vector containing SiPM channels of detection of optical photons on the back face.*/
+
+    // Intercalibration triggers
+    G4double fTimeOfDecay;
+    G4bool   fDecayTriggerSi,
+             fCosmicTriggerUp,
+             fCosmicTriggerBottom;
 };
 
 #endif  // EVENT_HH

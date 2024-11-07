@@ -1,0 +1,5 @@
+# Macro file for MC_LYSO for looping
+#
+# Edit here
+/MC_LYSO/myGun/posLuDecay 0 0 {posZdecay} mm
+/run/beamOn 1000

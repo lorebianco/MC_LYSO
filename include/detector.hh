@@ -15,6 +15,7 @@
 #include "G4HCofThisEvent.hh"
 #include "G4Step.hh"
 #include "G4SDManager.hh"
+#include "G4PhysicsFreeVector.hh"
 
 #include "globalsettings.hh"
 #include "hit.hh"
@@ -62,8 +63,10 @@ private:
 
     MyHitsCollection *fHitsCollection; /**< @brief Pointer to the hits collection of the event.*/
 
-    enum SetEfficiencies {fIsNominalEfficiency, fIsRandomEfficiency, fIsAssignedEfficiency}; /**< @brief Type of PDEs.*/
+    enum SetEfficiencies {fIsNominalEfficiency, fIsFixedEfficiency, fIsRandomEfficiency, fIsAssignedEfficiency}; /**< @brief Type of PDEs.*/
     SetEfficiencies fEfficiencySetting; /**< @brief Type of SetEfficiencies.*/
+    G4PhysicsFreeVector *fPDE;
+    G4double fFixedEfficiency;
     G4double fFrontEfficiency[GS::nOfSiPMs]; /**< @brief Array of PDEs for front MPPCs.*/
     G4double fBackEfficiency[GS::nOfSiPMs]; /**< @brief Array of PDEs for back MPPCs.*/
 };

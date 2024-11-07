@@ -1,6 +1,7 @@
 # Macro file for construction settings of MC_LYSO
 #
 /MC_LYSO/myConstruction/isOpticalGrease true
+/MC_LYSO/myConstruction/isCosmicRaysDetectors true
 /MC_LYSO/myConstruction/isLightGuide false
 /MC_LYSO/myConstruction/MaterialOfLightGuide 1
 /MC_LYSO/myConstruction/isPCB true

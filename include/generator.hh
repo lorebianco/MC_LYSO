@@ -52,11 +52,18 @@ public:
      */
     void GeneratePrimaries(G4Event *anEvent) override;
 
+    inline G4int GetModeType() const { return fModeType; };
+
 private:
+    void PrimariesForStandardMode(); /**< @brief Generate primaries auxiliary function for Standard mode.*/
     void PrimariesForSpreadBeam(); /**< @brief Generate primaries auxiliary function for spread beam.*/
     void PrimariesForCircleBeam(); /**< @brief Generate primaries auxiliary function for circle beam.*/
-    void PrimariesForLEDMode(); /**< @brief Generate primaries auxiliary function for LED mode.*/
     void PrimariesForLuDecayMode(); /**< @brief Generate primaries auxiliary function for Lu decay mode.*/
+    void PrimariesForCosmicRaysMode(); /**< @brief Generate primaries auxiliary function for Cosmic rays mode.*/
+    void PrimariesForLEDMode(); /**< @brief Generate primaries auxiliary function for LED mode.*/
+
+    G4double PDF_E_CosmicRay(G4double energy);
+    G4ThreeVector ProjectOnBottomDetector(G4ThreeVector pos0, G4ThreeVector mom0);
 
     void DefineCommands(); /**< @brief Defines new user commands for primary particle generation.*/
 
@@ -74,6 +81,7 @@ private:
              fSigmaEnergy, /**< @brief Sigma of the gaussian distribution of the energy of the primary particle.*/
              fRadiusSpread, /**< @brief Radius of the area on the front face of the crystal that could be hit by primary gamma when spread is enabled.*/
              fRadiusCircle; /**< @brief Radius of the beam profile in circle type.*/
+    G4ThreeVector fPosFixedDecay; /**< @brief Position of 176Lu isotope for fixed-position mode.*/
     G4String fChooseFrontorBack, /**< @brief Flag indicating on which face of the crystal a LED has to be switched ON.*/
              fSwitchOnLED; /**< @brief Flag indicating which LED has to be switched ON.*/
 };

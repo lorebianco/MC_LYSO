@@ -44,6 +44,9 @@ public:
     ~MyDetectorConstruction() override = default; /**< @brief Destructor of the class.*/
 
     inline G4LogicalVolume *GetScoringVolume() const { return fScoringVolume;} /**< @brief Get the scoring volume. It will be used by MySteppingAction::UserSteppingAction().*/
+    inline G4LogicalVolume *GetCosmicTriggerVolume() const { return fCosmicTriggerVolume; }
+    inline G4LogicalVolume *GetDecayTriggerVolume() const { return fDecayTriggerVolume; }
+    
     /**
      * @brief Construct the detector geometry.
      *
@@ -63,6 +66,7 @@ private:
     void ConstructPCB(); /**< @brief Auxiliary function called by Construct() for building the PCBs.*/
     void ConstructEndcap(); /**< @brief Auxiliary function called by Construct() for building the endcaps.*/
     void ConstructASiPM(); /**< @brief Auxiliary function called by Construct() for building only one SiPM.*/
+    void ConstructCosmicRaysDetectors();
 
     /**
      * @brief Auxiliary function called by Construct() for putting in the right
@@ -77,7 +81,7 @@ private:
      * @param halfCols The integer half of the number of SiPMs in the row
      * @param index The index number of the SiPM
      */
-    void PositionSiPMs(G4VPhysicalVolume *physFrontSiPM, G4VPhysicalVolume *physBackSiPM, G4int row, G4int col, G4int halfCols, G4int index);
+    void PositionSiPMs(G4VPhysicalVolume *physFrontSiPM, G4VPhysicalVolume *physBackSiPM, G4int row, G4int col, G4int index);
     void DefineMaterials(); /**< @brief Defines all materials.*/
     void DefineVisAttributes(); /**< @brief Defines the visualization attributes for every component of the apparatus.*/
     void DefineCommands(); /**< @brief Defines new user commands for detector construction.*/
@@ -92,16 +96,18 @@ private:
                     *logicPCB, /**< @brief Pointer to PCB logical volume.*/
                     *logicEndcap, /**< @brief Pointer to endcap logical volume.*/
                     *logicLightGuide, /**< @brief Pointer to light guide logical volume.*/
-                    *logicGrease; /**< @brief Pointer to optical grease logical volume.*/
+                    *logicGrease, /**< @brief Pointer to optical grease logical volume.*/
+                    *logicCosmicRaysDetector;
     
     // Scoring logical volume
-    G4LogicalVolume *fScoringVolume; /**< @brief Pointer used to define the logical volume of the scoring volume. In the application it is assigned to @ref logicScintillator.*/
+    G4LogicalVolume *fScoringVolume, /**< @brief Pointer used to define the logical volume of the scoring volume. In the application it is assigned to @ref logicScintillator.*/
+                    *fDecayTriggerVolume,
+                    *fCosmicTriggerVolume;
 
     // Materials
     G4Material *fLYSO, /**< @brief Pointer to the LYSO material.*/
                *fAir, /**< @brief Pointer to the air material.*/
                *fVacuum, /**< @brief Pointer to the vacuum material.*/
-               *fAluminium, /**< @brief Pointer to the aluminium material.*/
                *fSilicon, /**< @brief Pointer to the silicon material.*/
                *fEpoxy, /**< @brief Pointer to the epoxy material.*/
                *fFR4, /**< @brief Pointer to the FR4 material.*/
@@ -120,7 +126,8 @@ private:
            fIsLightGuide, /**< @brief Flag indicating whether the light guides must be constructed.*/
            fIsPCB, /**< @brief Flag indicating whether the PCBs must be constructed.*/
            fIsEndcap, /**< @brief Flag indicating whether the endcaps must be constructed.*/
-           fIsASiPM; /**< @brief Flag indicating whether only one SiPM must be constructed.*/
+           fIsASiPM, /**< @brief Flag indicating whether only one SiPM must be constructed.*/
+           fIsCosmicRaysDetectors;
     G4int nLightGuideMat; /**< @brief Indicates which material has to be used for light guides; 1 for plexiglass, 2 for sapphire.*/
 };
 

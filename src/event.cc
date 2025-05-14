@@ -50,6 +50,7 @@ void MyEventAction::EndOfEventAction(const G4Event *event)
             if(!fDecayTriggerSi)
                 return;
         case 30: // Cosmic rays
+        case 31:
             if(!(fCosmicTriggerUp*fCosmicTriggerBottom))
                 return;
     }

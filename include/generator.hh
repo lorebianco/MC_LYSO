@@ -60,6 +60,7 @@ private:
     void PrimariesForCircleBeam(); /**< @brief Generate primaries auxiliary function for circle beam.*/
     void PrimariesForLuDecayMode(); /**< @brief Generate primaries auxiliary function for Lu decay mode.*/
     void PrimariesForCosmicRaysMode(); /**< @brief Generate primaries auxiliary function for Cosmic rays mode.*/
+    void PrimariesForCountingCosmicRaysMode();
     void PrimariesForLEDMode(); /**< @brief Generate primaries auxiliary function for LED mode.*/
 
     G4double PDF_E_CosmicRay(G4double energy);

@@ -21,15 +21,16 @@ void MySteppingAction::UserSteppingAction(const G4Step *step)
     G4int modeType = static_cast<const MyPrimaryGenerator*>(G4RunManager::GetRunManager()->GetUserPrimaryGeneratorAction())->GetModeType();
     switch(modeType)
     {
-        case 20: //
+        case 20: // 176Lu decay
         case 21:
             SetTimeOfDecay(step);
             break;
-        case 22: // 176Lu decay with trigger
+        case 22:    // with trigger
             SetTimeOfDecay(step);
             SteppingForLuDecayBulkSignature(step, volume, detectorConstruction);
             break;
         case 30: // Cosmic rays
+        case 31:
             SteppingForCosmicRaysDetectors(step, volume, detectorConstruction);
             break;
     }

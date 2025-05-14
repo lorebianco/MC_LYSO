@@ -67,7 +67,9 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent)
         case 30:
             PrimariesForCosmicRaysMode();
             break;
-
+        case 31: // Counting
+            PrimariesForCountingCosmicRaysMode();
+            break;
         // LED-System mode
         case 40:
             PrimariesForLEDMode();
@@ -290,6 +292,62 @@ void MyPrimaryGenerator::PrimariesForCosmicRaysMode()
         momRay = G4ThreeVector(ux, uy, uz);
     }
     
+    
+    // Cosmic ray energy
+    G4double energy = 999.;
+    G4double energyy = 1.; // On the image of pdf(E)
+    G4double emin = 0.; // kinetic energy
+    G4double emax = 1.*TeV;
+
+    while(energyy > PDF_E_CosmicRay(energy))
+    {   // Accept-Reject method
+        energy = emin + emax*G4UniformRand();
+            // Note that the maximum probability is at minimum energy
+        energyy = PDF_E_CosmicRay(emin)*G4UniformRand();
+    }
+
+    // Set everything in fParticleGun
+    G4ParticleDefinition* particle = nullptr;
+    if(G4UniformRand() < 0.5)
+        particle = G4ParticleTable::GetParticleTable()->FindParticle("mu-");
+    else
+        particle = G4ParticleTable::GetParticleTable()->FindParticle("mu+");
+
+    fParticleGun->SetParticleDefinition(particle);
+    fParticleGun->SetParticlePosition(posRay);
+    fParticleGun->SetParticleMomentumDirection(momRay);        fParticleGun->SetParticleEnergy(energy);
+}
+
+
+
+void MyPrimaryGenerator::PrimariesForCountingCosmicRaysMode()
+{
+    G4ThreeVector posRay;
+    G4ThreeVector momRay;
+
+    // Compute initial random position in the up detector
+    G4double posX = GS::xCosmicRayDetector + (G4UniformRand()-0.5) * 10*cm;
+    G4double posY = GS::yCosmicRayDetector + GS::halfYsideCosmicRayDetector;
+    G4double posZ = GS::zCosmicRayDetector + (G4UniformRand()-0.5) * 10*cm;
+
+    posRay = G4ThreeVector(posX, posY, posZ);
+    
+    // Compute initial cosmic ray direction
+    G4double cosTheta = -G4UniformRand(); // Note that cosine is in [-1, 0] now
+    G4double cosThetaa = G4UniformRand(); // On the image of cos^2(Theta)
+    while(cosThetaa > (cosTheta*cosTheta)) // Mom-dir generation
+    {
+        cosTheta = -G4UniformRand();
+        cosThetaa = G4UniformRand();
+            
+    }
+    G4double phi = CLHEP::twopi*G4UniformRand();
+    G4double sinTheta = std::sqrt(1. - cosTheta*cosTheta);
+    G4double uz = sinTheta*std::cos(phi);
+    G4double ux = sinTheta*std::sin(phi);
+    G4double uy = cosTheta;
+
+    momRay = G4ThreeVector(ux, uy, uz);
     
     // Cosmic ray energy
     G4double energy = 999.;

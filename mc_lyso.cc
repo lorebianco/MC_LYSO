@@ -13,6 +13,7 @@
 #include <chrono>
 #include <cstdlib> 
 #include <sstream>
+#include <cstring>
 
 #include "G4RunManagerFactory.hh"
 #include "G4VisManager.hh"
@@ -30,9 +31,36 @@
 /** @brief Main of the application */
 int main(int argc, char** argv)
 {
-    // Set randomly the seed of the simulation and store it
-    G4Random::setTheSeed(time(NULL) + getpid());
-    G4int fSeed = G4Random::getTheSeed();
+    // Seed
+    G4int fSeed = 0;
+
+    // Parsing command line arguments
+    for(G4int i = 1; i < argc; i++)
+    {
+        if(G4String(argv[i]) == "-s" || G4String(argv[i]) == "-S")
+        {
+            if(i + 1 < argc)
+            {
+                fSeed = std::stoi(argv[i + 1]);
+                G4cout << "Seed set manually to: " << fSeed << G4endl;
+                ++i; // Skip the next argument since it is the seed
+            }
+            else
+            {
+                G4cerr << "Error: Missing seed value after -s or -S." << G4endl;
+                return 1;
+            }
+        }
+    }
+
+    // If no seed is passed, set the seed randomly
+    if(fSeed == 0)
+        G4Random::setTheSeed(time(NULL) + getpid());
+    else
+        G4Random::setTheSeed(fSeed);
+    
+    // Save the seed of the simulation
+    fSeed = G4Random::getTheSeed();
 
     // Construct the run manager
     auto* runManager = G4RunManagerFactory::CreateRunManager(G4RunManagerType::Default);
@@ -69,7 +97,7 @@ int main(int argc, char** argv)
         auto start = std::chrono::high_resolution_clock::now();
         
         G4String command = "/control/execute ";
-        G4String fileName = argv[1];
+        G4String fileName = argv[argc - 1];
         UImanager->ApplyCommand(command+fileName);
 
         auto end = std::chrono::high_resolution_clock::now();
@@ -112,6 +140,11 @@ int main(int argc, char** argv)
                 shell_command << "hadd -v 0 MCID_" + strMCID.str() + "_RunID_" + strRunID.str() + ".root MCID_" + strMCID.str() + "_RunID_" + strRunID.str() + "_t*";
                 system(shell_command.str().c_str());
             }
+
+            // Move files in RootFiles directory
+            std::ostringstream move_files_command;
+            move_files_command << "rm *" + strMCID.str() + "_t* && mv MCID_" + strMCID.str() + ".root ./RootFiles/";
+            system(move_files_command.str().c_str());
         }
     }
 
